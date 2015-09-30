@@ -216,12 +216,20 @@ public extension DispatchData {
 
 public extension DispatchData {
 
-    init <U> (_ value: U) {
+    // TODO: This is a bit dangerous. Deprecate?
+    init <U> (value: U) {
         var copy = value
         let data: dispatch_data_t = withUnsafePointer(&copy) {
             let buffer = UnsafeBufferPointer <U> (start: $0, count: 1)
             return dispatch_data_create(buffer.baseAddress, buffer.length, nil, nil)
         }
         self.init(data: data)
+    }
+}
+
+public extension DispatchData {
+
+    func toNSData() -> NSData {
+        return data as! NSData
     }
 }
