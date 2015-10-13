@@ -26,6 +26,7 @@
 		45052CE8199AE2750037C05D /* Walker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45052CE6199AE2750037C05D /* Walker.swift */; };
 		4511DD691B4476C2004EA078 /* DispatchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4511DD681B4476C2004EA078 /* DispatchData.swift */; };
 		4511DD6A1B4476C2004EA078 /* DispatchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4511DD681B4476C2004EA078 /* DispatchData.swift */; };
+		452E1A2D1BCDC30F000FC9FA /* RegularExpressionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452E1A2C1BCDC30F000FC9FA /* RegularExpressionTests.swift */; settings = {ASSET_TAGS = (); }; };
 		452E96F61B3CA517002269CD /* Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452E96F31B3CA517002269CD /* Base.swift */; };
 		452E96F71B3CA517002269CD /* Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452E96F31B3CA517002269CD /* Base.swift */; };
 		452E96F81B3CA517002269CD /* BitRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452E96F41B3CA517002269CD /* BitRange.swift */; };
@@ -126,6 +127,7 @@
 		4521A3B81B90F2F6007087D2 /* BloomFilter.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = BloomFilter.playground; sourceTree = "<group>"; };
 		452B30AB1AC0996100920B6A /* RegularExpressionPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = RegularExpressionPlayground.playground; sourceTree = "<group>"; };
 		452BAC241B3E8A7300F3DF48 /* Random.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Random.playground; sourceTree = "<group>"; };
+		452E1A2C1BCDC30F000FC9FA /* RegularExpressionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegularExpressionTests.swift; sourceTree = "<group>"; };
 		452E96F31B3CA517002269CD /* Base.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Base.swift; sourceTree = "<group>"; };
 		452E96F41B3CA517002269CD /* BitRange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BitRange.swift; sourceTree = "<group>"; };
 		452E96F51B3CA517002269CD /* Timestamp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Timestamp.swift; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 		45880D411BB43E9A00BB6344 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		458825021B90CD2900D438AD /* DispatchData.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = DispatchData.playground; sourceTree = "<group>"; };
 		459410481B792BA2007FFBA0 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		45ADDE581BCCB9E40012EB0D /* Scratch.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Scratch.playground; sourceTree = "<group>"; };
 		45B13E331AC076450035DEE9 /* Walker.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Walker.playground; sourceTree = "<group>"; };
 		45B2B4CD1B3DC3B500D81A43 /* Endianness.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endianness.swift; sourceTree = "<group>"; };
 		45BA690B19C4C26600FA7252 /* NSRange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSRange.swift; sourceTree = "<group>"; };
@@ -214,6 +217,7 @@
 				458825021B90CD2900D438AD /* DispatchData.playground */,
 				4521A3B81B90F2F6007087D2 /* BloomFilter.playground */,
 				457D374E1B910DB100A67740 /* BitRange.playground */,
+				45ADDE581BCCB9E40012EB0D /* Scratch.playground */,
 			);
 			path = Playgrounds;
 			sourceTree = "<group>";
@@ -322,6 +326,7 @@
 				452E96FD1B3CA523002269CD /* Utilities.swift */,
 				45EA099E1B44C62B00505D14 /* DispatchDataTest.swift */,
 				453E47811B7C2D950070218B /* DataScannerTest.swift */,
+				452E1A2C1BCDC30F000FC9FA /* RegularExpressionTests.swift */,
 				45E8EEE4199A90720035C722 /* Supporting Files */,
 			);
 			path = "SwiftUtilities Tests";
@@ -564,6 +569,7 @@
 				452E97011B3CA529002269CD /* BitRange_Tests.swift in Sources */,
 				45BA691019C4C48E00FA7252 /* NSRange_Tests.swift in Sources */,
 				45E8EEE7199A90720035C722 /* SwiftUtilities_Tests.swift in Sources */,
+				452E1A2D1BCDC30F000FC9FA /* RegularExpressionTests.swift in Sources */,
 				453E47821B7C2D950070218B /* DataScannerTest.swift in Sources */,
 				452E96FF1B3CA523002269CD /* Utilities.swift in Sources */,
 				45EA099F1B44C62B00505D14 /* DispatchDataTest.swift in Sources */,

@@ -41,15 +41,27 @@ public struct RegularExpression {
         self.expression = try NSRegularExpression(pattern: pattern, options: options)
     }
 
-    public func match(string: String, options: NSMatchingOptions = NSMatchingOptions()) -> Match? {
+    public func search(string: String, options: NSMatchingOptions = NSMatchingOptions()) -> Match? {
         let length = (string as NSString).length
-        if let result = expression.firstMatchInString(string, options: options, range: NSMakeRange(0, length)) {
-            return Match(string: string, result: result)
-        }
-        else {
+        guard let result = expression.firstMatchInString(string, options: options, range: NSMakeRange(0, length)) else {
             return nil
         }
+        return Match(string: string, result: result)
     }
+
+    public func match(string: String, options: NSMatchingOptions = NSMatchingOptions()) -> Match? {
+        guard let match = search(string, options: options) else {
+            return nil
+        }
+        let firstRange = match.ranges[0]
+        if firstRange.startIndex != string.startIndex {
+            return nil
+        }
+        return match
+    }
+
+    // Other ideas from https://docs.python.org/2/library/re.html
+    // split, findall, finditer, sub
 
     public struct Match: CustomStringConvertible {
         public let string: String
@@ -89,6 +101,6 @@ public struct RegularExpression {
 }
 
 public func ~= (pattern: RegularExpression, value: String) -> Bool {
-    let match = pattern.match(value)
+    let match = pattern.search(value)
     return match != nil
 }
