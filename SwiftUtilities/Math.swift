@@ -76,7 +76,7 @@ public func round(value: CGFloat, decimal: Int) -> CGFloat {
 
 // In the spirit of UInt(bigEndian: ) etc
 
-extension Float {
+public extension Float {
     init(radians: Float) {
         self = radians
     }
@@ -94,7 +94,7 @@ extension Float {
     }
 }
 
-extension Double {
+public extension Double {
     init(radians: Double) {
         self = radians
     }
@@ -112,7 +112,7 @@ extension Double {
     }
 }
 
-extension CGFloat {
+public extension CGFloat {
     init(radians: CGFloat) {
         self = radians
     }
