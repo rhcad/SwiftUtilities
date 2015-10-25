@@ -31,6 +31,8 @@
 
 // MARK: Base Protocols
 
+import Foundation
+
 public protocol BaseDecodable {
     static func decodeFromString(string: String, base: Int?) throws -> Self
 }
