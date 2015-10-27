@@ -77,6 +77,19 @@
 		45D3F3001BBC4AB900AF1690 /* Errno.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D3F2FE1BBC4AB900AF1690 /* Errno.swift */; };
 		45D3F3021BBC4AC000AF1690 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D3F3011BBC4AC000AF1690 /* Result.swift */; };
 		45D3F3031BBC4AC000AF1690 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D3F3011BBC4AC000AF1690 /* Result.swift */; };
+		45D52E621BE0348C0020F6E7 /* Heap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D52E5E1BE0348C0020F6E7 /* Heap.swift */; };
+		45D52E631BE0348C0020F6E7 /* Heap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D52E5E1BE0348C0020F6E7 /* Heap.swift */; };
+		45D52E641BE0348C0020F6E7 /* Heap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D52E5E1BE0348C0020F6E7 /* Heap.swift */; };
+		45D52E651BE0348C0020F6E7 /* AStarSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D52E5F1BE0348C0020F6E7 /* AStarSearch.swift */; };
+		45D52E661BE0348C0020F6E7 /* AStarSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D52E5F1BE0348C0020F6E7 /* AStarSearch.swift */; };
+		45D52E671BE0348C0020F6E7 /* AStarSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D52E5F1BE0348C0020F6E7 /* AStarSearch.swift */; };
+		45D52E681BE0348C0020F6E7 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D52E601BE0348C0020F6E7 /* Search.swift */; };
+		45D52E691BE0348C0020F6E7 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D52E601BE0348C0020F6E7 /* Search.swift */; };
+		45D52E6A1BE0348C0020F6E7 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D52E601BE0348C0020F6E7 /* Search.swift */; };
+		45D52E6B1BE0348C0020F6E7 /* PriorityQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D52E611BE0348C0020F6E7 /* PriorityQueue.swift */; };
+		45D52E6C1BE0348C0020F6E7 /* PriorityQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D52E611BE0348C0020F6E7 /* PriorityQueue.swift */; };
+		45D52E6D1BE0348C0020F6E7 /* PriorityQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D52E611BE0348C0020F6E7 /* PriorityQueue.swift */; };
+		45D52E721BE03A700020F6E7 /* HeapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D52E6E1BE036E70020F6E7 /* HeapTests.swift */; };
 		45D772A91AC08281002AF6F7 /* BlockBackedCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D772A81AC08281002AF6F7 /* BlockBackedCollection.swift */; };
 		45D772B41AC083A1002AF6F7 /* BlockBackedCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D772A81AC08281002AF6F7 /* BlockBackedCollection.swift */; };
 		45E504841B39E92D007AE307 /* CRC16.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E504811B39E92D007AE307 /* CRC16.swift */; };
@@ -87,9 +100,6 @@
 		45E5048C1B39E984007AE307 /* UnsafeBufferPointers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E5048A1B39E984007AE307 /* UnsafeBufferPointers.swift */; };
 		45E8EEAA199A8E080035C722 /* SwiftUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 45E8EEA9199A8E080035C722 /* SwiftUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45E8EEBE199A8E1C0035C722 /* FoundationUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E8EEBD199A8E1C0035C722 /* FoundationUtilities.swift */; };
-		45E8EEE7199A90720035C722 /* SwiftUtilities_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E8EEE6199A90720035C722 /* SwiftUtilities_Tests.swift */; };
-		45E8EEED199AAA4E0035C722 /* BoolEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E8EEEC199AAA4E0035C722 /* BoolEnum.swift */; };
-		45E8EEEE199AAA4E0035C722 /* BoolEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E8EEEC199AAA4E0035C722 /* BoolEnum.swift */; };
 		45E8EF09199AD3320035C722 /* FoundationUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E8EEBD199A8E1C0035C722 /* FoundationUtilities.swift */; };
 		45EA099F1B44C62B00505D14 /* DispatchDataTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45EA099E1B44C62B00505D14 /* DispatchDataTest.swift */; };
 		45F3EDAE1B3E54CE007F55E3 /* BufferType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45F3EDAD1B3E54CE007F55E3 /* BufferType.swift */; };
@@ -100,7 +110,6 @@
 		45FD9BB91BDD8C08008F1AA3 /* FoundationUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E8EEBD199A8E1C0035C722 /* FoundationUtilities.swift */; };
 		45FD9BBA1BDD8C08008F1AA3 /* NSRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BA690B19C4C26600FA7252 /* NSRange.swift */; };
 		45FD9BBB1BDD8C08008F1AA3 /* NSData+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454280121B433B0400FEC0D0 /* NSData+Extensions.swift */; };
-		45FD9BBC1BDD8C08008F1AA3 /* BoolEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E8EEEC199AAA4E0035C722 /* BoolEnum.swift */; };
 		45FD9BBD1BDD8C08008F1AA3 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C52C331B3EE577005BE79E /* String+Extensions.swift */; };
 		45FD9BBE1BDD8C08008F1AA3 /* Walker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45052CE6199AE2750037C05D /* Walker.swift */; };
 		45FD9BBF1BDD8C08008F1AA3 /* PureUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457DED7619DA218E000242E1 /* PureUtilities.swift */; };
@@ -200,6 +209,11 @@
 		45C618FD1AC078A100284D3F /* Math.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
 		45D3F2FE1BBC4AB900AF1690 /* Errno.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Errno.swift; sourceTree = "<group>"; };
 		45D3F3011BBC4AC000AF1690 /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
+		45D52E5E1BE0348C0020F6E7 /* Heap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Heap.swift; sourceTree = "<group>"; };
+		45D52E5F1BE0348C0020F6E7 /* AStarSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AStarSearch.swift; sourceTree = "<group>"; };
+		45D52E601BE0348C0020F6E7 /* Search.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
+		45D52E611BE0348C0020F6E7 /* PriorityQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriorityQueue.swift; sourceTree = "<group>"; };
+		45D52E6E1BE036E70020F6E7 /* HeapTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeapTests.swift; sourceTree = "<group>"; };
 		45D772A81AC08281002AF6F7 /* BlockBackedCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockBackedCollection.swift; sourceTree = "<group>"; };
 		45E504811B39E92D007AE307 /* CRC16.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CRC16.swift; sourceTree = "<group>"; };
 		45E504821B39E92D007AE307 /* DataScanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataScanner.swift; sourceTree = "<group>"; };
@@ -210,8 +224,6 @@
 		45E8EEC6199A8EA50035C722 /* SwiftUtilities.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftUtilities.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		45E8EEE2199A90720035C722 /* SwiftUtilities_OSX_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftUtilities_OSX_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		45E8EEE5199A90720035C722 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		45E8EEE6199A90720035C722 /* SwiftUtilities_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUtilities_Tests.swift; sourceTree = "<group>"; };
-		45E8EEEC199AAA4E0035C722 /* BoolEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoolEnum.swift; sourceTree = "<group>"; };
 		45EA099E1B44C62B00505D14 /* DispatchDataTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DispatchDataTest.swift; sourceTree = "<group>"; };
 		45F3EDAC1B3E50E6007F55E3 /* Buffer.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Buffer.playground; sourceTree = "<group>"; };
 		45F3EDAD1B3E54CE007F55E3 /* BufferType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BufferType.swift; sourceTree = "<group>"; };
@@ -309,6 +321,17 @@
 			path = "Foundation Extensions";
 			sourceTree = "<group>";
 		};
+		45D52E5D1BE0347B0020F6E7 /* Experimental */ = {
+			isa = PBXGroup;
+			children = (
+				45D52E5E1BE0348C0020F6E7 /* Heap.swift */,
+				45D52E5F1BE0348C0020F6E7 /* AStarSearch.swift */,
+				45D52E601BE0348C0020F6E7 /* Search.swift */,
+				45D52E611BE0348C0020F6E7 /* PriorityQueue.swift */,
+			);
+			path = Experimental;
+			sourceTree = "<group>";
+		};
 		45E8EE9A199A8E080035C722 = {
 			isa = PBXGroup;
 			children = (
@@ -340,7 +363,6 @@
 			children = (
 				45E8EEA9199A8E080035C722 /* SwiftUtilities.h */,
 				45C52C321B3EE29B005BE79E /* Foundation Extensions */,
-				45E8EEEC199AAA4E0035C722 /* BoolEnum.swift */,
 				45C52C331B3EE577005BE79E /* String+Extensions.swift */,
 				45052CE6199AE2750037C05D /* Walker.swift */,
 				457DED7619DA218E000242E1 /* PureUtilities.swift */,
@@ -357,6 +379,7 @@
 				4578F9141BB2254700C90DA6 /* Path.swift */,
 				45D3F2FE1BBC4AB900AF1690 /* Errno.swift */,
 				45D3F3011BBC4AC000AF1690 /* Result.swift */,
+				45D52E5D1BE0347B0020F6E7 /* Experimental */,
 			);
 			path = SwiftUtilities;
 			sourceTree = "<group>";
@@ -364,7 +387,6 @@
 		45E8EEE3199A90720035C722 /* SwiftUtilities Tests */ = {
 			isa = PBXGroup;
 			children = (
-				45E8EEE6199A90720035C722 /* SwiftUtilities_Tests.swift */,
 				45BA690F19C4C48E00FA7252 /* NSRange_Tests.swift */,
 				452E96FC1B3CA523002269CD /* NumberBases_Tests.swift */,
 				452E97001B3CA529002269CD /* BitRange_Tests.swift */,
@@ -372,6 +394,7 @@
 				45EA099E1B44C62B00505D14 /* DispatchDataTest.swift */,
 				453E47811B7C2D950070218B /* DataScannerTest.swift */,
 				452E1A2C1BCDC30F000FC9FA /* RegularExpressionTests.swift */,
+				45D52E6E1BE036E70020F6E7 /* HeapTests.swift */,
 				45E8EEE4199A90720035C722 /* Supporting Files */,
 			);
 			path = "SwiftUtilities Tests";
@@ -615,17 +638,20 @@
 				45F3EDAE1B3E54CE007F55E3 /* BufferType.swift in Sources */,
 				45BA690C19C4C26600FA7252 /* NSRange.swift in Sources */,
 				45B2B4CE1B3DC3B500D81A43 /* Endianness.swift in Sources */,
+				45D52E6C1BE0348C0020F6E7 /* PriorityQueue.swift in Sources */,
 				459410491B792BA2007FFBA0 /* Utilities.swift in Sources */,
 				452E96F81B3CA517002269CD /* BitRange.swift in Sources */,
 				45C52C371B3EE58F005BE79E /* Errors.swift in Sources */,
 				45C619021AC078A100284D3F /* CPPRandom.mm in Sources */,
+				45D52E631BE0348C0020F6E7 /* Heap.swift in Sources */,
 				454280131B433B0400FEC0D0 /* NSData+Extensions.swift in Sources */,
 				452E96FA1B3CA517002269CD /* Timestamp.swift in Sources */,
-				45E8EEED199AAA4E0035C722 /* BoolEnum.swift in Sources */,
 				4578F9151BB2254700C90DA6 /* Path.swift in Sources */,
 				4511DD691B4476C2004EA078 /* DispatchData.swift in Sources */,
+				45D52E661BE0348C0020F6E7 /* AStarSearch.swift in Sources */,
 				45C618FE1AC078A100284D3F /* AssociatedObjects+Private.swift in Sources */,
 				457DED7719DA218E000242E1 /* PureUtilities.swift in Sources */,
+				45D52E691BE0348C0020F6E7 /* Search.swift in Sources */,
 				454F7D9D1B3E009E00A2B37E /* MutableBuffer.swift in Sources */,
 				45D772A91AC08281002AF6F7 /* BlockBackedCollection.swift in Sources */,
 			);
@@ -652,17 +678,20 @@
 				45F3EDAF1B3E54CE007F55E3 /* BufferType.swift in Sources */,
 				45BA690D19C4C26600FA7252 /* NSRange.swift in Sources */,
 				45B2B4CF1B3DC3B500D81A43 /* Endianness.swift in Sources */,
+				45D52E6B1BE0348C0020F6E7 /* PriorityQueue.swift in Sources */,
 				4594104A1B792BA2007FFBA0 /* Utilities.swift in Sources */,
 				452E96F91B3CA517002269CD /* BitRange.swift in Sources */,
 				45C52C381B3EE58F005BE79E /* Errors.swift in Sources */,
 				45C619031AC078A100284D3F /* CPPRandom.mm in Sources */,
+				45D52E621BE0348C0020F6E7 /* Heap.swift in Sources */,
 				454280141B433B0E00FEC0D0 /* NSData+Extensions.swift in Sources */,
 				452E96FB1B3CA517002269CD /* Timestamp.swift in Sources */,
-				45E8EEEE199AAA4E0035C722 /* BoolEnum.swift in Sources */,
 				4578F9161BB2254700C90DA6 /* Path.swift in Sources */,
 				4511DD6A1B4476C2004EA078 /* DispatchData.swift in Sources */,
+				45D52E651BE0348C0020F6E7 /* AStarSearch.swift in Sources */,
 				45C618FF1AC078A100284D3F /* AssociatedObjects+Private.swift in Sources */,
 				457DED7819DA218E000242E1 /* PureUtilities.swift in Sources */,
+				45D52E681BE0348C0020F6E7 /* Search.swift in Sources */,
 				454F7D9E1B3E009E00A2B37E /* MutableBuffer.swift in Sources */,
 				45D772B41AC083A1002AF6F7 /* BlockBackedCollection.swift in Sources */,
 			);
@@ -675,7 +704,7 @@
 				452E96FE1B3CA523002269CD /* NumberBases_Tests.swift in Sources */,
 				452E97011B3CA529002269CD /* BitRange_Tests.swift in Sources */,
 				45BA691019C4C48E00FA7252 /* NSRange_Tests.swift in Sources */,
-				45E8EEE7199A90720035C722 /* SwiftUtilities_Tests.swift in Sources */,
+				45D52E721BE03A700020F6E7 /* HeapTests.swift in Sources */,
 				452E1A2D1BCDC30F000FC9FA /* RegularExpressionTests.swift in Sources */,
 				453E47821B7C2D950070218B /* DataScannerTest.swift in Sources */,
 				452E96FF1B3CA523002269CD /* Utilities.swift in Sources */,
@@ -690,7 +719,6 @@
 				45FD9BC71BDD8C08008F1AA3 /* DataScanner.swift in Sources */,
 				45FD9BCA1BDD8C08008F1AA3 /* Endianness.swift in Sources */,
 				45FD9BCC1BDD8C08008F1AA3 /* Buffer.swift in Sources */,
-				45FD9BBC1BDD8C08008F1AA3 /* BoolEnum.swift in Sources */,
 				45FD9BD11BDD8C08008F1AA3 /* Utilities.swift in Sources */,
 				45FD9BC41BDD8C08008F1AA3 /* Math.swift in Sources */,
 				45FD9BC81BDD8C08008F1AA3 /* UnsafeBufferPointers.swift in Sources */,
@@ -705,16 +733,20 @@
 				45FD9BB91BDD8C08008F1AA3 /* FoundationUtilities.swift in Sources */,
 				45FD9BD51BDD8C67008F1AA3 /* CPPRandom.mm in Sources */,
 				45FD9BC91BDD8C08008F1AA3 /* BitRange.swift in Sources */,
+				45D52E6D1BE0348C0020F6E7 /* PriorityQueue.swift in Sources */,
 				45FD9BC21BDD8C08008F1AA3 /* RegularExpression.swift in Sources */,
 				45FD9BD01BDD8C08008F1AA3 /* Errors.swift in Sources */,
 				45FD9BBF1BDD8C08008F1AA3 /* PureUtilities.swift in Sources */,
 				45FD9BCE1BDD8C08008F1AA3 /* DispatchData.swift in Sources */,
+				45D52E641BE0348C0020F6E7 /* Heap.swift in Sources */,
 				45FD9BC01BDD8C08008F1AA3 /* AssociatedObjects+Private.swift in Sources */,
 				45FD9BC61BDD8C08008F1AA3 /* Base.swift in Sources */,
 				45FD9BBE1BDD8C08008F1AA3 /* Walker.swift in Sources */,
 				45FD9BD41BDD8C08008F1AA3 /* Result.swift in Sources */,
+				45D52E671BE0348C0020F6E7 /* AStarSearch.swift in Sources */,
 				45FD9BC31BDD8C08008F1AA3 /* BlockBackedCollection.swift in Sources */,
 				45FD9BCD1BDD8C08008F1AA3 /* MutableBuffer.swift in Sources */,
+				45D52E6A1BE0348C0020F6E7 /* Search.swift in Sources */,
 				45FD9BD21BDD8C08008F1AA3 /* Path.swift in Sources */,
 				45FD9BCB1BDD8C08008F1AA3 /* BufferType.swift in Sources */,
 			);
