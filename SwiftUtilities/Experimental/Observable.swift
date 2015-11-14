@@ -8,11 +8,13 @@
 
 import Foundation
 
-public class ObservableProperty <ValueType> {
+public class ObservableProperty <ValueType: Equatable> {
 
     public var value: ValueType {
         didSet {
-            observable.notifyObservers()
+            if value != oldValue {
+                observable.notifyObservers()
+            }
         }
     }
     public var observable = Observable()
