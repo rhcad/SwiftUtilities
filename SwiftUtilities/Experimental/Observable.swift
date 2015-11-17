@@ -56,28 +56,29 @@ public class Observable {
 
 extension NSMapTable: SequenceType {
 
-    public typealias Generator = _Generator
+    public typealias Generator = NSMapTableGenerator
 
-    public struct _Generator: GeneratorType {
-        public typealias Element =  (AnyObject, AnyObject)
+    public func generate() -> NSMapTableGenerator {
+        return NSMapTableGenerator(mapTable: self)
+    }
+}
 
-        let keyEnumerator: NSEnumerator
-        let objectEnumerator: NSEnumerator
 
-        init(mapTable: NSMapTable) {
-            keyEnumerator = mapTable.keyEnumerator()
-            objectEnumerator = mapTable.objectEnumerator()!
-        }
+public struct NSMapTableGenerator: GeneratorType {
+    public typealias Element =  (AnyObject, AnyObject)
 
-        public mutating func next() -> Element? {
-            guard let nextKey = keyEnumerator.nextObject(), let nextObject = objectEnumerator.nextObject() else {
-                return nil
-            }
-            return (nextKey, nextObject)
-        }
+    let keyEnumerator: NSEnumerator
+    let objectEnumerator: NSEnumerator
+
+    init(mapTable: NSMapTable) {
+        keyEnumerator = mapTable.keyEnumerator()
+        objectEnumerator = mapTable.objectEnumerator()!
     }
 
-    public func generate() -> _Generator {
-        return _Generator(mapTable: self)
+    public mutating func next() -> Element? {
+        guard let nextKey = keyEnumerator.nextObject(), let nextObject = objectEnumerator.nextObject() else {
+            return nil
+        }
+        return (nextKey, nextObject)
     }
 }
