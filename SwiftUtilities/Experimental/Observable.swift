@@ -8,49 +8,87 @@
 
 import Foundation
 
-public class ObservableProperty <ValueType: Equatable> {
+public struct Observable <Element: Equatable> {
 
-    public var value: ValueType {
+    public var value: Element {
         didSet {
             if value != oldValue {
-                observable.notifyObservers()
+                notifyObservers(oldValue: oldValue, newValue: value)
             }
         }
     }
-    public var observable = Observable()
 
-    public init(_ value: ValueType) {
+    public init(_ value: Element) {
         self.value = value
     }
+
+    public mutating func addObserver(observer: AnyObject, closure: () -> Void) {
+        lock.with() {
+            observers.setObject(Box(Callback.NoValue(closure)), forKey: observer)
+        }
+    }
+
+    public mutating func addObserver(observer: AnyObject, closure: (Element) -> Void) {
+        lock.with() {
+            observers.setObject(Box(Callback.NewValue(closure)), forKey: observer)
+        }
+    }
+
+    public mutating func addObserver(observer: AnyObject, closure: (Element, Element) -> Void) {
+        lock.with() {
+            observers.setObject(Box(Callback.NewAndOldValue(closure)), forKey: observer)
+        }
+    }
+
+    public mutating func removeObserver(observer: AnyObject) {
+        lock.with() {
+            observers.removeObjectForKey(observer)
+        }
+    }
+
+    private var lock = Spinlock()
+
+    private typealias Callback = ValueChangeCallback <Element>
+    private let observers: NSMapTable = NSMapTable.weakToStrongObjectsMapTable()
+
+    private mutating func notifyObservers(oldValue oldValue: Element, newValue: Element) {
+        let callbacks = lock.with() {
+            return observers.map() {
+                (key, value) -> Callback in
+                let box = value as! Box <Callback>
+                return box.value
+            }
+        }
+        callbacks.forEach() {
+            (callback) in
+
+            switch callback {
+                case .NoValue(let closure):
+                    closure()
+                case .NewValue(let closure):
+                    closure(newValue)
+                case .NewAndOldValue(let closure):
+                    closure(oldValue, newValue)
+            }
+        }
+    }
 }
+
+private enum ValueChangeCallback <T> {
+    case NoValue(() -> Void)
+    case NewValue(T -> Void)
+    case NewAndOldValue((T, T) -> Void)
+}
+
 
 // MARK: -
 
-public class Observable {
-
-    public typealias Callback = Void -> Void
-
-    public let observers: NSMapTable = NSMapTable.weakToStrongObjectsMapTable()
-
-    public func registerObserver(observer: AnyObject, closure: Callback) {
-        observers.setObject(Box(closure), forKey: observer)
-    }
-
-    public func unregisterObserver(observer: AnyObject) {
-        observers.removeObjectForKey(observer)
-    }
-
-    public func notifyObservers() {
-        let boxes = observers.map() {
-            (key, value) in
-            return value as! Box <Callback>
-        }
-        boxes.forEach() {
-            $0.value()
-        }
-    }
+extension Observable: Equatable {
 }
 
+public func == <Element> (lhs: Observable <Element>, rhs: Observable <Element>) -> Bool {
+    return lhs.value == rhs.value
+}
 
 // MARK: -
 
@@ -62,7 +100,6 @@ extension NSMapTable: SequenceType {
         return NSMapTableGenerator(mapTable: self)
     }
 }
-
 
 public struct NSMapTableGenerator: GeneratorType {
     public typealias Element =  (AnyObject, AnyObject)
