@@ -44,7 +44,7 @@ public class Timer {
 
 // MARK: -
 
-extension Timer {
+public extension Timer {
 
     static func after(delay: NSTimeInterval, queue: dispatch_queue_t! = Timer.defaultQueue, handler: () -> Void) -> Timer {
         let time = dispatch_time(DISPATCH_TIME_NOW, delay.nanoseconds)
