@@ -33,25 +33,25 @@ import Foundation
 
 // TODO: This is kinda crap.
 public enum Error: ErrorType {
-    case none
-    case generic(String)
-    case dispatchIO(Int32, String)
-    case posix(Int32, String)
-    case todo
+    case None
+    case Generic(String)
+    case DispatchIO(Int32, String)
+    case POSIX(Int32, String)
+    case Unimplemented
 }
 
 extension Error: CustomStringConvertible {
     public var description: String {
         switch self {
-            case .none:
+            case .None:
                 return "None"
-            case .generic(let string):
+            case .Generic(let string):
                 return string
-            case .dispatchIO(let code, let string):
+            case .DispatchIO(let code, let string):
                 return "\(code) \(string)"
-            case .posix(let code, let string):
+            case .POSIX(let code, let string):
                 return "\(code) \(string)"
-            case .todo:
+            case .Unimplemented:
                 return "todo"
         }
     }

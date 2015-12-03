@@ -73,7 +73,7 @@ extension UnsignedIntegerType {
         var finalRadix: NamedRadix
         if let base = base {
             guard let radix = NamedRadix(rawValue: base) else {
-                throw Error.generic("No standard prefix for base \(base).")
+                throw Error.Generic("No standard prefix for base \(base).")
             }
             finalRadix = radix
         }
@@ -268,11 +268,11 @@ func decodeCodeUnit(codeUnit: UTF8.CodeUnit, base: Int) throws -> UInt8? {
         case 0x61 ... 0x66 where base >= 16:
             value = codeUnit - 0x61 + 0x0A
         default:
-            throw Error.generic("Not a digit of base \(base)")
+            throw Error.Generic("Not a digit of base \(base)")
     }
 
     if value >= UInt8(base) {
-        throw Error.generic("Not a digit of base \(base)")
+        throw Error.Generic("Not a digit of base \(base)")
     }
 
     return value

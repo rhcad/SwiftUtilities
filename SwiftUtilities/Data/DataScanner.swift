@@ -77,7 +77,7 @@ public extension DataScanner {
 
     func scan <Type: IntegerType>() throws -> Type {
         guard let value: Type = try scan() else {
-            throw Error.generic("Unable to scan element.")
+            throw Error.Generic("Unable to scan element.")
         }
         return value
     }
@@ -101,7 +101,7 @@ public extension DataScanner {
 
     public func scan <Type: FloatingPointType> () throws -> Type {
         guard let value: Type = try scan() else {
-            throw Error.generic("Unable to scan element.")
+            throw Error.Generic("Unable to scan element.")
         }
         return value
     }
@@ -123,7 +123,7 @@ public extension DataScanner {
 
     func scan(count: Int) throws -> UnsafeBufferPointer <Void> {
         guard let value: UnsafeBufferPointer <Void> = try scan(count) else {
-            throw Error.generic("Not enough data in buffer")
+            throw Error.Generic("Not enough data in buffer")
         }
         return value
     }
@@ -143,7 +143,7 @@ public extension DataScanner {
 
     func scan(value: UInt8) throws {
         if try scan(value) == false {
-            throw Error.generic("Cannot scan value")
+            throw Error.Generic("Cannot scan value")
         }
     }
 
@@ -184,7 +184,7 @@ public extension DataScanner {
 
         let data = NSData(bytesNoCopy: bytes, length: count, freeWhenDone: false)
         guard let string = NSString(data: data, encoding: encoding) else {
-            throw Error.generic("Unable to create string from data.")
+            throw Error.Generic("Unable to create string from data.")
         }
 
         return string as String

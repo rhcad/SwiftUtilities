@@ -39,7 +39,7 @@ public extension String {
         if let range = rangeOfString(prefix) where range.startIndex == startIndex {
             return substringFromIndex(range.endIndex)
         }
-        throw Error.generic("String does not begin with prefix.")
+        throw Error.Generic("String does not begin with prefix.")
     }
 }
 
