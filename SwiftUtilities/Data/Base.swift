@@ -155,7 +155,7 @@ extension UnsignedIntegerType {
 
 extension DispatchData: BaseDecodable {
     public static func decodeFromString(string: String, base: Int?) throws -> DispatchData {
-        let data = try NSData.decodeFromString(string, base: base!)
+        let data = try NSData.decodeFromString(string, base: base)
         return DispatchData(value: data)
     }
 }
