@@ -31,7 +31,6 @@
 
 import Foundation
 
-@available(*, deprecated)
 public struct Buffer <Element> {
 
     public let data: NSData
@@ -41,6 +40,7 @@ public struct Buffer <Element> {
         return baseAddress[i]
     }
 
+    @available(*, deprecated, message="Buffer will be deprecated")
     public init() {
         self.data = NSData()
     }

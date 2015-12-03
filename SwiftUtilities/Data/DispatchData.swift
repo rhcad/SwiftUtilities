@@ -202,22 +202,10 @@ public extension DispatchData {
 
 // MARK: -
 
-@available(*, deprecated)
-public extension DispatchData {
-    func toBuffer() -> Buffer <Element> {
-        return createMap() {
-            (data, ptr) in
-            return Buffer <Element> (ptr)
-        }
-    }
-}
-
-// MARK: -
-
 public extension DispatchData {
 
     // TODO: This is a bit dangerous. Deprecate?
-    @available(*, deprecated)
+    @available(*, deprecated, message="This is a bit dangerous. Deprecate?")
     init <U> (value: U) {
         var copy = value
         let data: dispatch_data_t = withUnsafePointer(&copy) {
@@ -232,6 +220,10 @@ public extension DispatchData {
 
 public extension DispatchData {
 
+    init(_ data: NSData) {
+        self = DispatchData(buffer: data.toUnsafeBufferPointer())
+    }
+
     func toNSData() -> NSData {
         return data as! NSData
     }
@@ -243,7 +235,7 @@ public extension DispatchData {
 
     init(_ string: String, encoding: NSStringEncoding = NSUTF8StringEncoding) throws {
         guard let data = string.dataUsingEncoding(encoding) else {
-            throw Error.generic("Could not encoding string.")
+            throw Error.Generic("Could not encoding string.")
         }
         self = DispatchData(buffer: data.toUnsafeBufferPointer())
     }
