@@ -42,7 +42,7 @@ public protocol BaseEncodable {
 }
 
 public extension BaseDecodable {
-    init(fromString string: String, base: Int? = nil) throws {
+    init(decode string: String, base: Int? = nil) throws {
         self = try Self.decodeFromString(string, base: base)
     }
 }
