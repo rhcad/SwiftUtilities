@@ -236,3 +236,16 @@ public extension DispatchData {
         return data as! NSData
     }
 }
+
+// MARK: -
+
+public extension DispatchData {
+
+    init(_ string: String, encoding: NSStringEncoding = NSUTF8StringEncoding) throws {
+        guard let data = string.dataUsingEncoding(encoding) else {
+            throw Error.generic("Could not encoding string.")
+        }
+        self = DispatchData(buffer: data.toUnsafeBufferPointer())
+    }
+
+}
