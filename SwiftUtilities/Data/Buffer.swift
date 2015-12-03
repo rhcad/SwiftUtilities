@@ -31,6 +31,7 @@
 
 import Foundation
 
+@available(*, deprecated)
 public struct Buffer <Element> {
 
     public let data: NSData

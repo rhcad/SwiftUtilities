@@ -202,7 +202,7 @@ public extension DispatchData {
 
 // MARK: -
 
-// TODO: Deprecate
+@available(*, deprecated)
 public extension DispatchData {
     func toBuffer() -> Buffer <Element> {
         return createMap() {
@@ -217,6 +217,7 @@ public extension DispatchData {
 public extension DispatchData {
 
     // TODO: This is a bit dangerous. Deprecate?
+    @available(*, deprecated)
     init <U> (value: U) {
         var copy = value
         let data: dispatch_data_t = withUnsafePointer(&copy) {
@@ -226,6 +227,8 @@ public extension DispatchData {
         self.init(data: data)
     }
 }
+
+// MARK: -
 
 public extension DispatchData {
 
