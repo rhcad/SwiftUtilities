@@ -9,12 +9,12 @@
 import Foundation
 
 public enum Result <T> {
-    case success(T)
-    case failure(ErrorType)
+    case Success(T)
+    case Failure(ErrorType)
 
     public var isSuccess: Bool {
         switch self {
-            case .success:
+            case .Success:
                 return true
             default:
                 return false
@@ -27,7 +27,7 @@ public enum Result <T> {
 
     public var value: T? {
         switch self {
-            case .success(let value):
+            case .Success(let value):
                 return value
             default:
                 return nil
@@ -36,7 +36,7 @@ public enum Result <T> {
 
     public var error: ErrorType? {
         switch self {
-            case .failure(let error):
+            case .Failure(let error):
                 return error
             default:
                 return nil
