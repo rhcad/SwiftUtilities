@@ -35,35 +35,35 @@ import SwiftUtilities
 class NumberBases_Tests: XCTestCase {
 
     func testFromString() {
-        XCTAssertEqual(try! UIntMax(fromString: "0b1111"), 0b1111)
-        XCTAssertEqual(try! UIntMax(fromString: "0o1234"), 0o1234)
-        XCTAssertEqual(try! UIntMax(fromString: "0x1234abcd"), 0x1234abcd)
-        XCTAssertEqual(try! UIntMax(fromString: "123456"), 123456)
+        XCTAssertEqual(try! UIntMax(decode: "0b1111"), 0b1111)
+        XCTAssertEqual(try! UIntMax(decode: "0o1234"), 0o1234)
+        XCTAssertEqual(try! UIntMax(decode: "0x1234abcd"), 0x1234abcd)
+        XCTAssertEqual(try! UIntMax(decode: "123456"), 123456)
     }
 
     func testFromStringWithBase() {
-        XCTAssertEqual(try! UIntMax(fromString: "0b1111", base: 2), 0b1111)
-        XCTAssertEqual(try! UIntMax(fromString: "0o1234", base: 8), 0o1234)
-        XCTAssertEqual(try! UIntMax(fromString: "0x1234abcd", base: 16), 0x1234abcd)
-        XCTAssertEqual(try! UIntMax(fromString: "123456", base: 10), 123456)
+        XCTAssertEqual(try! UIntMax(decode: "0b1111", base: 2), 0b1111)
+        XCTAssertEqual(try! UIntMax(decode: "0o1234", base: 8), 0o1234)
+        XCTAssertEqual(try! UIntMax(decode: "0x1234abcd", base: 16), 0x1234abcd)
+        XCTAssertEqual(try! UIntMax(decode: "123456", base: 10), 123456)
     }
 
     func testBadFromString() {
         XCTAssertThrows() {
-            let _ = try UIntMax(fromString: "0b1112")
+            let _ = try UIntMax(decode: "0b1112")
             return
         }
         XCTAssertThrows() {
-            let _ = try UIntMax(fromString: "0o8111")
+            let _ = try UIntMax(decode: "0o8111")
             return
         }
         XCTAssertThrows() {
-            let _ = try UIntMax(fromString: "0xGGGGG")
+            let _ = try UIntMax(decode: "0xGGGGG")
             return
         }
-//        XCTAssertEqual(try! UIntMax(fromString: "0o1234"), 0o1234)
-//        XCTAssertEqual(try! UIntMax(fromString: "0x1234abcd"), 0x1234abcd)
-//        XCTAssertEqual(try! UIntMax(fromString: "123456"), 123456)
+//        XCTAssertEqual(try! UIntMax(decode: "0o1234"), 0o1234)
+//        XCTAssertEqual(try! UIntMax(decode: "0x1234abcd"), 0x1234abcd)
+//        XCTAssertEqual(try! UIntMax(decode: "123456"), 123456)
     }
 
     func testToString() {
