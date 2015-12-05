@@ -46,6 +46,26 @@ public protocol EndianConvertable {
 
 // MARK: -
 
+extension UInt: EndianConvertable {
+    public func fromEndianess(endianess: Endianess) -> UInt {
+        switch endianess {
+            case .Big:
+                return UInt(bigEndian: self)
+            case .Little:
+                return UInt(littleEndian: self)
+        }
+    }
+
+    public func toEndianess(endianess: Endianess) -> UInt {
+        switch endianess {
+            case .Big:
+                return bigEndian
+            case .Little:
+                return littleEndian
+        }
+    }
+}
+
 extension UInt8: EndianConvertable {
     public func fromEndianess(endianess: Endianess) -> UInt8 {
         return self
@@ -117,6 +137,26 @@ extension UInt64: EndianConvertable {
 }
 
 // MARK: -
+
+extension Int: EndianConvertable {
+    public func fromEndianess(endianess: Endianess) -> Int {
+        switch endianess {
+            case .Big:
+                return Int(bigEndian: self)
+            case .Little:
+                return Int(littleEndian: self)
+        }
+    }
+
+    public func toEndianess(endianess: Endianess) -> Int {
+        switch endianess {
+            case .Big:
+                return bigEndian
+            case .Little:
+                return littleEndian
+        }
+    }
+}
 
 extension Int8: EndianConvertable {
     public func fromEndianess(endianess: Endianess) -> Int8 {
