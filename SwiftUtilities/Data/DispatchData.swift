@@ -156,12 +156,24 @@ public extension DispatchData {
 extension DispatchData: Equatable {
 }
 
+/**
+    Equality operator.
+    
+    Warning. This can copy zero, one or both Data buffers. This can be extremely slow.
+*/
 public func == <Element> (lhs: DispatchData <Element>, rhs: DispatchData <Element>) -> Bool {
 
+    // If we're backed by the same dispatch_data then yes, we're equal.
+    if lhs.data === rhs.data {
+        return true
+    }
+
+    // If counts are different then no, we're not equal.
     guard lhs.count == rhs.count else {
         return false
     }
 
+    // Otherwise let's map both the data and memcmp. This can alloc _and_ copy _both_ functions and can therefore be extremely slow.
     return lhs.createMap() {
         (lhsData, lhsBuffer) -> Bool in
 
