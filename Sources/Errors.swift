@@ -31,13 +31,17 @@
 
 import Foundation
 
-//struct AnnotatedError: ErrorType {
-//
-//    init(error: ErrorType, annotation: String) {
-//    }
-//
-//}
+struct AnnotatedError: ErrorType {
 
+    let error: ErrorType
+    let message: String
+
+    init(error: ErrorType, message: String) {
+        self.error = error
+        self.message = message
+    }
+
+}
 
 // TODO: This is kinda crap.
 public enum Error: ErrorType {
@@ -46,9 +50,6 @@ public enum Error: ErrorType {
     case DispatchIO(Int32, String)
     case Unimplemented
     case Unknown
-
-    @available(*, deprecated, message="Use enum Errno instead.")
-    case POSIX(Int32, String)
 }
 
 extension Error: CustomStringConvertible {
@@ -59,8 +60,6 @@ extension Error: CustomStringConvertible {
             case .Generic(let string):
                 return string
             case .DispatchIO(let code, let string):
-                return "\(code) \(string)"
-            case .POSIX(let code, let string):
                 return "\(code) \(string)"
             case .Unimplemented:
                 return "todo"
