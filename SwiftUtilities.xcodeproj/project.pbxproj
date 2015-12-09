@@ -81,6 +81,8 @@
 		45D2885A1C187A9500BA1F71 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D288571C187A9500BA1F71 /* Observable.swift */; };
 		45D2885B1C187A9500BA1F71 /* Threading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D288581C187A9500BA1F71 /* Threading.swift */; };
 		45D2885C1C187A9500BA1F71 /* Threading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D288581C187A9500BA1F71 /* Threading.swift */; };
+		45D2885E1C18889000BA1F71 /* NSMapTable+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D2885D1C18889000BA1F71 /* NSMapTable+Extensions.swift */; };
+		45D2885F1C18889000BA1F71 /* NSMapTable+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D2885D1C18889000BA1F71 /* NSMapTable+Extensions.swift */; };
 		45D3F2FF1BBC4AB900AF1690 /* Errno.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D3F2FE1BBC4AB900AF1690 /* Errno.swift */; };
 		45D3F3001BBC4AB900AF1690 /* Errno.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D3F2FE1BBC4AB900AF1690 /* Errno.swift */; };
 		45D3F3021BBC4AC000AF1690 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D3F3011BBC4AC000AF1690 /* Result.swift */; };
@@ -182,6 +184,7 @@
 		45C618FD1AC078A100284D3F /* Math.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
 		45D288571C187A9500BA1F71 /* Observable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		45D288581C187A9500BA1F71 /* Threading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Threading.swift; sourceTree = "<group>"; };
+		45D2885D1C18889000BA1F71 /* NSMapTable+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSMapTable+Extensions.swift"; sourceTree = "<group>"; };
 		45D3F2FE1BBC4AB900AF1690 /* Errno.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Errno.swift; sourceTree = "<group>"; };
 		45D3F3011BBC4AC000AF1690 /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		45D52E5E1BE0348C0020F6E7 /* Heap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Heap.swift; sourceTree = "<group>"; };
@@ -284,6 +287,7 @@
 				45BA690B19C4C26600FA7252 /* NSRange.swift */,
 				454280121B433B0400FEC0D0 /* NSData+Extensions.swift */,
 				455A3B9A1C0F6F1000B7A209 /* NSDate+Extensions.swift */,
+				45D2885D1C18889000BA1F71 /* NSMapTable+Extensions.swift */,
 			);
 			path = "Foundation Extensions";
 			sourceTree = "<group>";
@@ -573,6 +577,7 @@
 				457DED7719DA218E000242E1 /* PureUtilities.swift in Sources */,
 				45D52E691BE0348C0020F6E7 /* Search.swift in Sources */,
 				454F7D9D1B3E009E00A2B37E /* MutableBuffer.swift in Sources */,
+				45D2885F1C18889000BA1F71 /* NSMapTable+Extensions.swift in Sources */,
 				45D772A91AC08281002AF6F7 /* BlockBackedCollection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -618,6 +623,7 @@
 				457DED7819DA218E000242E1 /* PureUtilities.swift in Sources */,
 				45D52E681BE0348C0020F6E7 /* Search.swift in Sources */,
 				454F7D9E1B3E009E00A2B37E /* MutableBuffer.swift in Sources */,
+				45D2885E1C18889000BA1F71 /* NSMapTable+Extensions.swift in Sources */,
 				45D772B41AC083A1002AF6F7 /* BlockBackedCollection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

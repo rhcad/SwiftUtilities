@@ -8,7 +8,44 @@
 
 import Foundation
 
-public struct Observable <Element: Equatable> {
+public struct Observable {
+
+    private typealias Callback = () -> Void
+
+    public mutating func addObserver(observer: AnyObject, closure: () -> Void) {
+        lock.with() {
+            observers.setObject(Box(closure), forKey: observer)
+        }
+    }
+
+    public mutating func removeObserver(observer: AnyObject) {
+        lock.with() {
+            observers.removeObjectForKey(observer)
+        }
+    }
+
+    private var lock = Spinlock()
+
+    private let observers: NSMapTable = NSMapTable.weakToStrongObjectsMapTable()
+
+    public mutating func notifyObservers() {
+        let callbacks = lock.with() {
+            return observers.map() {
+                (key, value) -> Callback in
+                let box = value as! Box <Callback>
+                return box.value
+            }
+        }
+        callbacks.forEach() {
+            (callback) in
+
+            callback()
+        }
+    }
+}
+
+
+public struct ObservableProperty <Element: Equatable> {
 
     public var value: Element {
         didSet {
@@ -83,39 +120,12 @@ private enum ValueChangeCallback <T> {
 
 // MARK: -
 
-extension Observable: Equatable {
+extension ObservableProperty: Equatable {
 }
 
-public func == <Element> (lhs: Observable <Element>, rhs: Observable <Element>) -> Bool {
+public func == <Element> (lhs: ObservableProperty <Element>, rhs: ObservableProperty <Element>) -> Bool {
     return lhs.value == rhs.value
 }
 
 // MARK: -
 
-extension NSMapTable: SequenceType {
-
-    public typealias Generator = NSMapTableGenerator
-
-    public func generate() -> NSMapTableGenerator {
-        return NSMapTableGenerator(mapTable: self)
-    }
-}
-
-public struct NSMapTableGenerator: GeneratorType {
-    public typealias Element =  (AnyObject, AnyObject)
-
-    let keyEnumerator: NSEnumerator
-    let objectEnumerator: NSEnumerator
-
-    init(mapTable: NSMapTable) {
-        keyEnumerator = mapTable.keyEnumerator()
-        objectEnumerator = mapTable.objectEnumerator()!
-    }
-
-    public mutating func next() -> Element? {
-        guard let nextKey = keyEnumerator.nextObject(), let nextObject = objectEnumerator.nextObject() else {
-            return nil
-        }
-        return (nextKey, nextObject)
-    }
-}
