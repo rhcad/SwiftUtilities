@@ -31,13 +31,24 @@
 
 import Foundation
 
+//struct AnnotatedError: ErrorType {
+//
+//    init(error: ErrorType, annotation: String) {
+//    }
+//
+//}
+
+
 // TODO: This is kinda crap.
 public enum Error: ErrorType {
     case None
     case Generic(String)
     case DispatchIO(Int32, String)
-    case POSIX(Int32, String)
     case Unimplemented
+    case Unknown
+
+    @available(*, deprecated, message="Use enum Errno instead.")
+    case POSIX(Int32, String)
 }
 
 extension Error: CustomStringConvertible {
@@ -53,6 +64,8 @@ extension Error: CustomStringConvertible {
                 return "\(code) \(string)"
             case .Unimplemented:
                 return "todo"
+            case .Unknown:
+                return "unknown"
         }
     }
 }
