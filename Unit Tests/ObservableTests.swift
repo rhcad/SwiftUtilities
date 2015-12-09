@@ -13,7 +13,7 @@ import SwiftUtilities
 class ObservableTests: XCTestCase {
 
     func testSimple() {
-        var o = Observable(100)
+        var o = ObservableProperty(100)
         o.addObserver(self) {
             XCTAssertEqual(o.value, 101)
         }
@@ -21,7 +21,7 @@ class ObservableTests: XCTestCase {
     }
 
     func testSimple1() {
-        var o = Observable(100)
+        var o = ObservableProperty(100)
         o.addObserver(self) {
             (newValue) in
             XCTAssertEqual(newValue, 101)
@@ -30,7 +30,7 @@ class ObservableTests: XCTestCase {
     }
 
     func testSimple3() {
-        var o = Observable(100)
+        var o = ObservableProperty(100)
         o.addObserver(self) {
             (oldValue, newValue) in
             XCTAssertEqual(oldValue, 100)
