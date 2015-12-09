@@ -55,14 +55,14 @@ public extension Random {
         return Int(value)
     }
 
-    func random(uniform: Int) -> Int {
+    func random(uniform uniform: Int) -> Int {
         assert(UInt64(uniform) <= max && uniform >= 0)
         let value: UInt64 = random(UInt64(uniform))
         return Int(value)
     }
 
-    func random(range: Range<Int>) -> Int {
-        return random(range.endIndex - range.startIndex) + range.startIndex
+    func random(range range: HalfOpenInterval<Int>) -> Int {
+        return random(uniform: range.end - range.start) + range.start
     }
 }
 
@@ -76,13 +76,13 @@ public extension Random {
         return Type(value) / Type(max)
     }
 
-    func random(uniform: Double) -> Double {
+    func random(uniform uniform: Double) -> Double {
         typealias Type = Double
         let value: UInt64 = random()
         return Type(value) / Type(max - 1) * uniform
     }
 
-    func random(range: ClosedInterval<Double>) -> Double {
+    func random(range range: ClosedInterval<Double>) -> Double {
         let r = random() * (range.end - range.start) + range.start
         return r
     }
@@ -98,18 +98,18 @@ public extension Random {
         return Type(value) / Type(max)
     }
 
-    func random(uniform: CGFloat) -> CGFloat {
+    func random(uniform uniform: CGFloat) -> CGFloat {
         typealias Type = CGFloat
         let value: UInt64 = random()
         return Type(value) / Type(max - 1) * uniform
     }
 
-    func random(range: ClosedInterval<CGFloat>) -> CGFloat {
+    func random(range range: ClosedInterval<CGFloat>) -> CGFloat {
         let r = random() * (range.end - range.start) + range.start
         return r
     }
 
-    func random(range: CGRect) -> CGPoint {
+    func random(range range: CGRect) -> CGPoint {
         let r = CGPoint(
             x: range.origin.x + random() * range.size.width,
             y: range.origin.y + random() * range.size.height
@@ -129,7 +129,7 @@ public extension Random {
         //       exchange a[j] and a[i]
         let n = a.count
         for i in 0..<n {
-            let j = random(i..<n)
+            let j = random(range: i..<n)
             (a[j], a[i]) = (a[i], a[j])
         }
     }
@@ -153,7 +153,7 @@ public extension Random {
         }
         var a = Array <T> (count: count, repeatedValue: initial)
         for i in 0 ..< count {
-            let j = i > 0 ? random(0..<i): 0
+            let j = i > 0 ? random(range: 0..<i): 0
             if j != i {
                 a[i] = a[j]
             }

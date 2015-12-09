@@ -97,8 +97,8 @@ public func bitRange <Element>(buffer: UnsafeBufferPointer <Element>, start: Int
     }
 }
 
-public func bitRange <Element>(buffer: UnsafeBufferPointer <Element>, range: Range <Int>) -> UIntMax {
-    return bitRange(buffer, start: range.startIndex, length: range.endIndex - range.startIndex)
+public func bitRange <Element>(buffer: UnsafeBufferPointer <Element>, range: HalfOpenInterval <Int>) -> UIntMax {
+    return bitRange(buffer, start: range.start, length: range.end - range.start)
 }
 
 // MARK: -
