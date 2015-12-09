@@ -8,14 +8,14 @@
 
 import Foundation
 
-protocol Locking {
+public protocol Locking {
     mutating func lock()
     mutating func unlock()
 }
 
 // MARK: -
 
-extension Locking {
+public extension Locking {
     mutating func with <R> (@noescape closure: () throws -> R) rethrows -> R {
         lock()
         defer {
@@ -35,15 +35,15 @@ extension NSRecursiveLock: Locking {
 
 // MARK: -
 
-struct Spinlock: Locking {
+public struct Spinlock: Locking {
 
     var spinlock = OS_SPINLOCK_INIT
 
-    mutating func lock() {
+    public mutating func lock() {
         OSSpinLockLock(&spinlock)
     }
 
-    mutating func unlock() {
+    public mutating func unlock() {
         OSSpinLockUnlock(&spinlock)
     }
 }
