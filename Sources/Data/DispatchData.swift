@@ -162,7 +162,12 @@ extension DispatchData: CustomStringConvertible {
 
 public extension DispatchData {
     public subscript (range: Range <Int>) -> DispatchData <Element> {
-        return try! subBuffer(range)
+        do {
+            return try subBuffer(range)
+        }
+        catch let error {
+            fatalError(String(error))
+        }
     }
 }
 
