@@ -31,6 +31,8 @@
 
 import Foundation
 
+// MARK: UnsignedIntegerTypes bitRanges
+
 public func bitRange <T: UnsignedIntegerType> (value: T, start: Int, length: Int, flipped: Bool = false) -> T {
     assert(sizeof(T) <= sizeof(UIntMax))
     let bitSize = UIntMax(sizeof(T) * 8)
@@ -54,7 +56,7 @@ public func bitRange <T: UnsignedIntegerType> (value: T, range: Range <Int>, fli
     return bitRange(value, start: range.startIndex, length: range.endIndex - range.startIndex, flipped: flipped)
 }
 
-// MARK: -
+// MARK: UnsafeBufferPointer bitRanges
 
 public func bitRange <Element>(buffer: UnsafeBufferPointer <Element>, start: Int, length: Int) -> UIntMax {
     let pointer = UnsafePointer <Void> (buffer.baseAddress)
@@ -97,11 +99,11 @@ public func bitRange <Element>(buffer: UnsafeBufferPointer <Element>, start: Int
     }
 }
 
-public func bitRange <Element>(buffer: UnsafeBufferPointer <Element>, range: HalfOpenInterval <Int>) -> UIntMax {
-    return bitRange(buffer, start: range.start, length: range.end - range.start)
+public func bitRange <Element>(buffer: UnsafeBufferPointer <Element>, range: Range <Int>) -> UIntMax {
+    return bitRange(buffer, start: range.startIndex, length: range.endIndex - range.startIndex)
 }
 
-// MARK: -
+// MARK: UnsignedIntegerType bitSets
 
 public func bitSet <T: UnsignedIntegerType> (value: T, start: Int, length: Int, flipped: Bool = false, newValue: T) -> T {
     assert(start + length <= sizeof(T) * 8)
@@ -116,7 +118,7 @@ public func bitSet <T: UnsignedIntegerType> (value: T, range: Range <Int>, flipp
     return bitSet(value, start: range.startIndex, length: range.endIndex - range.startIndex, flipped: flipped, newValue: newValue)
 }
 
-// MARK: -
+// MARK: UnsafeMutableBufferPointer bitSets
 
 public func bitSet <Element>(buffer: UnsafeMutableBufferPointer <Element>, start: Int, length: Int, newValue: UIntMax) {
     let pointer = UnsafeMutablePointer <Void> (buffer.baseAddress)
@@ -162,7 +164,7 @@ public func bitSet <Element>(buffer: UnsafeMutableBufferPointer <Element>, range
 
 // MARK: -
 
-func onesMask <T: UnsignedIntegerType> (start start: Int, length: Int, flipped: Bool = false) -> T {
+private func onesMask <T: UnsignedIntegerType> (start start: Int, length: Int, flipped: Bool = false) -> T {
     let size = UIntMax(sizeof(T) * 8)
     let start = UIntMax(start)
     let length = UIntMax(length)

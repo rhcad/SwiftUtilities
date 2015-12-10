@@ -65,14 +65,14 @@ class DispatchDataTest: XCTestCase {
 
     func testSplit() {
         let data = DispatchData <Void> (value: UInt32(deadbeef).bigEndian)
-        let (lhs, rhs) = data.split(2)
+        let (lhs, rhs) = try! data.split(2)
         XCTAssertTrue(lhs == DispatchData <Void> (value: UInt16(0xDEAD).bigEndian))
         XCTAssertTrue(rhs == DispatchData <Void> (value: UInt16(0xBEEF).bigEndian))
     }
 
     func testInset() {
         let data = DispatchData <Void> (value: UInt32(deadbeef).bigEndian)
-        let insettedData = data.inset(startInset: 1, endInset: 1)
+        let insettedData = try! data.inset(startInset: 1, endInset: 1)
         let expectedResult = DispatchData <Void> (value: UInt16(0xADBE).bigEndian)
         XCTAssertEqual(insettedData, expectedResult)
     }
