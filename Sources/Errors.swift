@@ -69,13 +69,13 @@ extension Error: CustomStringConvertible {
     }
 }
 
-public func tryAndLogError <T> (@autoclosure block: (Void) throws -> T) -> T {
+public func tryElseFatalError <T> (@autoclosure closure: (Void) throws -> T) -> T {
     do {
-        let result = try block()
+        let result = try closure()
         return result
     }
     catch let error {
-        preconditionFailure(String(error))
+        fatalError(String(error))
     }
 }
 
