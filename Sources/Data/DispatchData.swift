@@ -149,6 +149,16 @@ public extension DispatchData {
         let rhs = subBuffer(startIndex: startIndex, count: count - startIndex)
         return (lhs, rhs)
     }
+
+    func split <T> () -> (T, DispatchData) {
+        let (left, right) = split(sizeof(T))
+        let value = left.createMap() {
+            (data, buffer) in
+            return (buffer.toUnsafeBufferPointer() as UnsafeBufferPointer <T>)[0]
+        }
+        return (value, right)
+    }
+
 }
 
 // MARK: -
@@ -216,8 +226,7 @@ public extension DispatchData {
 
 public extension DispatchData {
 
-    // TODO: This is a bit dangerous. Deprecate?
-    @available(*, deprecated, message="This is a bit dangerous. Deprecate?")
+    // TODO: This is a bit dangerous (not anything can/should be convertable to a DispatchData). Investigate deprecating? No more dangerous than & operator though?
     init <U> (value: U) {
         var copy = value
         let data: dispatch_data_t = withUnsafePointer(&copy) {
@@ -231,11 +240,9 @@ public extension DispatchData {
 // MARK: -
 
 public extension DispatchData {
-
     init(_ data: NSData) {
         self = DispatchData(buffer: data.toUnsafeBufferPointer())
     }
-
     func toNSData() -> NSData {
         return data as! NSData
     }
