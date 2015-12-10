@@ -31,6 +31,8 @@
 
 import Foundation
 
+// MARK: DispatchData
+
 public struct DispatchData <Element> {
 
     public let data: dispatch_data_t
@@ -107,61 +109,7 @@ public struct DispatchData <Element> {
     }
 }
 
-// MARK: -
-
-public func + <Element> (lhs: DispatchData <Element>, rhs: DispatchData <Element>) -> DispatchData <Element> {
-    let data = dispatch_data_create_concat(lhs.data, rhs.data)
-    return DispatchData <Element> (data: data)
-}
-
-// MARK: -
-
-public extension DispatchData {
-    public subscript (range: Range <Int>) -> DispatchData <Element> {
-        return subBuffer(range)
-    }
-}
-
-// MARK: -
-
-/// Do not really like these function names but they're very useful.
-public extension DispatchData {
-
-    public func subBuffer(range: Range <Int>) -> DispatchData <Element> {
-        assert(range.startIndex >= startIndex && range.startIndex <= endIndex)
-        assert(range.endIndex >= startIndex && range.endIndex <= endIndex)
-        assert(range.startIndex <= range.endIndex)
-        return DispatchData <Element> (data: dispatch_data_create_subrange(data, range.startIndex * elementSize, (range.endIndex - range.startIndex) * elementSize))
-    }
-
-    public func subBuffer(startIndex startIndex: Int, count: Int) -> DispatchData <Element> {
-        return subBuffer(Range <Int> (start: startIndex, end: startIndex + count))
-    }
-
-    public func inset(startInset startInset: Int = 0, endInset: Int = 0) -> DispatchData <Element> {
-        assert(startInset >= 0)
-        assert(endInset >= 0)
-        return subBuffer(startIndex: startInset, count: count - (startInset + endInset))
-    }
-
-    public func split(startIndex: Int) -> (DispatchData <Element>, DispatchData <Element>) {
-        let lhs = subBuffer(startIndex: 0, count: startIndex)
-        let rhs = subBuffer(startIndex: startIndex, count: count - startIndex)
-        return (lhs, rhs)
-    }
-
-    func split <T> () -> (T, DispatchData) {
-        let (left, right) = split(sizeof(T))
-        let value = left.createMap() {
-            (data, buffer) in
-            return (buffer.toUnsafeBufferPointer() as UnsafeBufferPointer <T>)[0]
-        }
-        return (value, right)
-    }
-
-}
-
-// MARK: -
+// MARK: Equatable
 
 extension DispatchData: Equatable {
 }
@@ -196,7 +144,7 @@ public func == <Element> (lhs: DispatchData <Element>, rhs: DispatchData <Elemen
     }
 }
 
-// MARK: -
+// MARK: CustomStringConvertible
 
 extension DispatchData: CustomStringConvertible {
     public var description: String {
@@ -208,6 +156,65 @@ extension DispatchData: CustomStringConvertible {
         }
         return "DispatchData(count: \(count), length: \(length), chunk count: \(chunkCount), data: \(data))"
     }
+}
+
+// MARK: subscript
+
+public extension DispatchData {
+    public subscript (range: Range <Int>) -> DispatchData <Element> {
+        return try! subBuffer(range)
+    }
+}
+
+// MARK: Concot.
+
+public func + <Element> (lhs: DispatchData <Element>, rhs: DispatchData <Element>) -> DispatchData <Element> {
+    let data = dispatch_data_create_concat(lhs.data, rhs.data)
+    return DispatchData <Element> (data: data)
+}
+
+
+// MARK: Manipulation
+
+/// Do not really like these function names but they're very useful.
+public extension DispatchData {
+
+    public func subBuffer(range: Range <Int>) throws -> DispatchData <Element> {
+        guard range.startIndex >= startIndex && range.startIndex <= endIndex else {
+            throw Error.Generic("Index out of range")
+        }
+        guard range.endIndex >= startIndex && range.endIndex <= endIndex else {
+            throw Error.Generic("Index out of range")
+        }
+        guard range.startIndex <= range.endIndex else {
+            throw Error.Generic("Index out of range")
+        }
+        return DispatchData <Element> (data: dispatch_data_create_subrange(data, range.startIndex * elementSize, (range.endIndex - range.startIndex) * elementSize))
+    }
+
+    public func subBuffer(startIndex startIndex: Int, count: Int) throws -> DispatchData <Element> {
+        return try subBuffer(Range <Int> (start: startIndex, end: startIndex + count))
+    }
+
+    public func inset(startInset startInset: Int = 0, endInset: Int = 0) throws -> DispatchData <Element> {
+        return try subBuffer(startIndex: startInset, count: count - (startInset + endInset))
+    }
+
+    public func split(startIndex: Int) throws -> (DispatchData <Element>, DispatchData <Element>) {
+        let lhs = try subBuffer(startIndex: 0, count: startIndex)
+        let rhs = try subBuffer(startIndex: startIndex, count: count - startIndex)
+        return (lhs, rhs)
+    }
+
+    func split <T> () throws -> (T, DispatchData) {
+        let (left, right) = try split(sizeof(T))
+        let value = left.createMap() {
+            (data, buffer) in
+            return (buffer.toUnsafeBufferPointer() as UnsafeBufferPointer <T>)[0]
+        }
+        return (value, right)
+    }
+
 }
 
 // MARK: -
