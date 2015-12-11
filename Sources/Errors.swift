@@ -69,7 +69,7 @@ extension Error: CustomStringConvertible {
     }
 }
 
-public func tryElseFatalError <T> (@autoclosure closure: (Void) throws -> T) -> T {
+public func tryElseFatalError <T> (@noescape closure: (Void) throws -> T) -> T {
     do {
         let result = try closure()
         return result
