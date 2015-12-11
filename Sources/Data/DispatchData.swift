@@ -95,12 +95,31 @@ public struct DispatchData <Element> {
 
     // MARK: -
 
-    /// Unfortunately cannot make this method "rethrows" or @noescape because it gets passed across a non-swift closure
+    /// Non-throwing version of apply
     public func apply(applier: (Range<Int>, UnsafeBufferPointer <Element>) -> Bool) {
         dispatch_data_apply(data) {
             (region: dispatch_data_t!, offset: Int, buffer: UnsafePointer <Void>, size: Int) -> Bool in
             let buffer = UnsafeBufferPointer <Element> (start: UnsafePointer <Element> (buffer), count: size / self.elementSize)
             return applier(offset..<offset + size, buffer)
+        }
+    }
+
+    /// Throwing version of apply
+    public func apply(applier: (Range<Int>, UnsafeBufferPointer <Element>) throws -> Bool) throws {
+        var savedError: ErrorType? = nil
+        dispatch_data_apply(data) {
+            (region: dispatch_data_t!, offset: Int, buffer: UnsafePointer <Void>, size: Int) -> Bool in
+            let buffer = UnsafeBufferPointer <Element> (start: UnsafePointer <Element> (buffer), count: size / self.elementSize)
+            do {
+                return try applier(offset..<offset + size, buffer)
+            }
+            catch let error {
+                savedError = error
+                return false
+            }
+        }
+        if let savedError = savedError {
+            throw savedError
         }
     }
 
