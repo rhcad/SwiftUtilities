@@ -38,21 +38,21 @@ infix operator ** { associativity none precedence 160 }
 public func ** (lhs: Float, rhs: Float) -> Float {
     if rhs == 2 {
         return lhs * lhs
-    }    
+    }
     return pow(lhs, rhs)
 }
 
 public func ** (lhs: Double, rhs: Double) -> Double {
     if rhs == 2 {
         return lhs * lhs
-    }    
+    }
     return pow(lhs, rhs)
 }
 
 public func ** (lhs: CGFloat, rhs: CGFloat) -> CGFloat {
     if rhs == 2 {
         return lhs * lhs
-    }    
+    }
     return pow(lhs, rhs)
 }
 
@@ -132,27 +132,27 @@ public extension CGFloat {
 
 // Basic functions
 
-public func DegreesToRadians(v: Float) -> Float {
+public func degreesToRadians(v: Float) -> Float {
     return v * Float(M_PI) / 180
 }
 
-public func RadiansToDegrees(v: Float) -> Float {
+public func radiansToDegrees(v: Float) -> Float {
     return v * 180 / Float(M_PI)
 }
 
-public func DegreesToRadians(v: Double) -> Double {
+public func degreesToRadians(v: Double) -> Double {
     return v * M_PI / 180
 }
 
-public func RadiansToDegrees(v: Double) -> Double {
+public func radiansToDegrees(v: Double) -> Double {
     return v * 180 / M_PI
 }
 
-public func DegreesToRadians(v: CGFloat) -> CGFloat {
+public func degreesToRadians(v: CGFloat) -> CGFloat {
     return v * CGFloat(M_PI) / 180
 }
 
-public func RadiansToDegrees(v: CGFloat) -> CGFloat {
+public func radiansToDegrees(v: CGFloat) -> CGFloat {
     return v * 180 / CGFloat(M_PI)
 }
 
