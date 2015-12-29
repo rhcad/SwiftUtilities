@@ -28,27 +28,27 @@
 //  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 //  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-public enum Endianess {
+public enum Endianness {
     case Big
     case Little
-    public static var Native: Endianess = {
+    public static var Native: Endianness = {
         return UInt16(littleEndian: 1234) == 1234 ? .Little : .Big
     }()
-    public static var Network: Endianess = .Big
+    public static var Network: Endianness = .Big
 }
 
 // MARK: -
 
 public protocol EndianConvertable {
-    func fromEndianess(endianess: Endianess) -> Self
-    func toEndianess(endianess: Endianess) -> Self
+    func fromEndianness(endianness: Endianness) -> Self
+    func toEndianness(endianness: Endianness) -> Self
 }
 
 // MARK: -
 
 extension UInt: EndianConvertable {
-    public func fromEndianess(endianess: Endianess) -> UInt {
-        switch endianess {
+    public func fromEndianness(endianness: Endianness) -> UInt {
+        switch endianness {
             case .Big:
                 return UInt(bigEndian: self)
             case .Little:
@@ -56,8 +56,8 @@ extension UInt: EndianConvertable {
         }
     }
 
-    public func toEndianess(endianess: Endianess) -> UInt {
-        switch endianess {
+    public func toEndianness(endianness: Endianness) -> UInt {
+        switch endianness {
             case .Big:
                 return bigEndian
             case .Little:
@@ -67,18 +67,18 @@ extension UInt: EndianConvertable {
 }
 
 extension UInt8: EndianConvertable {
-    public func fromEndianess(endianess: Endianess) -> UInt8 {
+    public func fromEndianness(endianness: Endianness) -> UInt8 {
         return self
     }
 
-    public func toEndianess(endianess: Endianess) -> UInt8 {
+    public func toEndianness(endianness: Endianness) -> UInt8 {
         return self
     }
 }
 
 extension UInt16: EndianConvertable {
-    public func fromEndianess(endianess: Endianess) -> UInt16 {
-        switch endianess {
+    public func fromEndianness(endianness: Endianness) -> UInt16 {
+        switch endianness {
             case .Big:
                 return UInt16(bigEndian: self)
             case .Little:
@@ -86,8 +86,8 @@ extension UInt16: EndianConvertable {
         }
     }
 
-    public func toEndianess(endianess: Endianess) -> UInt16 {
-        switch endianess {
+    public func toEndianness(endianness: Endianness) -> UInt16 {
+        switch endianness {
             case .Big:
                 return bigEndian
             case .Little:
@@ -97,8 +97,8 @@ extension UInt16: EndianConvertable {
 }
 
 extension UInt32: EndianConvertable {
-    public func fromEndianess(endianess: Endianess) -> UInt32 {
-        switch endianess {
+    public func fromEndianness(endianness: Endianness) -> UInt32 {
+        switch endianness {
             case .Big:
                 return UInt32(bigEndian: self)
             case .Little:
@@ -106,8 +106,8 @@ extension UInt32: EndianConvertable {
         }
     }
 
-    public func toEndianess(endianess: Endianess) -> UInt32 {
-        switch endianess {
+    public func toEndianness(endianness: Endianness) -> UInt32 {
+        switch endianness {
             case .Big:
                 return bigEndian
             case .Little:
@@ -117,8 +117,8 @@ extension UInt32: EndianConvertable {
 }
 
 extension UInt64: EndianConvertable {
-    public func fromEndianess(endianess: Endianess) -> UInt64 {
-        switch endianess {
+    public func fromEndianness(endianness: Endianness) -> UInt64 {
+        switch endianness {
             case .Big:
                 return UInt64(bigEndian: self)
             case .Little:
@@ -126,8 +126,8 @@ extension UInt64: EndianConvertable {
         }
     }
 
-    public func toEndianess(endianess: Endianess) -> UInt64 {
-        switch endianess {
+    public func toEndianness(endianness: Endianness) -> UInt64 {
+        switch endianness {
             case .Big:
                 return bigEndian
             case .Little:
@@ -139,8 +139,8 @@ extension UInt64: EndianConvertable {
 // MARK: -
 
 extension Int: EndianConvertable {
-    public func fromEndianess(endianess: Endianess) -> Int {
-        switch endianess {
+    public func fromEndianness(endianness: Endianness) -> Int {
+        switch endianness {
             case .Big:
                 return Int(bigEndian: self)
             case .Little:
@@ -148,8 +148,8 @@ extension Int: EndianConvertable {
         }
     }
 
-    public func toEndianess(endianess: Endianess) -> Int {
-        switch endianess {
+    public func toEndianness(endianness: Endianness) -> Int {
+        switch endianness {
             case .Big:
                 return bigEndian
             case .Little:
@@ -159,18 +159,18 @@ extension Int: EndianConvertable {
 }
 
 extension Int8: EndianConvertable {
-    public func fromEndianess(endianess: Endianess) -> Int8 {
+    public func fromEndianness(endianness: Endianness) -> Int8 {
         return self
     }
 
-    public func toEndianess(endianess: Endianess) -> Int8 {
+    public func toEndianness(endianness: Endianness) -> Int8 {
         return self
     }
 }
 
 extension Int16: EndianConvertable {
-    public func fromEndianess(endianess: Endianess) -> Int16 {
-        switch endianess {
+    public func fromEndianness(endianness: Endianness) -> Int16 {
+        switch endianness {
             case .Big:
                 return Int16(bigEndian: self)
             case .Little:
@@ -178,8 +178,8 @@ extension Int16: EndianConvertable {
         }
     }
 
-    public func toEndianess(endianess: Endianess) -> Int16 {
-        switch endianess {
+    public func toEndianness(endianness: Endianness) -> Int16 {
+        switch endianness {
             case .Big:
                 return bigEndian
             case .Little:
@@ -189,8 +189,8 @@ extension Int16: EndianConvertable {
 }
 
 extension Int32: EndianConvertable {
-    public func fromEndianess(endianess: Endianess) -> Int32 {
-        switch endianess {
+    public func fromEndianness(endianness: Endianness) -> Int32 {
+        switch endianness {
             case .Big:
                 return Int32(bigEndian: self)
             case .Little:
@@ -198,8 +198,8 @@ extension Int32: EndianConvertable {
         }
     }
 
-    public func toEndianess(endianess: Endianess) -> Int32 {
-        switch endianess {
+    public func toEndianness(endianness: Endianness) -> Int32 {
+        switch endianness {
             case .Big:
                 return bigEndian
             case .Little:
@@ -209,8 +209,8 @@ extension Int32: EndianConvertable {
 }
 
 extension Int64: EndianConvertable {
-    public func fromEndianess(endianess: Endianess) -> Int64 {
-        switch endianess {
+    public func fromEndianness(endianness: Endianness) -> Int64 {
+        switch endianness {
             case .Big:
                 return Int64(bigEndian: self)
             case .Little:
@@ -218,8 +218,8 @@ extension Int64: EndianConvertable {
         }
     }
 
-    public func toEndianess(endianess: Endianess) -> Int64 {
-        switch endianess {
+    public func toEndianness(endianness: Endianness) -> Int64 {
+        switch endianness {
             case .Big:
                 return bigEndian
             case .Little:
