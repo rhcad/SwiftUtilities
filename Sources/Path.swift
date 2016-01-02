@@ -9,16 +9,26 @@
 import Foundation
 
 public struct Path {
+
     public let path: String
+
     public init(_ path: String) {
         self.path = path
     }
 
-    public init(_ URL: NSURL) {
-        self.path = URL.path!
+    public init(_ url: NSURL) throws {
+        guard let path = url.path else {
+            throw Error.Generic("Not a file url")
+        }
+        self.path = path
     }
+
     public var url: NSURL {
         return NSURL(fileURLWithPath: path)
+    }
+
+    public var normalizedPath: String {
+        return (path as NSString).stringByExpandingTildeInPath
     }
 }
 
@@ -78,7 +88,7 @@ public extension Path {
 public extension Path {
     static var applicationSupportDirectory: Path {
         let url = try! NSFileManager().URLForDirectory(.ApplicationSupportDirectory, inDomain: .UserDomainMask, appropriateForURL: nil, create: true)
-        return Path(url)
+        return try! Path(url)
     }
 
     static var applicationSpecificSupportDirectory: Path {
@@ -95,7 +105,7 @@ public extension Path {
 // MARK: -
 
 public func + (lhs: Path, rhs: String) -> Path {
-    let URL = lhs.url.URLByAppendingPathComponent(rhs)
+    let URL = (lhs.path as NSString).stringByAppendingPathComponent(rhs)
     return Path(URL)
 }
 
@@ -155,7 +165,7 @@ public extension Path {
     func iter(@noescape closure: Path -> Void) {
         let enumerator = NSFileManager().enumeratorAtURL(url, includingPropertiesForKeys: nil, options: NSDirectoryEnumerationOptions.SkipsSubdirectoryDescendants, errorHandler: nil)
         for url in enumerator! {
-            closure(Path(url as! NSURL))
+            closure(try! Path(url as! NSURL))
         }
     }
 
@@ -259,7 +269,7 @@ public struct FileAttributes {
     public func iter(@noescape closure: Path -> Void) {
         let enumerator = NSFileManager().enumeratorAtURL(url, includingPropertiesForKeys: nil, options: NSDirectoryEnumerationOptions.SkipsSubdirectoryDescendants, errorHandler: nil)
         for url in enumerator! {
-            closure(Path(url as! NSURL))
+            closure(try! Path(url as! NSURL))
         }
     }
 
