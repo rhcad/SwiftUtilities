@@ -280,6 +280,24 @@ func decodeCodeUnit(codeUnit: UTF8.CodeUnit, base: Int) throws -> UInt8? {
 
 // MARK: Convenience methods that will probably be deprecated or at least renamed in future
 
+extension NSData: BaseEncodable {
+    public func encodeToString(base base: Int, prefix: Bool = false, width: Int? = nil) throws -> String {
+        let buffer = UnsafeBufferPointer <Void> (start: bytes, count: length)
+        return try buffer.encodeToString(base: base, prefix: prefix, width: width)
+    }
+}
+
+extension DispatchData: BaseEncodable {
+    public func encodeToString(base base: Int, prefix: Bool = false, width: Int? = nil) throws -> String {
+        return try createMap() {
+            (data, buffer) in
+            return try buffer.encodeToString(base: base, prefix: prefix, width: width)
+        }
+    }
+}
+
+// MARK: Convenience methods that will probably be deprecated or at least renamed in future
+
 public func binary <T: BaseEncodable> (value: T, prefix: Bool = false, width: Int? = nil) throws -> String {
     return try value.encodeToString(base: 2, prefix: prefix, width: width)
 }
