@@ -8,7 +8,7 @@
 
 import Foundation
 
-// https: //en.wikipedia.org/wiki/Binary_heap
+// https://en.wikipedia.org/wiki/Binary_heap
 public struct BinaryHeap <Element> {
 
     public typealias Comparator = (Element, Element) -> Bool
@@ -57,6 +57,10 @@ public struct BinaryHeap <Element> {
         heapify(0)
         assert(valid(array))
         return root
+    }
+
+    public var isEmpty: Bool {
+        return array.isEmpty
     }
 
 }
