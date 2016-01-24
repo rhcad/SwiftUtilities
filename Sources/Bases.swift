@@ -1,5 +1,5 @@
 //
-//  Base.swift
+//  Bases.swift
 //  BinaryTest
 //
 //  Created by Jonathan Wight on 6/24/15.
