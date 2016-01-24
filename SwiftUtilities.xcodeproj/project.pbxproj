@@ -172,6 +172,7 @@
 		45ADDE581BCCB9E40012EB0D /* Scratch.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Scratch.playground; sourceTree = "<group>"; };
 		45B13E331AC076450035DEE9 /* Walker.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Walker.playground; sourceTree = "<group>"; };
 		45B2B4CD1B3DC3B500D81A43 /* Endianness.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endianness.swift; sourceTree = "<group>"; };
+		45B6EABF1C45CAD100ED40D0 /* PriorityQueue.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = PriorityQueue.playground; sourceTree = "<group>"; };
 		45BA690B19C4C26600FA7252 /* NSRange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSRange.swift; sourceTree = "<group>"; };
 		45BA690F19C4C48E00FA7252 /* NSRange_Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSRange_Tests.swift; sourceTree = "<group>"; };
 		45C52C331B3EE577005BE79E /* String+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
@@ -249,6 +250,7 @@
 				457D374E1B910DB100A67740 /* BitRange.playground */,
 				45ADDE581BCCB9E40012EB0D /* Scratch.playground */,
 				45542EE31BEAA5F0000754E7 /* StructEncoding.playground */,
+				45B6EABF1C45CAD100ED40D0 /* PriorityQueue.playground */,
 			);
 			path = Playgrounds;
 			sourceTree = "<group>";

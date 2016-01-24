@@ -22,6 +22,10 @@ public struct PriorityQueue <Element, Priority: Comparable> {
         return binaryHeap.count
     }
 
+    public var isEmpty: Bool {
+        return binaryHeap.isEmpty
+    }
+
     public mutating func get() -> Element? {
         guard let (element, _) = binaryHeap.pop() else {
             return nil
@@ -34,3 +38,22 @@ public struct PriorityQueue <Element, Priority: Comparable> {
     }
 
 }
+
+extension PriorityQueue: SequenceType {
+    public typealias Generator = PriorityQueueGenerator <Element, Priority>
+    public func generate() -> Generator {
+        return Generator(queue: self)
+    }
+}
+
+public struct PriorityQueueGenerator <Value, Priority: Comparable>: GeneratorType {
+    public typealias Element = Value
+    private var queue: PriorityQueue <Value, Priority>
+    public init(queue: PriorityQueue <Value, Priority>) {
+        self.queue = queue
+    }
+    public mutating func next() -> Element? {
+        return queue.get()
+    }
+}
+
