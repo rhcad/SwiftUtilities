@@ -84,8 +84,8 @@
 		45C3104F1C555238002A9141 /* Publisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C3100A1C555238002A9141 /* Publisher.swift */; };
 		45C310501C555238002A9141 /* PureUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C3100B1C555238002A9141 /* PureUtilities.swift */; };
 		45C310511C555238002A9141 /* PureUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C3100B1C555238002A9141 /* PureUtilities.swift */; };
-		45C310521C555238002A9141 /* CPPRandom.h in Headers */ = {isa = PBXBuildFile; fileRef = 45C3100D1C555238002A9141 /* CPPRandom.h */; };
-		45C310531C555238002A9141 /* CPPRandom.h in Headers */ = {isa = PBXBuildFile; fileRef = 45C3100D1C555238002A9141 /* CPPRandom.h */; };
+		45C310521C555238002A9141 /* CPPRandom.h in Headers */ = {isa = PBXBuildFile; fileRef = 45C3100D1C555238002A9141 /* CPPRandom.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		45C310531C555238002A9141 /* CPPRandom.h in Headers */ = {isa = PBXBuildFile; fileRef = 45C3100D1C555238002A9141 /* CPPRandom.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45C310541C555238002A9141 /* CPPRandom.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45C3100E1C555238002A9141 /* CPPRandom.mm */; };
 		45C310551C555238002A9141 /* CPPRandom.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45C3100E1C555238002A9141 /* CPPRandom.mm */; };
 		45C310561C555238002A9141 /* Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C3100F1C555238002A9141 /* Random.swift */; };
@@ -100,8 +100,8 @@
 		45C3105F1C555238002A9141 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C310131C555238002A9141 /* String+Extensions.swift */; };
 		45C310601C555238002A9141 /* String+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C310141C555238002A9141 /* String+Foundation.swift */; };
 		45C310611C555238002A9141 /* String+Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C310141C555238002A9141 /* String+Foundation.swift */; };
-		45C310621C555238002A9141 /* SwiftUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 45C310151C555238002A9141 /* SwiftUtilities.h */; };
-		45C310631C555238002A9141 /* SwiftUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 45C310151C555238002A9141 /* SwiftUtilities.h */; };
+		45C310621C555238002A9141 /* SwiftUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 45C310151C555238002A9141 /* SwiftUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		45C310631C555238002A9141 /* SwiftUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 45C310151C555238002A9141 /* SwiftUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45C310641C555238002A9141 /* Threading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C310161C555238002A9141 /* Threading.swift */; };
 		45C310651C555238002A9141 /* Threading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C310161C555238002A9141 /* Threading.swift */; };
 		45C310661C555238002A9141 /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C310171C555238002A9141 /* Timer.swift */; };
@@ -263,29 +263,16 @@
 			children = (
 				45C30FF11C555238002A9141 /* AssociatedObjects+Private.swift */,
 				45C310721C5552F7002A9141 /* Algorithms */,
-				45C310701C555268002A9141 /* Data Structures */,
-				45C30FF31C555238002A9141 /* Bases.swift */,
-				45C30FF41C555238002A9141 /* BitRange.swift */,
-				45C30FF51C555238002A9141 /* BlockBackedCollection.swift */,
 				45C30FF61C555238002A9141 /* Box.swift */,
-				45C30FF71C555238002A9141 /* Buffer.swift */,
-				45C30FF81C555238002A9141 /* BufferType.swift */,
+				45C310741C55537A002A9141 /* Buffers */,
+				45C310701C555268002A9141 /* Collections */,
 				45C30FFA1C555238002A9141 /* DataScanner.swift */,
-				45C30FFB1C555238002A9141 /* DispatchData.swift */,
-				45C30FFC1C555238002A9141 /* Endianness.swift */,
+				45C310761C555406002A9141 /* Design Patterns */,
 				45C30FFD1C555238002A9141 /* Errno.swift */,
 				45C30FFE1C555238002A9141 /* Errors.swift */,
-				45C30FFF1C555238002A9141 /* FoundationUtilities.swift */,
+				45C310731C55533B002A9141 /* Foundation */,
 				45C310011C555238002A9141 /* Math.swift */,
-				45C310021C555238002A9141 /* MutableBuffer.swift */,
-				45C310031C555238002A9141 /* NSData+Extensions.swift */,
-				45C310041C555238002A9141 /* NSDate+Extensions.swift */,
-				45C310051C555238002A9141 /* NSMapTable+Extensions.swift */,
-				45C310061C555238002A9141 /* NSRange.swift */,
-				45C310071C555238002A9141 /* Observable.swift */,
 				45C310081C555238002A9141 /* Path.swift */,
-				45C3100A1C555238002A9141 /* Publisher.swift */,
-				45C3100B1C555238002A9141 /* PureUtilities.swift */,
 				45C3100C1C555238002A9141 /* Random */,
 				45C310101C555238002A9141 /* RegularExpression.swift */,
 				45C310111C555238002A9141 /* Result.swift */,
@@ -294,9 +281,8 @@
 				45C310151C555238002A9141 /* SwiftUtilities.h */,
 				45C310161C555238002A9141 /* Threading.swift */,
 				45C310711C5552BB002A9141 /* To Deprecate */,
+				45C310751C5553BF002A9141 /* To Reorganise */,
 				45C310181C555238002A9141 /* Timestamp.swift */,
-				45C310191C555238002A9141 /* UnsafeBufferPointers.swift */,
-				45C3101A1C555238002A9141 /* Utilities.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -311,15 +297,15 @@
 			path = Random;
 			sourceTree = "<group>";
 		};
-		45C310701C555268002A9141 /* Data Structures */ = {
+		45C310701C555268002A9141 /* Collections */ = {
 			isa = PBXGroup;
 			children = (
-				45C30FF21C555238002A9141 /* AStarSearch.swift */,
+				45C30FF51C555238002A9141 /* BlockBackedCollection.swift */,
 				45C310001C555238002A9141 /* Heap.swift */,
 				45C310091C555238002A9141 /* PriorityQueue.swift */,
 				45C3101B1C555238002A9141 /* Walker.swift */,
 			);
-			name = "Data Structures";
+			name = Collections;
 			sourceTree = "<group>";
 		};
 		45C310711C5552BB002A9141 /* To Deprecate */ = {
@@ -333,10 +319,56 @@
 		45C310721C5552F7002A9141 /* Algorithms */ = {
 			isa = PBXGroup;
 			children = (
+				45C30FF21C555238002A9141 /* AStarSearch.swift */,
 				45C30FF91C555238002A9141 /* CRC16.swift */,
 				45C310121C555238002A9141 /* Search.swift */,
 			);
 			name = Algorithms;
+			sourceTree = "<group>";
+		};
+		45C310731C55533B002A9141 /* Foundation */ = {
+			isa = PBXGroup;
+			children = (
+				45C310031C555238002A9141 /* NSData+Extensions.swift */,
+				45C310041C555238002A9141 /* NSDate+Extensions.swift */,
+				45C310051C555238002A9141 /* NSMapTable+Extensions.swift */,
+				45C310061C555238002A9141 /* NSRange.swift */,
+			);
+			name = Foundation;
+			sourceTree = "<group>";
+		};
+		45C310741C55537A002A9141 /* Buffers */ = {
+			isa = PBXGroup;
+			children = (
+				45C30FF31C555238002A9141 /* Bases.swift */,
+				45C30FF41C555238002A9141 /* BitRange.swift */,
+				45C30FF71C555238002A9141 /* Buffer.swift */,
+				45C30FF81C555238002A9141 /* BufferType.swift */,
+				45C30FFB1C555238002A9141 /* DispatchData.swift */,
+				45C30FFC1C555238002A9141 /* Endianness.swift */,
+				45C310021C555238002A9141 /* MutableBuffer.swift */,
+				45C310191C555238002A9141 /* UnsafeBufferPointers.swift */,
+			);
+			name = Buffers;
+			sourceTree = "<group>";
+		};
+		45C310751C5553BF002A9141 /* To Reorganise */ = {
+			isa = PBXGroup;
+			children = (
+				45C3100B1C555238002A9141 /* PureUtilities.swift */,
+				45C3101A1C555238002A9141 /* Utilities.swift */,
+				45C30FFF1C555238002A9141 /* FoundationUtilities.swift */,
+			);
+			name = "To Reorganise";
+			sourceTree = "<group>";
+		};
+		45C310761C555406002A9141 /* Design Patterns */ = {
+			isa = PBXGroup;
+			children = (
+				45C310071C555238002A9141 /* Observable.swift */,
+				45C3100A1C555238002A9141 /* Publisher.swift */,
+			);
+			name = "Design Patterns";
 			sourceTree = "<group>";
 		};
 		45E8EE9A199A8E080035C722 = {
