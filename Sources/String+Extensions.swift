@@ -45,6 +45,7 @@ public extension String {
 
 // MARK: -
 
+@available(*, deprecated, message="To deprecate")
 public extension String {
     func withCString<Result>(@noescape f: UnsafeBufferPointer<Int8> -> Result) -> Result {
         return withCString() {

@@ -298,17 +298,20 @@ extension DispatchData: BaseEncodable {
 
 // MARK: Convenience methods that will probably be deprecated or at least renamed in future
 
+@available(*, deprecated, message="Will be deprecated")
 public func binary <T: BaseEncodable> (value: T, prefix: Bool = false, width: Int? = nil) throws -> String {
     return try value.encodeToString(base: 2, prefix: prefix, width: width)
 }
 
 public extension BaseDecodable {
+    @available(*, deprecated, message="Will be deprecated")
     static func fromHex(hex: String) throws -> Self {
         return try Self.decodeFromString(hex, base: 16)
     }
 }
 
 public extension BaseEncodable {
+    @available(*, deprecated, message="Will be deprecated")
     func toHex() throws -> String {
         return try encodeToString(base: 16, prefix: false, width: nil)
     }
