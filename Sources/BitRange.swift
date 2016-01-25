@@ -172,4 +172,3 @@ private func onesMask <T: UnsignedIntegerType> (start start: Int, length: Int, f
     let mask = ((1 << length) - 1) << shift
     return T(mask)
 }
-

@@ -56,4 +56,3 @@ public struct PriorityQueueGenerator <Value, Priority: Comparable>: GeneratorTyp
         return queue.get()
     }
 }
-

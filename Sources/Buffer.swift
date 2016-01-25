@@ -106,25 +106,25 @@ public func == <Element>(lhs: Buffer <Element>, rhs: Buffer <Element>) -> Bool {
 public func + <Element> (lhs: Buffer <Element>, rhs: Buffer <Element>) -> Buffer <Element> {
     let data = NSMutableData(data: lhs.data)
     data.appendData(data)
-    return Buffer <Element> (data)
+    return try! Buffer <Element> (data)
 }
 
 public func + <Element> (lhs: Buffer <Element>, rhs: UnsafeBufferPointer <Element>) -> Buffer <Element> {
     let data = NSMutableData(data: lhs.data)
     data.appendBytes(rhs.baseAddress, length: rhs.length)
-    return Buffer <Element> (data)
+    return try! Buffer <Element> (data)
 }
 
 // MARK: -
 
 extension Buffer {
 
-    public init(count: Int, repeatedValue: Element) {
+    public init(count: Int, repeatedValue: Element) throws {
         let value = [Element](count: count, repeatedValue: repeatedValue)
         let data = value.withUnsafeBufferPointer() {
             (buffer) in
             return NSData(buffer: buffer)
         }
-        self.init(data)
+        try self.init(data)
    }
 }

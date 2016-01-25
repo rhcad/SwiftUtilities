@@ -155,5 +155,3 @@ public func degreesToRadians(v: CGFloat) -> CGFloat {
 public func radiansToDegrees(v: CGFloat) -> CGFloat {
     return v * 180 / CGFloat(M_PI)
 }
-
-

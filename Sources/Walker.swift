@@ -60,7 +60,7 @@ public struct Walker <T> {
         visitor(node: node, state: state)
         state = State(depth: state.depth + 1, stack: state.stack + [node])
         if let children = self.childrenBlock(node: node) {
-        
+
             for child in children {
                 walk(child, state: state, visitor: visitor)
             }
@@ -74,7 +74,7 @@ public struct Walker <T> {
     func walk(node: T, depth: Int, visitor: StatelessVisitor) {
         visitor(node: node, depth: depth)
         if let children = self.childrenBlock(node: node) {
-        
+
             for child in children {
                 walk(child, depth: depth + 1, visitor: visitor)
             }
@@ -90,7 +90,7 @@ public struct Walker <T> {
 class Node <T> {
     var value: T
     var children: [Node <T>] = []
-    
+
     init(_ value: T) {
         self.value = value
     }
@@ -112,12 +112,12 @@ walker.walk(root) {
     (node: StringNode, depth: Int) in
     print("\(depth): \(node)")
     }
-    
+
 walker.walk(root) {
     (node: StringNode, state: _State <StringNode>) in
     let filler = state.filler("\t")
     print("\(filler)\(node)\(state.stack)")
     }
-   
+
 
 */

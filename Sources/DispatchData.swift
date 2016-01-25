@@ -84,7 +84,7 @@ public struct DispatchData <Element> {
 
     // TODO: Rename to "with", "withUnsafeBufferPointer", "withDataAndUnsafeBufferPointer"
 
-    /// IMPORTANT: If you need to keep the buffer beyond the scope of block you must hold on to data DispatchData instance too. The DispatchData and the buffer share the same life time.
+    // IMPORTANT: If you need to keep the buffer beyond the scope of block you must hold on to data DispatchData instance too. The DispatchData and the buffer share the same life time.
     public func createMap <R> (@noescape block: (DispatchData <Element>, UnsafeBufferPointer <Element>) throws -> R) rethrows -> R {
         var pointer: UnsafePointer <Void> = nil
         var size: Int = 0

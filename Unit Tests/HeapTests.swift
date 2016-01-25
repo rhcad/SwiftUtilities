@@ -17,7 +17,7 @@ class HeapTests: XCTestCase {
         heap.push(100)
         XCTAssertEqual(heap.array, [100])
         heap.push(200)
-        XCTAssertEqual(heap.array, [100,200])
+        XCTAssertEqual(heap.array, [100, 200])
         XCTAssertEqual(heap.pop()!, 100)
         XCTAssertEqual(heap.pop()!, 200)
     }

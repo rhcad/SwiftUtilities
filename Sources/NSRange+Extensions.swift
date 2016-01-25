@@ -51,7 +51,7 @@ public extension NSRange {
     func contains(index: Int) -> Bool {
         return index >= location && index < endIndex
     }
-    
+
     func clamp(index: Int) -> Int {
         return max(self.startIndex, min(self.endIndex - 1, index))
     }
@@ -61,13 +61,13 @@ public extension NSRange {
         let endIndex = self.clamp(range.endIndex)
         return NSRange(range: startIndex...endIndex)
     }
-    
+
     func intersects(range: NSRange) -> Bool {
         return NSIntersectionRange(self, range).isEmpty == false
     }
 
     func intersection(range: NSRange) -> NSRange? {
-        let intersection = NSIntersectionRange(self, range)        
+        let intersection = NSIntersectionRange(self, range)
         if intersection.isEmpty {
             return nil
         }
@@ -78,9 +78,9 @@ public extension NSRange {
 
     func contiguous(range: NSRange) -> Bool {
         let (lhs, rhs) = ordered((self, range))
-        return lhs.endIndex == rhs.startIndex 
+        return lhs.endIndex == rhs.startIndex
     }
-    
+
     func union(range: NSRange) -> NSRange {
         return NSUnionRange(self, range)
     }
@@ -107,4 +107,3 @@ public func < (lhs: NSRange, rhs: NSRange) -> Bool {
         return false
     }
 }
-

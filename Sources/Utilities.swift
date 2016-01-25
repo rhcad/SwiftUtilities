@@ -38,5 +38,3 @@ public func unsafeBitwiseEquality <T> (lhs: T, _ rhs: T) -> Bool {
         return memcmp($0, $1, sizeof(T))  == 0
     }
 }
-
-

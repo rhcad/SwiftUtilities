@@ -26,7 +26,7 @@ struct BloomFilter <Element: Hashable> {
         data.withUnsafeMutableBufferPointer() {
             (buffer) in
 
-            
+
 
             bitSet(buffer, start: position, length: 1, newValue: 1)
             return
@@ -52,4 +52,3 @@ filter.add("girafe")
 filter.data
 filter.contains("hello world")
 filter.contains("donkey")
-

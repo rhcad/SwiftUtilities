@@ -22,4 +22,3 @@ public func + (lhs: NSURL, rhs: String) -> NSURL {
 public func += (inout left: NSURL, right: String) {
     left = left + right
 }
-

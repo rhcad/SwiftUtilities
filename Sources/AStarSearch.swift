@@ -62,4 +62,3 @@ public struct AStarSearch <Location: Hashable> {
         return Array(path.reverse())
     }
 }
-

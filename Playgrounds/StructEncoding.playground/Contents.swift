@@ -21,7 +21,7 @@ public func cast <T, R> (value: T) throws -> R {
 
 
 
-func encode(format: String, payload: [Any]) throws -> DispatchData <Void>  {
+func encode(format: String, payload: [Any]) throws -> DispatchData <Void> {
 
     var data = DispatchData <Void> ()
     var payloadIndex = 0
@@ -75,4 +75,3 @@ func encode(format: String, payload: [Any]) throws -> DispatchData <Void>  {
 
 let result = try! encode(">cb?hH", payload: [UInt8(100), Int8(-100), true, Int16(0x7FFF), UInt16(0xFFFF)])
 print(result)
-

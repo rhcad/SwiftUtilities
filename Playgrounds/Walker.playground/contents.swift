@@ -8,9 +8,9 @@ import SwiftUtilities
 
 // MARK: Types
 class Node <T> {
-    var value : T
-    var children : [Node <T>] = []
-    
+    var value: T
+    var children: [Node <T>] = []
+
     init(_ value: T) {
         self.value = value
     }
@@ -32,7 +32,7 @@ walker.walk(root) {
     (node: StringNode, depth: Int) in
     print("\(depth): \(node)")
     }
-    
+
 walker.walk(root) {
     (node: StringNode, state: WalkerState <StringNode>) in
     let filler = state.filler("\t")

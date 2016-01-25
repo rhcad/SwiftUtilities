@@ -15,4 +15,3 @@ public func + (lhs: NSDate, rhs: NSTimeInterval) -> NSDate {
 public func - (lhs: NSDate, rhs: NSTimeInterval) -> NSDate {
     return lhs.dateByAddingTimeInterval(-rhs)
 }
-

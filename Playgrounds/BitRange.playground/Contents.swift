@@ -41,5 +41,3 @@ print(result.map({ try! binary($0, width: 8, prefix: false) }).joinWithSeparator
 var bitString = BitString(count: 128)
 bitString.bitSet(0, length: 1, newValue: 0x01)
 print(bitString.string)
-
-

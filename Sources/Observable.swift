@@ -128,4 +128,3 @@ public func == <Element> (lhs: ObservableProperty <Element>, rhs: ObservableProp
 }
 
 // MARK: -
-

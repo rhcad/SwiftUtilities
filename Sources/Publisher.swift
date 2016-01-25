@@ -44,7 +44,7 @@ public class Publisher <MessageKey: Hashable, Message> {
 
     /**
      Unregister a subscriber for all messages types.
-     
+
      Note this is optional - a subscriber is automatically unregistered after it is deallocated.
      */
     public func unsubscribe(subscriber: AnyObject) {
@@ -153,5 +153,3 @@ private struct Entry <Message> {
     weak var subscriber: AnyObject?
     let handler: Handler
 }
-
-

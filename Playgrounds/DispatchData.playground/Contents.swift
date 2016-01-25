@@ -37,7 +37,7 @@ public struct DispatchDataGenerator <Element>: GeneratorType {
     }
 }
 
-let array = [1,2,3,4,5,6]
+let array = [1, 2, 3, 4, 5, 6]
 
 // Copy array into a DispatchData
 let data = array.withUnsafeBufferPointer() {
@@ -70,4 +70,3 @@ extension DispatchData {
 //
 let result = data.map() { return $0 }
 print(result)
-

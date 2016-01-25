@@ -26,4 +26,3 @@ import SwiftUtilities
 //    return String(value: $0, base: 2, width: 8)
 //})
 //print(s)
-

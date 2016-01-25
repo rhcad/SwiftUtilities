@@ -39,7 +39,7 @@ public class BlockValueTransformer: NSValueTransformer {
 
     /*
     Generally used:
-    
+
     BlockValueTransformer.register(name: "Foo") { return Foo($0) }
     }
     */
@@ -52,9 +52,8 @@ public class BlockValueTransformer: NSValueTransformer {
     public init(block: TransformerBlock) {
         self.block = block
     }
-    
+
     public override func transformedValue(value: AnyObject?) -> AnyObject? {
         return self.block(value)
     }
 }
-
