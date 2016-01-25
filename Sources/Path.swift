@@ -288,5 +288,111 @@ public struct FileAttributes {
 
 }
 
+// MARK: More
+
+
+extension Path {
+
+    func read() throws -> NSData {
+        let data = try NSData(contentsOfURL: url, options: NSDataReadingOptions())
+        return data
+    }
+
+    func readJSON() throws -> AnyObject {
+        let data = try read()
+        let json = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions())
+        return json
+    }
+
+    func pathByExpandingTilde() -> Path {
+        return Path((path as NSString).stringByExpandingTildeInPath)
+    }
+
+    func pathByDeletingLastComponent() -> Path {
+        return Path((path as NSString).stringByDeletingLastPathComponent)
+    }
+
+    func glob() throws -> [Path] {
+        let error = {
+            (path: UnsafePointer<Int8>, errno: Int32) -> Int32 in
+//            print(String(CString: path, encoding: NSUTF8StringEncoding), errno)
+            return 0
+        }
+        var globStorage = glob_t()
+        let result = glob_b(path, 0, error, &globStorage)
+        guard result == 0 else {
+            throw (Errno(rawValue: result) ?? Error.Unknown)
+        }
+        let paths = (0..<globStorage.gl_pathc).map() {
+            (index) -> Path in
+            let pathPtr = globStorage.gl_pathv[index]
+            guard let pathString = String(CString: pathPtr, encoding: NSUTF8StringEncoding) else {
+                fatalError("Could not convert path to utf8 string")
+            }
+            return Path(pathString)
+        }
+        globfree(&globStorage)
+        return paths
+    }
+
+    static func specialDirectory(directory: NSSearchPathDirectory, inDomain domain: NSSearchPathDomainMask = .UserDomainMask, appropriateForURL url: NSURL? = nil, create shouldCreate: Bool = true) throws -> Path {
+
+        let url = tryElseFatalError() {
+            return try NSFileManager().URLForDirectory(directory, inDomain: domain, appropriateForURL: url, create: shouldCreate)
+        }
+
+        return try Path(url)
+    }
+
+    static var temporaryDirectory: Path {
+        return Path(NSTemporaryDirectory())
+    }
+
+    static func withTemporaryDirectory <R> (@noescape closure: Path throws -> R) throws -> R {
+
+        var template = String(temporaryDirectory + "XXXXXXXX").cStringUsingEncoding(NSUTF8StringEncoding)!
+
+        let foo = template.withUnsafeMutableBufferPointer() {
+            (inout buffer: UnsafeMutableBufferPointer <Int8>) -> UnsafeMutablePointer <Int8> in
+            return mkdtemp(buffer.baseAddress)
+        }
+        let path = Path(String(CString: foo, encoding: NSUTF8StringEncoding)!)
+        defer {
+            try! path.remove()
+        }
+
+        return try closure(path)
+    }
+
+    var normalizedComponents: [String] {
+        var components = self.components
+        if components.last == "/" {
+            components = Array(components[0..<components.count - 1])
+        }
+        return components
+    }
+
+    func hasPrefix(other: Path) -> Bool {
+        let lhs = normalizedComponents
+        let rhs = other.normalizedComponents
+
+        if rhs.count > lhs.count {
+            return false
+        }
+        return Array(lhs[0..<(rhs.count)]) == rhs
+    }
+
+    func hasSuffix(other: Path) -> Bool {
+        let lhs = normalizedComponents
+        let rhs = other.normalizedComponents
+
+        if rhs.count > lhs.count {
+            return false
+        }
+
+        return Array(lhs[(lhs.count - rhs.count)..<lhs.count]) == rhs
+    }
+
+}
 
 
