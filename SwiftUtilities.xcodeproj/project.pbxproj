@@ -28,6 +28,10 @@
 		452E97011B3CA529002269CD /* BitRange_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452E97001B3CA529002269CD /* BitRange_Tests.swift */; };
 		453E47821B7C2D950070218B /* DataScannerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453E47811B7C2D950070218B /* DataScannerTest.swift */; };
 		453E47831B7C31E30070218B /* SwiftUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45E8EEA4199A8E080035C722 /* SwiftUtilities.framework */; };
+		456A88851C55F00800189B2C /* NSURL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456A88841C55F00800189B2C /* NSURL+Extensions.swift */; };
+		456A88861C55F00800189B2C /* NSURL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456A88841C55F00800189B2C /* NSURL+Extensions.swift */; };
+		456A88881C55F05600189B2C /* InternalUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456A88871C55F05600189B2C /* InternalUtilities.swift */; };
+		456A88891C55F05600189B2C /* InternalUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456A88871C55F05600189B2C /* InternalUtilities.swift */; };
 		458132081C01580900A113F7 /* ObservableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458132071C01580900A113F7 /* ObservableTests.swift */; };
 		45BA691019C4C48E00FA7252 /* NSRange_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BA690F19C4C48E00FA7252 /* NSRange_Tests.swift */; };
 		45C3101C1C555238002A9141 /* AssociatedObjects+Private.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C30FF11C555238002A9141 /* AssociatedObjects+Private.swift */; };
@@ -58,8 +62,8 @@
 		45C310351C555238002A9141 /* Errno.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C30FFD1C555238002A9141 /* Errno.swift */; };
 		45C310361C555238002A9141 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C30FFE1C555238002A9141 /* Errors.swift */; };
 		45C310371C555238002A9141 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C30FFE1C555238002A9141 /* Errors.swift */; };
-		45C310381C555238002A9141 /* FoundationUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C30FFF1C555238002A9141 /* FoundationUtilities.swift */; };
-		45C310391C555238002A9141 /* FoundationUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C30FFF1C555238002A9141 /* FoundationUtilities.swift */; };
+		45C310381C555238002A9141 /* BlockValueTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C30FFF1C555238002A9141 /* BlockValueTransformer.swift */; };
+		45C310391C555238002A9141 /* BlockValueTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C30FFF1C555238002A9141 /* BlockValueTransformer.swift */; };
 		45C3103A1C555238002A9141 /* Heap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C310001C555238002A9141 /* Heap.swift */; };
 		45C3103B1C555238002A9141 /* Heap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C310001C555238002A9141 /* Heap.swift */; };
 		45C3103C1C555238002A9141 /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C310011C555238002A9141 /* Math.swift */; };
@@ -72,8 +76,8 @@
 		45C310431C555238002A9141 /* NSDate+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C310041C555238002A9141 /* NSDate+Extensions.swift */; };
 		45C310441C555238002A9141 /* NSMapTable+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C310051C555238002A9141 /* NSMapTable+Extensions.swift */; };
 		45C310451C555238002A9141 /* NSMapTable+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C310051C555238002A9141 /* NSMapTable+Extensions.swift */; };
-		45C310461C555238002A9141 /* NSRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C310061C555238002A9141 /* NSRange.swift */; };
-		45C310471C555238002A9141 /* NSRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C310061C555238002A9141 /* NSRange.swift */; };
+		45C310461C555238002A9141 /* NSRange+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C310061C555238002A9141 /* NSRange+Extensions.swift */; };
+		45C310471C555238002A9141 /* NSRange+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C310061C555238002A9141 /* NSRange+Extensions.swift */; };
 		45C310481C555238002A9141 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C310071C555238002A9141 /* Observable.swift */; };
 		45C310491C555238002A9141 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C310071C555238002A9141 /* Observable.swift */; };
 		45C3104A1C555238002A9141 /* Path.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C310081C555238002A9141 /* Path.swift */; };
@@ -153,6 +157,8 @@
 		453D8D391C17577300CC5D8F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		453E47811B7C2D950070218B /* DataScannerTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataScannerTest.swift; sourceTree = "<group>"; };
 		45542EE31BEAA5F0000754E7 /* StructEncoding.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = StructEncoding.playground; sourceTree = "<group>"; };
+		456A88841C55F00800189B2C /* NSURL+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSURL+Extensions.swift"; sourceTree = "<group>"; };
+		456A88871C55F05600189B2C /* InternalUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InternalUtilities.swift; sourceTree = "<group>"; };
 		457D374E1B910DB100A67740 /* BitRange.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = BitRange.playground; sourceTree = "<group>"; };
 		458132071C01580900A113F7 /* ObservableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObservableTests.swift; sourceTree = "<group>"; };
 		45880D401BB43BCC00BB6344 /* README.markdown */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.markdown; sourceTree = "<group>"; };
@@ -176,14 +182,14 @@
 		45C30FFC1C555238002A9141 /* Endianness.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endianness.swift; sourceTree = "<group>"; };
 		45C30FFD1C555238002A9141 /* Errno.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Errno.swift; sourceTree = "<group>"; };
 		45C30FFE1C555238002A9141 /* Errors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
-		45C30FFF1C555238002A9141 /* FoundationUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoundationUtilities.swift; sourceTree = "<group>"; };
+		45C30FFF1C555238002A9141 /* BlockValueTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockValueTransformer.swift; sourceTree = "<group>"; };
 		45C310001C555238002A9141 /* Heap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Heap.swift; sourceTree = "<group>"; };
 		45C310011C555238002A9141 /* Math.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
 		45C310021C555238002A9141 /* MutableBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MutableBuffer.swift; sourceTree = "<group>"; };
 		45C310031C555238002A9141 /* NSData+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSData+Extensions.swift"; sourceTree = "<group>"; };
 		45C310041C555238002A9141 /* NSDate+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDate+Extensions.swift"; sourceTree = "<group>"; };
 		45C310051C555238002A9141 /* NSMapTable+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSMapTable+Extensions.swift"; sourceTree = "<group>"; };
-		45C310061C555238002A9141 /* NSRange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSRange.swift; sourceTree = "<group>"; };
+		45C310061C555238002A9141 /* NSRange+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSRange+Extensions.swift"; sourceTree = "<group>"; };
 		45C310071C555238002A9141 /* Observable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		45C310081C555238002A9141 /* Path.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Path.swift; sourceTree = "<group>"; };
 		45C310091C555238002A9141 /* PriorityQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriorityQueue.swift; sourceTree = "<group>"; };
@@ -332,7 +338,8 @@
 				45C310031C555238002A9141 /* NSData+Extensions.swift */,
 				45C310041C555238002A9141 /* NSDate+Extensions.swift */,
 				45C310051C555238002A9141 /* NSMapTable+Extensions.swift */,
-				45C310061C555238002A9141 /* NSRange.swift */,
+				45C310061C555238002A9141 /* NSRange+Extensions.swift */,
+				456A88841C55F00800189B2C /* NSURL+Extensions.swift */,
 			);
 			name = Foundation;
 			sourceTree = "<group>";
@@ -357,7 +364,8 @@
 			children = (
 				45C3100B1C555238002A9141 /* PureUtilities.swift */,
 				45C3101A1C555238002A9141 /* Utilities.swift */,
-				45C30FFF1C555238002A9141 /* FoundationUtilities.swift */,
+				456A88871C55F05600189B2C /* InternalUtilities.swift */,
+				45C30FFF1C555238002A9141 /* BlockValueTransformer.swift */,
 			);
 			name = "To Reorganise";
 			sourceTree = "<group>";
@@ -578,12 +586,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				45C310471C555238002A9141 /* NSRange.swift in Sources */,
+				45C310471C555238002A9141 /* NSRange+Extensions.swift in Sources */,
 				45C3105F1C555238002A9141 /* String+Extensions.swift in Sources */,
 				45C310431C555238002A9141 /* NSDate+Extensions.swift in Sources */,
 				45C3106B1C555238002A9141 /* UnsafeBufferPointers.swift in Sources */,
 				45C3104D1C555238002A9141 /* PriorityQueue.swift in Sources */,
-				45C310391C555238002A9141 /* FoundationUtilities.swift in Sources */,
+				45C310391C555238002A9141 /* BlockValueTransformer.swift in Sources */,
 				45C310651C555238002A9141 /* Threading.swift in Sources */,
 				45C310211C555238002A9141 /* Bases.swift in Sources */,
 				45C310231C555238002A9141 /* BitRange.swift in Sources */,
@@ -599,6 +607,7 @@
 				45C310451C555238002A9141 /* NSMapTable+Extensions.swift in Sources */,
 				45C310311C555238002A9141 /* DispatchData.swift in Sources */,
 				45C310611C555238002A9141 /* String+Foundation.swift in Sources */,
+				456A88891C55F05600189B2C /* InternalUtilities.swift in Sources */,
 				45C3106F1C555238002A9141 /* Walker.swift in Sources */,
 				45C310511C555238002A9141 /* PureUtilities.swift in Sources */,
 				45C3103F1C555238002A9141 /* MutableBuffer.swift in Sources */,
@@ -612,6 +621,7 @@
 				45C3106D1C555238002A9141 /* Utilities.swift in Sources */,
 				45C310411C555238002A9141 /* NSData+Extensions.swift in Sources */,
 				45C3101F1C555238002A9141 /* AStarSearch.swift in Sources */,
+				456A88861C55F00800189B2C /* NSURL+Extensions.swift in Sources */,
 				45C310551C555238002A9141 /* CPPRandom.mm in Sources */,
 				45C3102D1C555238002A9141 /* CRC16.swift in Sources */,
 				45C3102B1C555238002A9141 /* BufferType.swift in Sources */,
@@ -625,12 +635,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				45C310461C555238002A9141 /* NSRange.swift in Sources */,
+				45C310461C555238002A9141 /* NSRange+Extensions.swift in Sources */,
 				45C3105E1C555238002A9141 /* String+Extensions.swift in Sources */,
 				45C310421C555238002A9141 /* NSDate+Extensions.swift in Sources */,
 				45C3106A1C555238002A9141 /* UnsafeBufferPointers.swift in Sources */,
 				45C3104C1C555238002A9141 /* PriorityQueue.swift in Sources */,
-				45C310381C555238002A9141 /* FoundationUtilities.swift in Sources */,
+				45C310381C555238002A9141 /* BlockValueTransformer.swift in Sources */,
 				45C310641C555238002A9141 /* Threading.swift in Sources */,
 				45C310201C555238002A9141 /* Bases.swift in Sources */,
 				45C310221C555238002A9141 /* BitRange.swift in Sources */,
@@ -646,6 +656,7 @@
 				45C310441C555238002A9141 /* NSMapTable+Extensions.swift in Sources */,
 				45C310301C555238002A9141 /* DispatchData.swift in Sources */,
 				45C310601C555238002A9141 /* String+Foundation.swift in Sources */,
+				456A88881C55F05600189B2C /* InternalUtilities.swift in Sources */,
 				45C3106E1C555238002A9141 /* Walker.swift in Sources */,
 				45C310501C555238002A9141 /* PureUtilities.swift in Sources */,
 				45C3103E1C555238002A9141 /* MutableBuffer.swift in Sources */,
@@ -659,6 +670,7 @@
 				45C3106C1C555238002A9141 /* Utilities.swift in Sources */,
 				45C310401C555238002A9141 /* NSData+Extensions.swift in Sources */,
 				45C3101E1C555238002A9141 /* AStarSearch.swift in Sources */,
+				456A88851C55F00800189B2C /* NSURL+Extensions.swift in Sources */,
 				45C310541C555238002A9141 /* CPPRandom.mm in Sources */,
 				45C3102C1C555238002A9141 /* CRC16.swift in Sources */,
 				45C3102A1C555238002A9141 /* BufferType.swift in Sources */,

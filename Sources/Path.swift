@@ -87,8 +87,10 @@ public extension Path {
 
 public extension Path {
     static var applicationSupportDirectory: Path {
-        let url = try! NSFileManager().URLForDirectory(.ApplicationSupportDirectory, inDomain: .UserDomainMask, appropriateForURL: nil, create: true)
-        return try! Path(url)
+        return tryElseFatalError() {
+            let url = try NSFileManager().URLForDirectory(.ApplicationSupportDirectory, inDomain: .UserDomainMask, appropriateForURL: nil, create: true)
+            return try Path(url)
+        }
     }
 
     static var applicationSpecificSupportDirectory: Path {
@@ -96,7 +98,9 @@ public extension Path {
         let bundleIdentifier = bundle.bundleIdentifier!
         let path = applicationSupportDirectory + bundleIdentifier
         if path.exists == false {
-            try! path.createDirectory(withIntermediateDirectories: true)
+            tryElseFatalError() {
+                try path.createDirectory(withIntermediateDirectories: true)
+            }
         }
         return path
     }
@@ -108,12 +112,6 @@ public func + (lhs: Path, rhs: String) -> Path {
     let URL = (lhs.path as NSString).stringByAppendingPathComponent(rhs)
     return Path(URL)
 }
-
-//func += (inout lhs: Path, rhs: String) -> Path {
-//    let url = lhs.url.URLByAppendingPathComponent(rhs)
-//    lhs = Path(url)
-//    return lhs
-//}
 
 // MARK: -
 
@@ -139,7 +137,7 @@ public extension Path {
 public extension Path {
 
     var exists: Bool {
-        return url.checkResourceIsReachableAndReturnError(nil)
+        return attributes.exists
     }
 
     func getAttributes() throws -> [String : AnyObject] {
@@ -147,15 +145,8 @@ public extension Path {
         return attributes
     }
 
-    var fileType: FileType! {
-        switch try! getAttributes()[NSFileType] as! String {
-            case NSFileTypeDirectory:
-                return .Directory
-            case NSFileTypeRegular:
-                return .Regular
-            default:
-                return nil
-        }
+    var fileType: FileType {
+        return attributes.fileType
     }
 
     var isDirectory: Bool {
@@ -165,17 +156,24 @@ public extension Path {
     func iter(@noescape closure: Path -> Void) {
         let enumerator = NSFileManager().enumeratorAtURL(url, includingPropertiesForKeys: nil, options: NSDirectoryEnumerationOptions.SkipsSubdirectoryDescendants, errorHandler: nil)
         for url in enumerator! {
-            closure(try! Path(url as! NSURL))
+            guard let url = url as? NSURL else {
+                fatalError()
+            }
+            tryElseFatalError() {
+                let path = try Path(url)
+                closure(path)
+            }
         }
     }
-
 
 }
 
 public extension Path {
 
     var permissions: Int {
-        return try! getAttributes()[NSFilePosixPermissions] as! Int
+        return tryElseFatalError() {
+            try getAttributes()[NSFilePosixPermissions] as! Int
+        }
     }
 
     func chmod(permissions: Int) throws {
@@ -224,6 +222,8 @@ public extension Path {
     }
 }
 
+// MARK: -
+
 public extension Path {
     var attributes: FileAttributes {
         return FileAttributes(path)
@@ -252,13 +252,22 @@ public struct FileAttributes {
     }
 
     public var fileType: FileType! {
-        switch try! getAttributes()[NSFileType] as! String {
-            case NSFileTypeDirectory:
-                return .Directory
-            case NSFileTypeRegular:
-                return .Regular
-            default:
+        do {
+            guard let attributes = try getAttributes()[NSFileType] as? String else {
                 return nil
+            }
+
+            switch attributes {
+                case NSFileTypeDirectory:
+                    return .Directory
+                case NSFileTypeRegular:
+                    return .Regular
+                default:
+                    return nil
+            }
+        }
+        catch {
+            return nil
         }
     }
 

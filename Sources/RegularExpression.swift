@@ -43,7 +43,7 @@ public struct RegularExpression {
 
     public func search(string: String, options: NSMatchingOptions = NSMatchingOptions()) -> Match? {
         let length = (string as NSString).length
-        guard let result = expression.firstMatchInString(string, options: options, range: NSMakeRange(0, length)) else {
+        guard let result = expression.firstMatchInString(string, options: options, range: NSRange(location: 0, length: length)) else {
             return nil
         }
         return Match(string: string, result: result)

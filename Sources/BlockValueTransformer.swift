@@ -1,6 +1,6 @@
 //
-//  Utilities.swift
-//  SwiftTag
+//  BlockValueTransformer.swift
+//  SwiftUtilities
 //
 //  Created by Jonathan Wight on 6/12/14.
 //
@@ -30,25 +30,6 @@
 
 
 import Foundation
-
-// MARK: NSURL extensions
-
-public extension NSURL {
-    func URLByResolvingURL() throws -> NSURL {
-        let bookmarkData = try self.bookmarkDataWithOptions(NSURLBookmarkCreationOptions.MinimalBookmark, includingResourceValuesForKeys: nil, relativeToURL: nil)
-        return try NSURL(byResolvingBookmarkData: bookmarkData, options: .WithoutUI, relativeToURL: nil, bookmarkDataIsStale: nil)
-    }
-}
-
-public func + (lhs: NSURL, rhs: String) -> NSURL {
-    return lhs.URLByAppendingPathComponent(rhs)
-}
-
-public func += (inout left: NSURL, right: String) {
-    left = left + right
-}
-
-// MARK: NSValueTransformers
 
 public class BlockValueTransformer: NSValueTransformer {
 

@@ -35,7 +35,7 @@ import Foundation
  *  Set of helper methods to convert String ranges to/from NSString ranges
  *
  *  NSString indices are UTF16 based
- *  String indices are Grapheme Cluster based
+ *  String "indices" are Grapheme Cluster based
  *  This allows you convert between the two
  *  Converting is useful when using Cocoa APIs that use NSRanges (for example
  *  text view selection ranges or regular expression result ranges).
@@ -65,7 +65,7 @@ public extension String {
     func convert(range: Range <String.Index>) -> NSRange {
         let startIndex = convert(range.startIndex)
         let endIndex = convert(range.endIndex)
-        return NSMakeRange(startIndex, endIndex - startIndex)
+        return NSRange(location: startIndex, length: endIndex - startIndex)
     }
 
 }

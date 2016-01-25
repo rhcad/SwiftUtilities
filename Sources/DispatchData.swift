@@ -135,7 +135,7 @@ extension DispatchData: Equatable {
 
 /**
     Equality operator.
-    
+
     Warning. This can copy zero, one or both Data buffers. This can be extremely slow.
 */
 public func == <Element> (lhs: DispatchData <Element>, rhs: DispatchData <Element>) -> Bool {
@@ -271,11 +271,16 @@ public extension DispatchData {
 // MARK: -
 
 public extension DispatchData {
+
     init(_ data: NSData) {
         self = DispatchData(buffer: data.toUnsafeBufferPointer())
     }
+
     func toNSData() -> NSData {
-        return data as! NSData
+        guard let data = data as? NSData else {
+            fatalError("dispatch_data_t not convertable to NSData")
+        }
+        return data
     }
 }
 

@@ -53,7 +53,7 @@ public struct Timestamp {
 extension Timestamp: Equatable {
 }
 
-public func ==(lhs: Timestamp, rhs: Timestamp) -> Bool {
+public func == (lhs: Timestamp, rhs: Timestamp) -> Bool {
     return lhs.absoluteTime == rhs.absoluteTime
 }
 
@@ -62,7 +62,7 @@ public func ==(lhs: Timestamp, rhs: Timestamp) -> Bool {
 extension Timestamp: Comparable {
 }
 
-public func <(lhs: Timestamp, rhs: Timestamp) -> Bool {
+public func < (lhs: Timestamp, rhs: Timestamp) -> Bool {
     return lhs.absoluteTime < rhs.absoluteTime
 }
 

@@ -10,6 +10,7 @@ import Foundation
 
 // MARK: -
 
+@available(*, deprecated, message="Will be deprecated")
 public class Timer {
 
     public static let defaultQueue = dispatch_get_main_queue()
