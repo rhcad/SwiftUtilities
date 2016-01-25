@@ -45,9 +45,9 @@ public struct Buffer <Element> {
         self.data = NSData()
     }
 
-    public init(_ data: NSData) {
+    public init(_ data: NSData) throws {
         assert(data.length == 0 || data.length >= Buffer <Element>.elementSize)
-        self.data = data.copy() as! NSData
+        self.data = try cast(data.copy())
     }
 
     public var baseAddress: UnsafePointer <Element> {
@@ -66,8 +66,8 @@ public struct Buffer <Element> {
         return count * max(sizeof(Element), 1)
     }
 
-    public init(start: UnsafePointer<Element>, count: Int) {
-        self.init(NSData(bytes: start, length: count * Buffer <Element>.elementSize))
+    public init(start: UnsafePointer<Element>, count: Int) throws {
+        try self.init(NSData(bytes: start, length: count * Buffer <Element>.elementSize))
     }
 }
 
@@ -75,13 +75,13 @@ public struct Buffer <Element> {
 
 extension Buffer {
 
-    public init(pointer: UnsafePointer <Element>, length: Int) {
+    public init(pointer: UnsafePointer <Element>, length: Int) throws {
         assert(length >= Buffer <Element>.elementSize)
-        self.init(NSData(bytes: pointer, length: length))
+        try self.init(NSData(bytes: pointer, length: length))
     }
 
-    public init(_ bufferPointer: UnsafeBufferPointer <Element>) {
-        self.init(NSData(bytes: bufferPointer.baseAddress, length: bufferPointer.length))
+    public init(_ bufferPointer: UnsafeBufferPointer <Element>) throws {
+        try self.init(NSData(bytes: bufferPointer.baseAddress, length: bufferPointer.length))
     }
 
     public var bufferPointer: UnsafeBufferPointer <Element> {

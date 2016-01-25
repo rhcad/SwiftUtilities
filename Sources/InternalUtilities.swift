@@ -45,3 +45,18 @@ internal extension Array {
         }
     }
 }
+
+
+internal func cast <T, R> (value: Optional <T>) throws -> R {
+    guard let castValue = value as? R else {
+        throw Error.Generic("Could not cast value (\(value)) of type \(T.self) to \(R.self)")
+    }
+    return castValue
+}
+
+internal func cast <T, R> (value: T) throws -> R {
+    guard let castValue = value as? R else {
+        throw Error.Generic("Could not cast value (\(value)) of type \(T.self) to \(R.self)")
+    }
+    return castValue
+}
