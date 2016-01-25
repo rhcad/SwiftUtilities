@@ -69,13 +69,13 @@ extension Error: CustomStringConvertible {
     }
 }
 
-public func tryElseFatalError <T> (@noescape closure: (Void) throws -> T) -> T {
+public func tryElseFatalError <T> (message: String? = nil, @noescape closure: (Void) throws -> T) -> T {
     do {
         let result = try closure()
         return result
     }
     catch let error {
-        fatalError(String(error))
+        fatalError("\(message ?? "try failed"): \(String(error))")
     }
 }
 
