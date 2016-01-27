@@ -326,7 +326,7 @@ public extension Path {
                 return
             }
             newPath = withStem(stem + " \(index)")
-            ++index
+            index += 1
         }
     }
 }

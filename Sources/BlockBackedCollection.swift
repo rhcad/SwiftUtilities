@@ -91,7 +91,8 @@ public struct BlockBackedCollectionGenerator <T>: GeneratorType {
             return nil
         }
         else if nextIndex < endIndex {
-            let element = block(index: nextIndex++)
+            let element = block(index: nextIndex)
+            nextIndex += 1
             return element
         }
         else {

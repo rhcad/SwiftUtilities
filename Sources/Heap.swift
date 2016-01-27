@@ -100,7 +100,8 @@ private extension BinaryHeap {
     // TODO: Not working yet.
     func build(inout A: [Element]) {
         assert(false)
-        for var i = (A.count - 1) / 2; i != 0; --i {
+
+        for i in (A.count - 1).stride(through: 0, by: -1) {
             self.heapify(&A, i)
         }
     }

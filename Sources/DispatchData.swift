@@ -170,7 +170,7 @@ extension DispatchData: CustomStringConvertible {
         var chunkCount = 0
         apply() {
             (range, pointer) in
-            chunkCount++
+            chunkCount += 1
             return true
         }
         return "DispatchData(count: \(count), length: \(length), chunk count: \(chunkCount), data: \(data))"
@@ -217,7 +217,7 @@ public extension DispatchData {
     }
 
     public func subBuffer(startIndex startIndex: Int, count: Int) throws -> DispatchData <Element> {
-        return try subBuffer(Range <Int> (start: startIndex, end: startIndex + count))
+        return try subBuffer(startIndex..<startIndex + count)
     }
 
     public func inset(startInset startInset: Int = 0, endInset: Int = 0) throws -> DispatchData <Element> {
