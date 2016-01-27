@@ -78,6 +78,6 @@ struct BitString {
 
         let start = string.startIndex.advancedBy(start)
         let end = start.advancedBy(length)
-        string.replaceRange(Range(start: start, end: end), with: newValue)
+        string.replaceRange(start..<end, with: newValue)
     }
 }

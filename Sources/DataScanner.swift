@@ -155,17 +155,16 @@ public extension DataScanner {
         let buffer: UnsafeBufferPointer <UInt8> = self.buffer.toUnsafeBufferPointer()
 
         var count = 0
-        var index = current
         var nilByteFound = false
-        while index != buffer.endIndex {
-            if buffer[index++] == 0x00 {
+        for index in current..<buffer.endIndex {
+            if buffer[index] == 0x00 {
                 nilByteFound = true
                 break
             }
             if let maxCount = maxCount where count >= maxCount {
                 break
             }
-            count++
+            count += 1
         }
 
         if count == 0 {
@@ -193,10 +192,11 @@ public extension DataScanner {
     func scanUpTo(byte: UInt8) throws -> UnsafeBufferPointer <UInt8>? {
         let start = current
         let buffer: UnsafeBufferPointer <UInt8> = self.buffer.toUnsafeBufferPointer()
-        for ; current != buffer.endIndex; ++current {
+        while current != buffer.endIndex {
             if buffer[current] == byte {
                 return buffer[start..<current]
             }
+            current += 1
         }
         return nil
     }
