@@ -195,12 +195,9 @@ public extension DataScanner {
         let buffer: UnsafeBufferPointer <UInt8> = self.buffer.toUnsafeBufferPointer()
         for ; current != buffer.endIndex; ++current {
             if buffer[current] == byte {
-                break
+                return buffer[start..<current]
             }
         }
-        if start == current {
-            return nil
-        }
-        return buffer[start..<current]
+        return nil
     }
 }

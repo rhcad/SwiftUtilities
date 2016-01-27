@@ -80,4 +80,39 @@ class DataScannerTest: XCTestCase {
         let S3 = try! scanner.scanString()
         XCTAssertEqual(S3, nil)
     }
+
+    func testScanUpTo1() {
+        let inputData = "Hello WorldXXX".dataUsingEncoding(NSASCIIStringEncoding)!
+        let buffer: UnsafeBufferPointer <Void> = inputData.toUnsafeBufferPointer()
+        let scanner = DataScanner(buffer: buffer)
+        let S1 = try! scanner.scanUpTo(0x58)!.toString()
+        XCTAssertEqual(S1, "Hello World")
+    }
+
+    func testScanUpTo2() {
+        let inputData = "XXX".dataUsingEncoding(NSASCIIStringEncoding)!
+        let buffer: UnsafeBufferPointer <Void> = inputData.toUnsafeBufferPointer()
+        let scanner = DataScanner(buffer: buffer)
+        let S1 = try! scanner.scanUpTo(0x58)!.toString()
+        XCTAssertEqual(S1, "")
+    }
+
+    func testScanUpTo3() {
+        let inputData = "Hello world".dataUsingEncoding(NSASCIIStringEncoding)!
+        let buffer: UnsafeBufferPointer <Void> = inputData.toUnsafeBufferPointer()
+        let scanner = DataScanner(buffer: buffer)
+        let S1 = try! scanner.scanUpTo(0x58)
+        XCTAssertNil(S1)
+    }
+
 }
+
+extension UnsafeBufferPointer {
+    func toString() -> String {
+        let p = UnsafeMutablePointer <Void> (baseAddress)
+        let data = NSData(bytesNoCopy: p, length: self.count * sizeof(Element), freeWhenDone: false)
+        return String(data: data, encoding: NSUTF8StringEncoding)!
+    }
+}
+
+
