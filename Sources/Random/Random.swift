@@ -122,15 +122,16 @@ public extension Random {
 
 public extension Random {
 
-    func shuffle <T>(inout a: Array <T>) {
+    func shuffle <T>(inout elements: Array <T>) {
         //To shuffle an array a of n elements (indices 0..n-1):
         //  for i from 0 to n − 1 do
         //       j ← random integer with i ≤ j < n
         //       exchange a[j] and a[i]
-        let n = a.count
+        let n = elements.count
         for i in 0..<n {
             let j = random(range: i..<n)
-            (a[j], a[i]) = (a[i], a[j])
+            // of course could just use swap()
+            (elements[j], elements[i]) = (elements[i], elements[j])
         }
     }
 

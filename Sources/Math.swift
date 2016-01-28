@@ -56,8 +56,8 @@ public func ** (lhs: CGFloat, rhs: CGFloat) -> CGFloat {
     return pow(lhs, rhs)
 }
 
-public func log(x: Double, base: Double) -> Double {
-    return log(x) / log(base)
+public func log(value: Double, base: Double) -> Double {
+    return log(value) / log(base)
 }
 
 // MARK: Basics
@@ -132,26 +132,26 @@ public extension CGFloat {
 
 // Basic functions
 
-public func degreesToRadians(v: Float) -> Float {
-    return v * Float(M_PI) / 180
+public func degreesToRadians(value: Float) -> Float {
+    return value * Float(M_PI) / 180
 }
 
-public func radiansToDegrees(v: Float) -> Float {
-    return v * 180 / Float(M_PI)
+public func radiansToDegrees(value: Float) -> Float {
+    return value * 180 / Float(M_PI)
 }
 
-public func degreesToRadians(v: Double) -> Double {
-    return v * M_PI / 180
+public func degreesToRadians(value: Double) -> Double {
+    return value * M_PI / 180
 }
 
-public func radiansToDegrees(v: Double) -> Double {
-    return v * 180 / M_PI
+public func radiansToDegrees(value: Double) -> Double {
+    return value * 180 / M_PI
 }
 
-public func degreesToRadians(v: CGFloat) -> CGFloat {
-    return v * CGFloat(M_PI) / 180
+public func degreesToRadians(value: CGFloat) -> CGFloat {
+    return value * CGFloat(M_PI) / 180
 }
 
-public func radiansToDegrees(v: CGFloat) -> CGFloat {
-    return v * 180 / CGFloat(M_PI)
+public func radiansToDegrees(value: CGFloat) -> CGFloat {
+    return value * 180 / CGFloat(M_PI)
 }

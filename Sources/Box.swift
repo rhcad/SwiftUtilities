@@ -17,8 +17,8 @@ public class Box <Element> {
 
 extension Box {
     // Stolen from https://github.com/robrix/Box/blob/master/Box/Box.swift
-    public func map<U> (@noescape f: Element -> U) -> Box<U> {
-		return Box<U> (f(value))
+    public func map<U> (@noescape transform: Element -> U) -> Box<U> {
+		return Box<U> (transform(value))
 	}
 }
 

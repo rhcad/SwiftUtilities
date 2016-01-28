@@ -36,8 +36,8 @@ public struct Buffer <Element> {
     public let data: NSData
     public var startIndex: Int { return 0 }
     public var endIndex: Int { return count }
-    public subscript (i: Int) -> Element {
-        return baseAddress[i]
+    public subscript (index: Int) -> Element {
+        return baseAddress[index]
     }
 
     @available(*, deprecated, message="Buffer will be deprecated")

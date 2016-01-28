@@ -35,8 +35,8 @@ public struct MutableBuffer <T> {
 
     var startIndex: Int { return 0 }
     var endIndex: Int { return count }
-    subscript (i: Int) -> T {
-        return baseAddress[i]
+    subscript (index: Int) -> T {
+        return baseAddress[index]
     }
 
     init(start: UnsafePointer<T>, count: Int) {

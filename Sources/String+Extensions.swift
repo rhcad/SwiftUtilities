@@ -47,11 +47,11 @@ public extension String {
 
 @available(*, deprecated, message="To deprecate")
 public extension String {
-    func withCString<Result>(@noescape f: UnsafeBufferPointer<Int8> -> Result) -> Result {
+    func withCString<Result>(@noescape body: UnsafeBufferPointer<Int8> -> Result) -> Result {
         return withCString() {
             (ptr: UnsafePointer<Int8>) -> Result in
             let buffer = UnsafeBufferPointer <Int8> (start: ptr, count: Int(strlen(ptr)))
-            return f(buffer)
+            return body(buffer)
         }
     }
 }

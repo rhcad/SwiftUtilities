@@ -77,32 +77,32 @@ private extension BinaryHeap {
         return (lhsIndex < array.count ? lhsIndex : nil, rhsIndex < array.count ? rhsIndex : nil)
     }
 
-    mutating func heapify(i: Int) {
-        heapify(&array, i)
+    mutating func heapify(index: Int) {
+        heapify(&array, index)
     }
 
-    func heapify(inout A: [Element], _ i: Int) {
-        let left = 2 * i + 1
-        let right = 2 * i + 2
-        var largest = i
-        if left < A.count && comparator(A[left], A[largest]) {
+    func heapify(inout elements: [Element], _ index: Int) {
+        let left = 2 * index + 1
+        let right = 2 * index + 2
+        var largest = index
+        if left < elements.count && comparator(elements[left], elements[largest]) {
             largest = left
         }
-        if right < A.count && comparator(A[right], A[largest]) {
+        if right < elements.count && comparator(elements[right], elements[largest]) {
             largest = right
         }
-        if largest != i {
-            swap(&A[i], &A[largest])
-            heapify(&A, largest)
+        if largest != index {
+            swap(&elements[index], &elements[largest])
+            heapify(&elements, largest)
         }
     }
 
     // TODO: Not working yet.
-    func build(inout A: [Element]) {
+    func build(inout elements: [Element]) {
         assert(false)
 
-        for i in (A.count - 1).stride(through: 0, by: -1) {
-            self.heapify(&A, i)
+        for i in (elements.count - 1).stride(through: 0, by: -1) {
+            self.heapify(&elements, i)
         }
     }
 

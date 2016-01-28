@@ -45,7 +45,7 @@ public protocol IndexedBufferType: BufferType {
     var baseAddress: UnsafePointer <Element> { get }
     var startIndex: Int { get }
     var endIndex: Int { get }
-    subscript (i: Int) -> Element { get }
+    subscript (index: Int) -> Element { get }
 }
 
 // MARK: BufferType Protocol Extensions
