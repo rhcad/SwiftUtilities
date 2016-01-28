@@ -123,11 +123,10 @@ public extension MutableBuffer {
 
 }
 
-
 public extension MutableBuffer {
 
     init(buffer: Buffer <T>) {
-        self.init(mutableData: buffer.data.mutableCopy() as! NSMutableData)
+        self.init(mutableData: buffer.data.mutableCopy())
     }
 
 }

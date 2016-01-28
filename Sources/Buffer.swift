@@ -106,13 +106,18 @@ public func == <Element>(lhs: Buffer <Element>, rhs: Buffer <Element>) -> Bool {
 public func + <Element> (lhs: Buffer <Element>, rhs: Buffer <Element>) -> Buffer <Element> {
     let data = NSMutableData(data: lhs.data)
     data.appendData(data)
-    return try! Buffer <Element> (data)
+
+    return tryElseFatalError() {
+        return try Buffer <Element> (data)
+    }
 }
 
 public func + <Element> (lhs: Buffer <Element>, rhs: UnsafeBufferPointer <Element>) -> Buffer <Element> {
     let data = NSMutableData(data: lhs.data)
     data.appendBytes(rhs.baseAddress, length: rhs.length)
-    return try! Buffer <Element> (data)
+    return tryElseFatalError() {
+        return try Buffer <Element> (data)
+    }
 }
 
 // MARK: -
