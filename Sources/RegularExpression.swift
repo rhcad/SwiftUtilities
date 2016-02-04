@@ -49,6 +49,16 @@ public struct RegularExpression {
         return Match(string: string, result: result)
     }
 
+    public func searchAll(string: String, options: NSMatchingOptions = NSMatchingOptions()) -> [Match] {
+        let length = (string as NSString).length
+        let result = expression.matchesInString(string, options: options, range: NSRange(location: 0, length: length))
+
+        return result.map() {
+            return Match(string: string, result: $0)
+        }
+
+    }
+
     public func match(string: String, options: NSMatchingOptions = NSMatchingOptions()) -> Match? {
         guard let match = search(string, options: options) else {
             return nil
