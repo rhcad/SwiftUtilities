@@ -12,7 +12,6 @@ A smorgasbord of Swift source code.
 * BufferType protocol - an attempt to unify NSData, UnsafeBufferPointers and DispatchData.
 * DispatchData - a lovely Swift wrapper around GCD's dispatch_data_t.
 * Path - yet another Path implementation. Loosely based on Python's pathlib
-* Random number generators (including a wrapper around C++'s mt19937_64 Mersenne Twister) with some useful random functions such as range ranges and shuffles.
 * RegularExpression
 * Swift String/NSString range conversions
 * unsafeBitwiseEquality - A generic wrapper around memcmp - good for quick implementations of func == for simple structs.

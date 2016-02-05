@@ -89,12 +89,6 @@
 		45C3104F1C555238002A9141 /* Publisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C3100A1C555238002A9141 /* Publisher.swift */; };
 		45C310501C555238002A9141 /* PureUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C3100B1C555238002A9141 /* PureUtilities.swift */; };
 		45C310511C555238002A9141 /* PureUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C3100B1C555238002A9141 /* PureUtilities.swift */; };
-		45C310521C555238002A9141 /* CPPRandom.h in Headers */ = {isa = PBXBuildFile; fileRef = 45C3100D1C555238002A9141 /* CPPRandom.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		45C310531C555238002A9141 /* CPPRandom.h in Headers */ = {isa = PBXBuildFile; fileRef = 45C3100D1C555238002A9141 /* CPPRandom.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		45C310541C555238002A9141 /* CPPRandom.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45C3100E1C555238002A9141 /* CPPRandom.mm */; };
-		45C310551C555238002A9141 /* CPPRandom.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45C3100E1C555238002A9141 /* CPPRandom.mm */; };
-		45C310561C555238002A9141 /* Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C3100F1C555238002A9141 /* Random.swift */; };
-		45C310571C555238002A9141 /* Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C3100F1C555238002A9141 /* Random.swift */; };
 		45C310581C555238002A9141 /* RegularExpression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C310101C555238002A9141 /* RegularExpression.swift */; };
 		45C310591C555238002A9141 /* RegularExpression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C310101C555238002A9141 /* RegularExpression.swift */; };
 		45C3105A1C555238002A9141 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C310111C555238002A9141 /* Result.swift */; };
@@ -197,9 +191,6 @@
 		45C310091C555238002A9141 /* PriorityQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriorityQueue.swift; sourceTree = "<group>"; };
 		45C3100A1C555238002A9141 /* Publisher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Publisher.swift; sourceTree = "<group>"; };
 		45C3100B1C555238002A9141 /* PureUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PureUtilities.swift; sourceTree = "<group>"; };
-		45C3100D1C555238002A9141 /* CPPRandom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPRandom.h; sourceTree = "<group>"; };
-		45C3100E1C555238002A9141 /* CPPRandom.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CPPRandom.mm; sourceTree = "<group>"; };
-		45C3100F1C555238002A9141 /* Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Random.swift; sourceTree = "<group>"; };
 		45C310101C555238002A9141 /* RegularExpression.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegularExpression.swift; sourceTree = "<group>"; };
 		45C310111C555238002A9141 /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		45C310121C555238002A9141 /* Search.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
@@ -280,7 +271,6 @@
 				45C310731C55533B002A9141 /* Foundation */,
 				45C310011C555238002A9141 /* Math.swift */,
 				45C310081C555238002A9141 /* Path.swift */,
-				45C3100C1C555238002A9141 /* Random */,
 				45C310101C555238002A9141 /* RegularExpression.swift */,
 				45C310111C555238002A9141 /* Result.swift */,
 				45C310131C555238002A9141 /* String+Extensions.swift */,
@@ -292,16 +282,6 @@
 				45C310181C555238002A9141 /* Timestamp.swift */,
 			);
 			path = Sources;
-			sourceTree = "<group>";
-		};
-		45C3100C1C555238002A9141 /* Random */ = {
-			isa = PBXGroup;
-			children = (
-				45C3100D1C555238002A9141 /* CPPRandom.h */,
-				45C3100E1C555238002A9141 /* CPPRandom.mm */,
-				45C3100F1C555238002A9141 /* Random.swift */,
-			);
-			path = Random;
 			sourceTree = "<group>";
 		};
 		45C310701C555268002A9141 /* Collections */ = {
@@ -445,7 +425,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				45C310531C555238002A9141 /* CPPRandom.h in Headers */,
 				45C310631C555238002A9141 /* SwiftUtilities.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -454,7 +433,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				45C310521C555238002A9141 /* CPPRandom.h in Headers */,
 				45C310621C555238002A9141 /* SwiftUtilities.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -658,11 +636,9 @@
 				45C310411C555238002A9141 /* NSData+Extensions.swift in Sources */,
 				45C3101F1C555238002A9141 /* AStarSearch.swift in Sources */,
 				456A88861C55F00800189B2C /* NSURL+Extensions.swift in Sources */,
-				45C310551C555238002A9141 /* CPPRandom.mm in Sources */,
 				45C3102D1C555238002A9141 /* CRC16.swift in Sources */,
 				45C3102B1C555238002A9141 /* BufferType.swift in Sources */,
 				45C3105D1C555238002A9141 /* Search.swift in Sources */,
-				45C310571C555238002A9141 /* Random.swift in Sources */,
 				45C310491C555238002A9141 /* Observable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -707,11 +683,9 @@
 				45C310401C555238002A9141 /* NSData+Extensions.swift in Sources */,
 				45C3101E1C555238002A9141 /* AStarSearch.swift in Sources */,
 				456A88851C55F00800189B2C /* NSURL+Extensions.swift in Sources */,
-				45C310541C555238002A9141 /* CPPRandom.mm in Sources */,
 				45C3102C1C555238002A9141 /* CRC16.swift in Sources */,
 				45C3102A1C555238002A9141 /* BufferType.swift in Sources */,
 				45C3105C1C555238002A9141 /* Search.swift in Sources */,
-				45C310561C555238002A9141 /* Random.swift in Sources */,
 				45C310481C555238002A9141 /* Observable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
