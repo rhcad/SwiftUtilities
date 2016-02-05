@@ -6,6 +6,8 @@
 //  Copyright © 2016 schwa.io. All rights reserved.
 //
 
+import Foundation
+
 /**
 Implementation of the Publish-Subscribe pattern for  https://en.wikipedia.org/wiki/Publish–subscribe_pattern
  - parameter MessageKey: A hashable type for messages. This is used as a unique key for each message. Ints or Hashable enums would make suitable MessageKeys.

@@ -24,7 +24,11 @@ xcuserdata/
 # Thumbnails
 ._*
 
+### Swift Package Manager
+.build
+
 ### Carthage
 # Cartfile.resolved
 Carthage/Build
 Carthage/Checkouts
+
