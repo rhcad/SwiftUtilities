@@ -10,7 +10,6 @@ import Foundation
 
 // MARK: -
 
-@available(*, deprecated, message="Will be deprecated")
 public class Timer {
 
     public static let defaultQueue = dispatch_get_main_queue()
@@ -26,6 +25,7 @@ public class Timer {
         self.source = source
     }
 
+    @available(*, deprecated, message="Will be deprecated")
     public convenience init(queue: dispatch_queue_t, time: dispatch_time_t, strict: Bool = false, interval: UInt64 = 0, leeway: UInt64 = 0) {
         let source = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, strict ? DISPATCH_TIMER_STRICT : 0, queue)
         dispatch_source_set_timer(source, time, interval, leeway)
