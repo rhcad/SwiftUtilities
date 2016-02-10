@@ -14,25 +14,24 @@ public struct Observable {
 
     public mutating func addObserver(observer: AnyObject, closure: () -> Void) {
         lock.with() {
-            observers.setObject(Box(closure), forKey: observer)
+            observers[observer] = Box(closure)
         }
     }
 
     public mutating func removeObserver(observer: AnyObject) {
         lock.with() {
-            observers.removeObjectForKey(observer)
+            observers[observer] = nil
         }
     }
 
     private var lock = Spinlock()
 
-    private let observers: NSMapTable = NSMapTable.weakToStrongObjectsMapTable()
+    private var observers: MapTable <AnyObject, Box <Callback>> = MapTable(keyReference: .Weak, valueReference: .Strong)
 
     public mutating func notifyObservers() {
         let callbacks = lock.with() {
             return observers.map() {
-                (key, value) -> Callback in
-                let box = value as! Box <Callback>
+                (key, box) -> Callback in
                 return box.value
             }
         }
@@ -61,38 +60,37 @@ public struct ObservableProperty <Element: Equatable> {
 
     public mutating func addObserver(observer: AnyObject, closure: () -> Void) {
         lock.with() {
-            observers.setObject(Box(Callback.NoValue(closure)), forKey: observer)
+            observers[observer] = Box(Callback.NoValue(closure))
         }
     }
 
     public mutating func addObserver(observer: AnyObject, closure: (Element) -> Void) {
         lock.with() {
-            observers.setObject(Box(Callback.NewValue(closure)), forKey: observer)
+            observers[observer] = Box(Callback.NewValue(closure))
         }
     }
 
     public mutating func addObserver(observer: AnyObject, closure: (Element, Element) -> Void) {
         lock.with() {
-            observers.setObject(Box(Callback.NewAndOldValue(closure)), forKey: observer)
+            observers[observer] = Box(Callback.NewAndOldValue(closure))
         }
     }
 
     public mutating func removeObserver(observer: AnyObject) {
         lock.with() {
-            observers.removeObjectForKey(observer)
+            observers[observer] = nil
         }
     }
 
     private var lock = Spinlock()
 
     private typealias Callback = ValueChangeCallback <Element>
-    private let observers: NSMapTable = NSMapTable.weakToStrongObjectsMapTable()
+    private var observers = MapTable <AnyObject, Box <Callback>> (keyReference: .Weak, valueReference: .Strong)
 
     private mutating func notifyObservers(oldValue oldValue: Element, newValue: Element) {
         let callbacks = lock.with() {
             return observers.map() {
-                (key, value) -> Callback in
-                let box = value as! Box <Callback>
+                (key, box) -> Callback in
                 return box.value
             }
         }
