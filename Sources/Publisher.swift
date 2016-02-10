@@ -83,26 +83,30 @@ public class Publisher <MessageKey: Hashable, Message> {
     /**
      Publish a message to all subscribers registerd a handler for `messageKey`
      */
-    public func publish(messageKey: MessageKey, message: Message) {
-        let needsPurging: Bool = lock.with() {
+    public func publish(messageKey: MessageKey, message: Message) -> Bool {
+
+        let (needsPurging, handled): (Bool, Bool) = lock.with() {
             guard let entries = entriesForType[messageKey] else {
-                return false
+                return (false, false)
             }
             var needsPurging = false
+            var handled = false
             for entry in entries {
                 if entry.subscriber == nil {
                     needsPurging = true
                     continue
                 }
                 entry.handler(message)
+                handled = true
             }
-            return needsPurging
+            return (needsPurging, handled)
         }
 
         if needsPurging == true {
             purge()
         }
 
+        return handled
     }
 
     private typealias Entries = [Entry <Message>]
@@ -112,6 +116,19 @@ public class Publisher <MessageKey: Hashable, Message> {
     private var lock = NSRecursiveLock()
 
     private var queue = dispatch_queue_create("io.schwa.SwiftIO.Publisher", DISPATCH_QUEUE_SERIAL)
+}
+
+extension Publisher: CustomDebugStringConvertible {
+    // Quick and crude debugDescription
+    public var debugDescription: String {
+        return lock.with() {
+            var s = ""
+            for (key, value) in entriesForType {
+                s += "\(key): \(value)\n"
+            }
+            return s
+        }
+    }
 }
 
 // MARK: -
