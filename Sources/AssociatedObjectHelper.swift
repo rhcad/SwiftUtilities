@@ -42,28 +42,34 @@ public class AssociatedObjectHelper <T> {
     }
 
     public func getAssociatedValueForObject(object: AnyObject) -> T? {
-        var key = self
-        guard let associatedObject = objc_getAssociatedObject(object, &key) else {
+        guard let associatedObject = objc_getAssociatedObject(object, key) else {
             return nil
         }
-        if let associatedObject = associatedObject as? T where T.self is AnyObject {
-            return associatedObject
+        if T.self == AnyObject.self {
+            return associatedObject as? T
+        }
+        else if let box = associatedObject as? Box <T> {
+            return box.value
         }
         else {
-            return (associatedObject as! Box <T>).value
+            fatalError("How did we get here?")
         }
     }
 
-    public func setAssociatedValueForObject(object: AnyObject, value: T) {
-        var key = self
-        let associatedObject: AnyObject
-        if T.self is AnyObject {
-            associatedObject = value as! AnyObject
+    public func setAssociatedValueForObject(object: AnyObject, value: T?) {
+        let associatedObject: AnyObject?
+        if let value = value {
+            if T.self == AnyObject.self {
+                associatedObject = value as? AnyObject
+            }
+            else {
+                associatedObject = Box(value)
+            }
         }
         else {
-            associatedObject = Box(value)
+            associatedObject = nil
         }
-        objc_setAssociatedObject(object, &key, associatedObject, policy)
+        objc_setAssociatedObject(object, key, associatedObject, policy)
     }
 
     public func deleteAssociatedValueForObject(object: AnyObject) {
@@ -71,8 +77,8 @@ public class AssociatedObjectHelper <T> {
         objc_setAssociatedObject(object, &key, nil, policy)
     }
 
+    private var key: UnsafePointer <Void> {
+        return UnsafePointer <Void> (Unmanaged.passUnretained(self).toOpaque())
+    }
+
 }
-
-
-
-
