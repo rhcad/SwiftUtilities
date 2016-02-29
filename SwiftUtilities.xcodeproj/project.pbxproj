@@ -586,7 +586,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"SwiftLint does not exist, download from https://github.com/realm/SwiftLint\"\nfi";
+			shellScript = "if [ $CARTHAGE = \"YES\"]; then\n  exit 0\nfi\n\nif which swiftlint >/dev/null; then\n  swiftlint lint --quiet\nelse\n  echo \"SwiftLint does not exist, download from https://github.com/realm/SwiftLint\"\nfi";
 			showEnvVarsInLog = 0;
 		};
 		455B239C1C56041300D19F7F /* ShellScript */ = {
@@ -600,8 +600,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"SwiftLint does not exist, download from https://github.com/realm/SwiftLint\"\nfi";
-			showEnvVarsInLog = 0;
+			shellScript = "if [ $CARTHAGE = \"YES\"]; then\n  exit 0\nfi\n\nif which swiftlint >/dev/null; then\n  swiftlint lint --quiet\nelse\n  echo \"SwiftLint does not exist, download from https://github.com/realm/SwiftLint\"\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
