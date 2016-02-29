@@ -8,10 +8,9 @@
 
 import Foundation
 
-import SwiftUtilities
-
 /**
     Type-safe helper for objc Associated Objects
+
     ```
     // Create a _global_ helper instance. Of the type you want to store in your objact
     private let helper = AssociatedObjectHelper <Float> ()
