@@ -41,6 +41,12 @@
 		45A976A11C59DF000071D6C3 /* MapTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A976A01C59DF000071D6C3 /* MapTable.swift */; };
 		45A976A21C59DF0F0071D6C3 /* MapTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A976A01C59DF000071D6C3 /* MapTable.swift */; };
 		45BA691019C4C48E00FA7252 /* NSRange_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BA690F19C4C48E00FA7252 /* NSRange_Tests.swift */; };
+		45C2A56D1C8641C300488C45 /* Version.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C2A56C1C8641C300488C45 /* Version.swift */; };
+		45C2A56E1C8641C500488C45 /* Version.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C2A56C1C8641C300488C45 /* Version.swift */; };
+		45C2A5761C86428B00488C45 /* Comparison.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C2A5751C86428B00488C45 /* Comparison.swift */; };
+		45C2A5771C86428B00488C45 /* Comparison.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C2A5751C86428B00488C45 /* Comparison.swift */; };
+		45C2A57B1C86430D00488C45 /* ComparisonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C2A57A1C86430D00488C45 /* ComparisonTests.swift */; };
+		45C2A57D1C86438900488C45 /* VersionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C2A57C1C86438900488C45 /* VersionTests.swift */; };
 		45C3101E1C555238002A9141 /* AStarSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C30FF21C555238002A9141 /* AStarSearch.swift */; };
 		45C3101F1C555238002A9141 /* AStarSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C30FF21C555238002A9141 /* AStarSearch.swift */; };
 		45C310201C555238002A9141 /* Bases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C30FF31C555238002A9141 /* Bases.swift */; };
@@ -172,6 +178,10 @@
 		45B6EABF1C45CAD100ED40D0 /* PriorityQueue.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = PriorityQueue.playground; sourceTree = "<group>"; };
 		45BA690F19C4C48E00FA7252 /* NSRange_Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSRange_Tests.swift; sourceTree = "<group>"; };
 		45C0A6691C59ED18004EE217 /* NSObject+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+Extensions.swift"; sourceTree = "<group>"; };
+		45C2A56C1C8641C300488C45 /* Version.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Version.swift; sourceTree = "<group>"; };
+		45C2A5751C86428B00488C45 /* Comparison.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comparison.swift; sourceTree = "<group>"; };
+		45C2A57A1C86430D00488C45 /* ComparisonTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComparisonTests.swift; sourceTree = "<group>"; };
+		45C2A57C1C86438900488C45 /* VersionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VersionTests.swift; sourceTree = "<group>"; };
 		45C30FF21C555238002A9141 /* AStarSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AStarSearch.swift; sourceTree = "<group>"; };
 		45C30FF31C555238002A9141 /* Bases.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bases.swift; sourceTree = "<group>"; };
 		45C30FF41C555238002A9141 /* BitRange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BitRange.swift; sourceTree = "<group>"; };
@@ -286,9 +296,11 @@
 				45C310141C555238002A9141 /* String+Foundation.swift */,
 				45C310151C555238002A9141 /* SwiftUtilities.h */,
 				45C310161C555238002A9141 /* Threading.swift */,
+				45C2A56C1C8641C300488C45 /* Version.swift */,
 				45C310711C5552BB002A9141 /* To Deprecate */,
 				45C310751C5553BF002A9141 /* To Reorganise */,
 				45C310181C555238002A9141 /* Timestamp.swift */,
+				45C2A5751C86428B00488C45 /* Comparison.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -407,6 +419,8 @@
 				45D52E6E1BE036E70020F6E7 /* HeapTests.swift */,
 				458132071C01580900A113F7 /* ObservableTests.swift */,
 				455B23991C55FA2400D19F7F /* PathTests.swift */,
+				45C2A57A1C86430D00488C45 /* ComparisonTests.swift */,
+				45C2A57C1C86438900488C45 /* VersionTests.swift */,
 				45E8EEE4199A90720035C722 /* Supporting Files */,
 			);
 			path = "Unit Tests";
@@ -609,7 +623,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45C2A56E1C8641C500488C45 /* Version.swift in Sources */,
 				45C310471C555238002A9141 /* NSRange+Extensions.swift in Sources */,
+				45C2A5771C86428B00488C45 /* Comparison.swift in Sources */,
 				45C3105F1C555238002A9141 /* String+Extensions.swift in Sources */,
 				45C310431C555238002A9141 /* NSDate+Extensions.swift in Sources */,
 				45C3106B1C555238002A9141 /* UnsafeBufferPointers.swift in Sources */,
@@ -658,7 +674,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45C2A56D1C8641C300488C45 /* Version.swift in Sources */,
 				45C310461C555238002A9141 /* NSRange+Extensions.swift in Sources */,
+				45C2A5761C86428B00488C45 /* Comparison.swift in Sources */,
 				45C3105E1C555238002A9141 /* String+Extensions.swift in Sources */,
 				45C310421C555238002A9141 /* NSDate+Extensions.swift in Sources */,
 				45C3106A1C555238002A9141 /* UnsafeBufferPointers.swift in Sources */,
@@ -709,12 +727,14 @@
 			files = (
 				452E96FE1B3CA523002269CD /* NumberBases_Tests.swift in Sources */,
 				458132081C01580900A113F7 /* ObservableTests.swift in Sources */,
+				45C2A57D1C86438900488C45 /* VersionTests.swift in Sources */,
 				452E97011B3CA529002269CD /* BitRange_Tests.swift in Sources */,
 				45BA691019C4C48E00FA7252 /* NSRange_Tests.swift in Sources */,
 				45D52E721BE03A700020F6E7 /* HeapTests.swift in Sources */,
 				452E1A2D1BCDC30F000FC9FA /* RegularExpressionTests.swift in Sources */,
 				455B239A1C55FA2400D19F7F /* PathTests.swift in Sources */,
 				453E47821B7C2D950070218B /* DataScannerTest.swift in Sources */,
+				45C2A57B1C86430D00488C45 /* ComparisonTests.swift in Sources */,
 				452E96FF1B3CA523002269CD /* Utilities.swift in Sources */,
 				45EA099F1B44C62B00505D14 /* DispatchDataTest.swift in Sources */,
 			);
