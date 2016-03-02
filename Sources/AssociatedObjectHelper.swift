@@ -26,7 +26,6 @@ import Foundation
     let object2 = NSObject()
     helper.getAssociatedValueForObject(object) // nil
     ```
-
 */
 public class AssociatedObjectHelper <T> {
 

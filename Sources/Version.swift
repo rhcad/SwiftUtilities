@@ -144,4 +144,3 @@ private func + (lhs: NSCharacterSet, rhs: NSCharacterSet) -> NSCharacterSet {
     working.formUnionWithCharacterSet(rhs)
     return working
 }
-

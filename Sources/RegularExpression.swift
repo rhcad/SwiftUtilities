@@ -56,7 +56,6 @@ public struct RegularExpression {
         return result.map() {
             return Match(string: string, result: $0)
         }
-
     }
 
     public func match(string: String, options: NSMatchingOptions = NSMatchingOptions()) -> Match? {

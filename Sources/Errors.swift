@@ -45,7 +45,6 @@ struct AnnotatedError: ErrorType {
 
 // TODO: This is kinda crap.
 public enum Error: ErrorType {
-    case None
     case Generic(String)
     case DispatchIO(Int32, String)
     case Unimplemented
@@ -55,8 +54,6 @@ public enum Error: ErrorType {
 extension Error: CustomStringConvertible {
     public var description: String {
         switch self {
-            case .None:
-                return "None"
             case .Generic(let string):
                 return string
             case .DispatchIO(let code, let string):

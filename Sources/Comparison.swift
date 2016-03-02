@@ -23,4 +23,3 @@ public func compare <T: Comparable> (lhs: T, _ rhs: T) -> Comparison {
         return .Greater
     }
 }
-
