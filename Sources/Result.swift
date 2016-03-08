@@ -44,39 +44,3 @@ public func ?? <T> (lhs: Result<T>, @autoclosure rhs: () -> T) -> T {
     }
 }
 
-public extension Result {
-    @available(*, deprecated, message="Use if case instead: if case .Success = ...")
-    var isSuccess: Bool {
-        switch self {
-            case .Success:
-                return true
-            default:
-                return false
-        }
-    }
-
-    @available(*, deprecated, message="Use if case instead: if case .Failure = ...")
-    var isFailure: Bool {
-        return !isSuccess
-    }
-
-    @available(*, deprecated, message="Use if case instead: if case .Success(let value) = ...")
-    var value: T? {
-        switch self {
-            case .Success(let value):
-                return value
-            default:
-                return nil
-        }
-    }
-
-    @available(*, deprecated, message="Use if case instead: if case .Failure(let error) = ...")
-    var error: ErrorType? {
-        switch self {
-            case .Failure(let error):
-                return error
-            default:
-                return nil
-        }
-    }
-}
