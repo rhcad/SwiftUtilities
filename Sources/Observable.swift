@@ -24,7 +24,7 @@ public struct Observable {
         }
     }
 
-    private var lock = Spinlock()
+    private var lock = NSRecursiveLock()
 
     private var observers: MapTable <AnyObject, Box <Callback>> = MapTable(keyReference: .Weak, valueReference: .Strong)
 
@@ -82,7 +82,7 @@ public struct ObservableProperty <Element: Equatable> {
         }
     }
 
-    private var lock = Spinlock()
+    private var lock = NSRecursiveLock()
 
     private typealias Callback = ValueChangeCallback <Element>
     private var observers = MapTable <AnyObject, Box <Callback>> (keyReference: .Weak, valueReference: .Strong)

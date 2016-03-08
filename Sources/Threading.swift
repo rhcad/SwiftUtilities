@@ -35,6 +35,7 @@ extension NSRecursiveLock: Locking {
 
 // MARK: -
 
+@available(*, deprecated)
 public struct Spinlock: Locking {
 
     var spinlock = OS_SPINLOCK_INIT
