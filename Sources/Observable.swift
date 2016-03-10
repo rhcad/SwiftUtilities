@@ -69,7 +69,9 @@ public class ObservableProperty <Element: Equatable>: ObservableType {
                 _value = newValue
                 return oldValue
             }
-            notifyObservers(oldValue: oldValue, newValue: newValue)
+            if oldValue != newValue {
+                notifyObservers(oldValue: oldValue, newValue: newValue)
+            }
         }
     }
 
@@ -151,7 +153,9 @@ public class ObservableOptionalProperty <Element: Equatable>: ObservableType, Ni
                 _value = newValue
                 return oldValue
             }
-            notifyObservers(oldValue: oldValue, newValue: newValue)
+            if oldValue != newValue {
+                notifyObservers(oldValue: oldValue, newValue: newValue)
+            }
         }
     }
 
