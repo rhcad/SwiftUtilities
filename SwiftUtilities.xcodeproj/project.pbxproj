@@ -479,7 +479,7 @@
 				45E8EEA0199A8E080035C722 /* Frameworks */,
 				45E8EEA1199A8E080035C722 /* Headers */,
 				45E8EEA2199A8E080035C722 /* Resources */,
-				455B239C1C56041300D19F7F /* ShellScript */,
+				455B239C1C56041300D19F7F /* Run SWiftlint */,
 			);
 			buildRules = (
 			);
@@ -498,7 +498,7 @@
 				45E8EEC2199A8EA50035C722 /* Frameworks */,
 				45E8EEC3199A8EA50035C722 /* Headers */,
 				45E8EEC4199A8EA50035C722 /* Resources */,
-				455B239B1C56040400D19F7F /* ShellScript */,
+				455B239B1C56040400D19F7F /* Run Swiftlint */,
 			);
 			buildRules = (
 			);
@@ -596,32 +596,34 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		455B239B1C56040400D19F7F /* ShellScript */ = {
+		455B239B1C56040400D19F7F /* Run Swiftlint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Run Swiftlint";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ $CARTHAGE = \"YES\"]; then\n  exit 0\nfi\n\nif which swiftlint >/dev/null; then\n  swiftlint lint --quiet\nelse\n  echo \"SwiftLint does not exist, download from https://github.com/realm/SwiftLint\"\nfi";
+			shellScript = "if test $CARTHAGE = \"YES\"; then\n  exit 0\nfi\n\nif which swiftlint >/dev/null; then\n  swiftlint lint --quiet\nelse\n  echo \"SwiftLint does not exist, download from https://github.com/realm/SwiftLint\"\nfi";
 			showEnvVarsInLog = 0;
 		};
-		455B239C1C56041300D19F7F /* ShellScript */ = {
+		455B239C1C56041300D19F7F /* Run SWiftlint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Run SWiftlint";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ $CARTHAGE = \"YES\"]; then\n  exit 0\nfi\n\nif which swiftlint >/dev/null; then\n  swiftlint lint --quiet\nelse\n  echo \"SwiftLint does not exist, download from https://github.com/realm/SwiftLint\"\nfi";
+			shellScript = "if test $CARTHAGE = \"YES\"; then\n  exit 0\nfi\n\nif which swiftlint >/dev/null; then\n  swiftlint lint --quiet\nelse\n  echo \"SwiftLint does not exist, download from https://github.com/realm/SwiftLint\"\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
