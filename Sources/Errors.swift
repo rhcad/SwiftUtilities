@@ -90,7 +90,7 @@ public func makeOSStatusError <T: IntegerType>(status: T, description: String? =
 }
 
 
-@noreturn public func unimplementedFailure(@autoclosure message: () -> String = "", file: StaticString = __FILE__, line: UInt = __LINE__) {
+@noreturn public func unimplementedFailure(@autoclosure message: () -> String = "", file: StaticString = #file, line: UInt = #line) {
     preconditionFailure(message, file: file, line: line)
 }
 

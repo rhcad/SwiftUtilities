@@ -23,3 +23,24 @@ public func compare <T: Comparable> (lhs: T, _ rhs: T) -> Comparison {
         return .Greater
     }
 }
+
+public extension Comparison {
+    static func comparisonSummary(comparisons: [Comparison]) -> Comparison {
+        for comparison in comparisons {
+            switch comparison {
+                case .Lesser:
+                    return .Lesser
+                case .Greater:
+                    return .Lesser
+                case .Equal:
+                    continue
+            }
+        }
+        return .Equal
+    }
+
+    init<Sequence1 : SequenceType , Sequence2 : SequenceType where Sequence1.Generator.Element: Comparable> (sequence1: Sequence1, _ sequence2: Sequence2) {
+        self = .Equal
+    }
+
+}

@@ -9,7 +9,7 @@
 import Foundation
 
 public protocol ObservableType {
-    typealias ElementType
+    associatedtype ElementType
     func addObserver(observer: AnyObject, closure: () -> Void)
     func addObserver(observer: AnyObject, closure: (ElementType) -> Void)
     func addObserver(observer: AnyObject, closure: (ElementType, ElementType) -> Void)

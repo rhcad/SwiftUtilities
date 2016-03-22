@@ -34,7 +34,7 @@ import Foundation
 // MARK: BufferType
 
 public protocol BufferType {
-    typealias Element
+    associatedtype Element
     var count: Int { get }
     init(start: UnsafePointer<Element>, count: Int)
 }
