@@ -54,6 +54,23 @@ public class DispatchQueue {
         dispatch_async(queue, block)
     }
 
+    public func timer(start start: NSTimeInterval, handler: Void -> Void) -> DispatchSource {
+        let source = DispatchSource(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue)
+
+        let startTime = dispatch_time(DISPATCH_TIME_NOW, timeIntervalToNSEC(start))
+        dispatch_source_set_timer(source.source, startTime, 0, 0)
+        source.eventHandler = handler
+        source.cancelHandler = {
+            [weak source] in
+            if let source = source {
+                DispatchQueue.timers.value.remove(source)
+            }
+        }
+        DispatchQueue.timers.value.insert(source)
+        source.resume()
+        return source
+    }
+
     public func timer(interval interval: NSTimeInterval, handler: Void -> Void) -> DispatchSource {
         let source = DispatchSource(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue)
         dispatch_source_set_timer(source.source, DISPATCH_TIME_NOW, timeIntervalToNSEC(interval), 0)
@@ -101,6 +118,10 @@ public class DispatchSource {
 
     public func resume() {
         dispatch_resume(source)
+    }
+
+    public func cancel() {
+        dispatch_source_cancel(source)
     }
 
 }
