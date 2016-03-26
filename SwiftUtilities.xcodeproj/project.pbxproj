@@ -28,6 +28,8 @@
 		452E96FE1B3CA523002269CD /* NumberBases_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452E96FC1B3CA523002269CD /* NumberBases_Tests.swift */; };
 		452E96FF1B3CA523002269CD /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452E96FD1B3CA523002269CD /* Utilities.swift */; };
 		452E97011B3CA529002269CD /* BitRange_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452E97001B3CA529002269CD /* BitRange_Tests.swift */; };
+		4535F4CB1CA70C3C0035C0EB /* Dispatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4535F4CA1CA70C3C0035C0EB /* Dispatch.swift */; };
+		4535F4CC1CA70C3C0035C0EB /* Dispatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4535F4CA1CA70C3C0035C0EB /* Dispatch.swift */; };
 		453C932F1C83984C00A4F5E0 /* AssociatedObjectHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453C932E1C83984C00A4F5E0 /* AssociatedObjectHelper.swift */; };
 		453C93301C83984C00A4F5E0 /* AssociatedObjectHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453C932E1C83984C00A4F5E0 /* AssociatedObjectHelper.swift */; };
 		453E47821B7C2D950070218B /* DataScannerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453E47811B7C2D950070218B /* DataScannerTest.swift */; };
@@ -116,8 +118,6 @@
 		45C310631C555238002A9141 /* SwiftUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 45C310151C555238002A9141 /* SwiftUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45C310641C555238002A9141 /* Threading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C310161C555238002A9141 /* Threading.swift */; };
 		45C310651C555238002A9141 /* Threading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C310161C555238002A9141 /* Threading.swift */; };
-		45C310661C555238002A9141 /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C310171C555238002A9141 /* Timer.swift */; };
-		45C310671C555238002A9141 /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C310171C555238002A9141 /* Timer.swift */; };
 		45C310681C555238002A9141 /* Timestamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C310181C555238002A9141 /* Timestamp.swift */; };
 		45C310691C555238002A9141 /* Timestamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C310181C555238002A9141 /* Timestamp.swift */; };
 		45C3106A1C555238002A9141 /* UnsafeBufferPointers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C310191C555238002A9141 /* UnsafeBufferPointers.swift */; };
@@ -163,6 +163,7 @@
 		452E96FC1B3CA523002269CD /* NumberBases_Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberBases_Tests.swift; sourceTree = "<group>"; };
 		452E96FD1B3CA523002269CD /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		452E97001B3CA529002269CD /* BitRange_Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BitRange_Tests.swift; sourceTree = "<group>"; };
+		4535F4CA1CA70C3C0035C0EB /* Dispatch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dispatch.swift; sourceTree = "<group>"; };
 		453C932E1C83984C00A4F5E0 /* AssociatedObjectHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssociatedObjectHelper.swift; sourceTree = "<group>"; };
 		453D8D391C17577300CC5D8F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		453E47811B7C2D950070218B /* DataScannerTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataScannerTest.swift; sourceTree = "<group>"; };
@@ -220,7 +221,6 @@
 		45C310141C555238002A9141 /* String+Foundation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Foundation.swift"; sourceTree = "<group>"; };
 		45C310151C555238002A9141 /* SwiftUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwiftUtilities.h; sourceTree = "<group>"; };
 		45C310161C555238002A9141 /* Threading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Threading.swift; sourceTree = "<group>"; };
-		45C310171C555238002A9141 /* Timer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
 		45C310181C555238002A9141 /* Timestamp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Timestamp.swift; sourceTree = "<group>"; };
 		45C310191C555238002A9141 /* UnsafeBufferPointers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnsafeBufferPointers.swift; sourceTree = "<group>"; };
 		45C3101A1C555238002A9141 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
@@ -302,8 +302,8 @@
 				45C310141C555238002A9141 /* String+Foundation.swift */,
 				45C310151C555238002A9141 /* SwiftUtilities.h */,
 				45C310161C555238002A9141 /* Threading.swift */,
+				4535F4CA1CA70C3C0035C0EB /* Dispatch.swift */,
 				45C2A56C1C8641C300488C45 /* Version.swift */,
-				45C310711C5552BB002A9141 /* To Deprecate */,
 				45C310751C5553BF002A9141 /* To Reorganise */,
 				45C310181C555238002A9141 /* Timestamp.swift */,
 				45C2A5751C86428B00488C45 /* Comparison.swift */,
@@ -321,14 +321,6 @@
 				45C3101B1C555238002A9141 /* Walker.swift */,
 			);
 			name = Collections;
-			sourceTree = "<group>";
-		};
-		45C310711C5552BB002A9141 /* To Deprecate */ = {
-			isa = PBXGroup;
-			children = (
-				45C310171C555238002A9141 /* Timer.swift */,
-			);
-			name = "To Deprecate";
 			sourceTree = "<group>";
 		};
 		45C310721C5552F7002A9141 /* Algorithms */ = {
@@ -645,6 +637,7 @@
 				45C310231C555238002A9141 /* BitRange.swift in Sources */,
 				45C3104F1C555238002A9141 /* Publisher.swift in Sources */,
 				457A93151C59EE2D003137E4 /* NSObject+Extensions.swift in Sources */,
+				4535F4CC1CA70C3C0035C0EB /* Dispatch.swift in Sources */,
 				45C3103B1C555238002A9141 /* Heap.swift in Sources */,
 				45C3102F1C555238002A9141 /* DataScanner.swift in Sources */,
 				45C310291C555238002A9141 /* Buffer.swift in Sources */,
@@ -653,7 +646,6 @@
 				45C310271C555238002A9141 /* Box.swift in Sources */,
 				452BF90C1C91F0D100E4086A /* Atomic.swift in Sources */,
 				45C3104B1C555238002A9141 /* Path.swift in Sources */,
-				45C310671C555238002A9141 /* Timer.swift in Sources */,
 				45C310371C555238002A9141 /* Errors.swift in Sources */,
 				45C310451C555238002A9141 /* NSMapTable+Extensions.swift in Sources */,
 				45C310311C555238002A9141 /* DispatchData.swift in Sources */,
@@ -697,6 +689,7 @@
 				45C310221C555238002A9141 /* BitRange.swift in Sources */,
 				45C3104E1C555238002A9141 /* Publisher.swift in Sources */,
 				457A93141C59EE2C003137E4 /* NSObject+Extensions.swift in Sources */,
+				4535F4CB1CA70C3C0035C0EB /* Dispatch.swift in Sources */,
 				45C3103A1C555238002A9141 /* Heap.swift in Sources */,
 				45C3102E1C555238002A9141 /* DataScanner.swift in Sources */,
 				45C310281C555238002A9141 /* Buffer.swift in Sources */,
@@ -705,7 +698,6 @@
 				45C310261C555238002A9141 /* Box.swift in Sources */,
 				452BF90B1C91F0D100E4086A /* Atomic.swift in Sources */,
 				45C3104A1C555238002A9141 /* Path.swift in Sources */,
-				45C310661C555238002A9141 /* Timer.swift in Sources */,
 				45C310361C555238002A9141 /* Errors.swift in Sources */,
 				45C310441C555238002A9141 /* NSMapTable+Extensions.swift in Sources */,
 				45C310301C555238002A9141 /* DispatchData.swift in Sources */,
@@ -821,8 +813,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -861,8 +853,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VERSIONING_SYSTEM = "apple-generic";

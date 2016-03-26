@@ -32,7 +32,12 @@ public enum Endianness {
     case Big
     case Little
     public static var Native: Endianness = {
-        return UInt16(littleEndian: 1234) == 1234 ? .Little : .Big
+//        return UInt16(littleEndian: 1234) == 1234 ? .Little : .Big
+#if arch(x86_64) || arch(arm) || arch(arm64) || arch(i386)
+    return .Little
+#else
+    fatalError("Unknown Endianness")
+#endif
     }()
     public static var Network: Endianness = .Big
 }
