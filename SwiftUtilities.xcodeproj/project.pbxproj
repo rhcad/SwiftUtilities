@@ -22,6 +22,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		4525C3961CB7654900B5F529 /* Benchmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4525C3951CB7654900B5F529 /* Benchmark.swift */; };
 		452BF90B1C91F0D100E4086A /* Atomic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452BF90A1C91F0D100E4086A /* Atomic.swift */; };
 		452BF90C1C91F0D100E4086A /* Atomic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452BF90A1C91F0D100E4086A /* Atomic.swift */; };
 		452E1A2D1BCDC30F000FC9FA /* RegularExpressionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452E1A2C1BCDC30F000FC9FA /* RegularExpressionTests.swift */; };
@@ -156,6 +157,7 @@
 
 /* Begin PBXFileReference section */
 		4521A3B81B90F2F6007087D2 /* BloomFilter.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = BloomFilter.playground; sourceTree = "<group>"; };
+		4525C3951CB7654900B5F529 /* Benchmark.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Benchmark.swift; sourceTree = "<group>"; };
 		452B30AB1AC0996100920B6A /* RegularExpressionPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = RegularExpressionPlayground.playground; sourceTree = "<group>"; };
 		452BAC241B3E8A7300F3DF48 /* Random.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Random.playground; sourceTree = "<group>"; };
 		452BF90A1C91F0D100E4086A /* Atomic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Atomic.swift; sourceTree = "<group>"; };
@@ -285,6 +287,7 @@
 			children = (
 				453C932E1C83984C00A4F5E0 /* AssociatedObjectHelper.swift */,
 				452BF90A1C91F0D100E4086A /* Atomic.swift */,
+				4525C3951CB7654900B5F529 /* Benchmark.swift */,
 				45C310721C5552F7002A9141 /* Algorithms */,
 				45C30FF61C555238002A9141 /* Box.swift */,
 				45C310741C55537A002A9141 /* Buffers */,
@@ -719,6 +722,7 @@
 				45C3102C1C555238002A9141 /* CRC16.swift in Sources */,
 				45C3102A1C555238002A9141 /* BufferType.swift in Sources */,
 				45C3105C1C555238002A9141 /* Search.swift in Sources */,
+				4525C3961CB7654900B5F529 /* Benchmark.swift in Sources */,
 				453C932F1C83984C00A4F5E0 /* AssociatedObjectHelper.swift in Sources */,
 				45C310481C555238002A9141 /* Observable.swift in Sources */,
 			);

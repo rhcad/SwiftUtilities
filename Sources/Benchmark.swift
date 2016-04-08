@@ -1,8 +1,8 @@
 //
-//  NSObject+Extensions.swift
+//  Benchmark.swift
 //  SwiftUtilities
 //
-//  Created by Jonathan Wight on 1/27/16.
+//  Created by Jonathan Wight on 4/7/16.
 //
 //  Copyright © 2016, Jonathan Wight
 //
@@ -27,24 +27,15 @@
 //  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 //  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+public func benchmark(closure: Void -> Void) -> NSTimeInterval {
+    let start = mach_absolute_time()
+    let result = closure()
+    let end = mach_absolute_time()
 
-import Foundation
-
-// Internal for now make public later.
-internal extension NSObject {
-
-    func copy <T> () -> T {
-        guard let copy = copy() as? T else {
-            fatalError("Could not create copy of \(self) as type \(T.self)")
-        }
-        return copy
+    var info = mach_timebase_info_data_t()
+    if mach_timebase_info(&info) != 0 {
+        fatalError()
     }
-
-    func mutableCopy <T> () -> T {
-        guard let copy = mutableCopy() as? T else {
-            fatalError("Could not create mutable copy of \(self) as type \(T.self)")
-        }
-        return copy
-    }
-
+    let nanos = (end - start) * UInt64(info.numer) / UInt64(info.denom)
+    return NSTimeInterval(nanos) / NSTimeInterval(NSEC_PER_SEC)
 }

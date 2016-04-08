@@ -4,8 +4,7 @@
 //
 //  Created by Jonathan Wight on 3/29/15.
 //
-//  Copyright (c) 2014, Jonathan Wight
-//  All rights reserved.
+//  Copyright © 2016, Jonathan Wight
 //
 //  Redistribution and use in source and binary forms, with or without
 //  modification, are permitted provided that the following conditions are met:
