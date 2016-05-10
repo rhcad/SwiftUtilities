@@ -43,6 +43,8 @@
 		457A93141C59EE2C003137E4 /* NSObject+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C0A6691C59ED18004EE217 /* NSObject+Extensions.swift */; };
 		457A93151C59EE2D003137E4 /* NSObject+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C0A6691C59ED18004EE217 /* NSObject+Extensions.swift */; };
 		458132081C01580900A113F7 /* ObservableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458132071C01580900A113F7 /* ObservableTests.swift */; };
+		458D01B61CE282120092A2E8 /* Hexdump.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458D01B51CE282120092A2E8 /* Hexdump.swift */; };
+		458D01B71CE282120092A2E8 /* Hexdump.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458D01B51CE282120092A2E8 /* Hexdump.swift */; };
 		459BADEA1C86959F0014F696 /* ResultTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 459BADE91C86959F0014F696 /* ResultTests.swift */; };
 		45A976A11C59DF000071D6C3 /* MapTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A976A01C59DF000071D6C3 /* MapTable.swift */; };
 		45A976A21C59DF0F0071D6C3 /* MapTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A976A01C59DF000071D6C3 /* MapTable.swift */; };
@@ -178,6 +180,8 @@
 		45880D401BB43BCC00BB6344 /* README.markdown */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.markdown; sourceTree = "<group>"; };
 		45880D411BB43E9A00BB6344 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		458825021B90CD2900D438AD /* DispatchData.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = DispatchData.playground; sourceTree = "<group>"; };
+		458D01B41CE27D400092A2E8 /* HexDump.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = HexDump.playground; sourceTree = "<group>"; };
+		458D01B51CE282120092A2E8 /* Hexdump.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hexdump.swift; sourceTree = "<group>"; };
 		459BADE91C86959F0014F696 /* ResultTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultTests.swift; sourceTree = "<group>"; };
 		45A976A01C59DF000071D6C3 /* MapTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapTable.swift; sourceTree = "<group>"; };
 		45A976A61C59E67C0071D6C3 /* MapTable.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MapTable.playground; sourceTree = "<group>"; };
@@ -278,6 +282,7 @@
 				45542EE31BEAA5F0000754E7 /* StructEncoding.playground */,
 				45B6EABF1C45CAD100ED40D0 /* PriorityQueue.playground */,
 				45A976A61C59E67C0071D6C3 /* MapTable.playground */,
+				458D01B41CE27D400092A2E8 /* HexDump.playground */,
 			);
 			path = Playgrounds;
 			sourceTree = "<group>";
@@ -360,6 +365,7 @@
 				45C30FFC1C555238002A9141 /* Endianness.swift */,
 				45C310021C555238002A9141 /* MutableBuffer.swift */,
 				45C310191C555238002A9141 /* UnsafeBufferPointers.swift */,
+				458D01B51CE282120092A2E8 /* Hexdump.swift */,
 			);
 			name = Buffers;
 			sourceTree = "<group>";
@@ -666,6 +672,7 @@
 				45C3106D1C555238002A9141 /* Utilities.swift in Sources */,
 				45C310411C555238002A9141 /* NSData+Extensions.swift in Sources */,
 				45C3101F1C555238002A9141 /* AStarSearch.swift in Sources */,
+				458D01B71CE282120092A2E8 /* Hexdump.swift in Sources */,
 				456A88861C55F00800189B2C /* NSURL+Extensions.swift in Sources */,
 				45C3102D1C555238002A9141 /* CRC16.swift in Sources */,
 				45C3102B1C555238002A9141 /* BufferType.swift in Sources */,
@@ -700,6 +707,7 @@
 				45A976A11C59DF000071D6C3 /* MapTable.swift in Sources */,
 				45C310261C555238002A9141 /* Box.swift in Sources */,
 				452BF90B1C91F0D100E4086A /* Atomic.swift in Sources */,
+				458D01B61CE282120092A2E8 /* Hexdump.swift in Sources */,
 				45C3104A1C555238002A9141 /* Path.swift in Sources */,
 				45C310361C555238002A9141 /* Errors.swift in Sources */,
 				45C310441C555238002A9141 /* NSMapTable+Extensions.swift in Sources */,

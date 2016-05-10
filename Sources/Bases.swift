@@ -142,7 +142,7 @@ extension UnsignedIntegerType {
         }
 
 
-        if let radix = NamedRadix(rawValue: base) {
+        if let radix = NamedRadix(rawValue: base) where prefix == true {
             s = radix.constantPrefix + s
         }
 
