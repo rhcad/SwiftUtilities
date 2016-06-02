@@ -52,6 +52,8 @@
 		456A88891C55F05600189B2C /* InternalUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456A88871C55F05600189B2C /* InternalUtilities.swift */; };
 		457A93141C59EE2C003137E4 /* NSObject+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C0A6691C59ED18004EE217 /* NSObject+Extensions.swift */; };
 		457A93151C59EE2D003137E4 /* NSObject+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C0A6691C59ED18004EE217 /* NSObject+Extensions.swift */; };
+		457D6BD11D00AF220046EAB6 /* Publisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457D6BD01D00AF220046EAB6 /* Publisher.swift */; };
+		457D6BD21D00AF220046EAB6 /* Publisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457D6BD01D00AF220046EAB6 /* Publisher.swift */; };
 		458132081C01580900A113F7 /* ObservableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458132071C01580900A113F7 /* ObservableTests.swift */; };
 		458D01B61CE282120092A2E8 /* Hexdump.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458D01B51CE282120092A2E8 /* Hexdump.swift */; };
 		458D01B71CE282120092A2E8 /* Hexdump.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458D01B51CE282120092A2E8 /* Hexdump.swift */; };
@@ -113,8 +115,8 @@
 		45C3104B1C555238002A9141 /* Path.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C310081C555238002A9141 /* Path.swift */; };
 		45C3104C1C555238002A9141 /* PriorityQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C310091C555238002A9141 /* PriorityQueue.swift */; };
 		45C3104D1C555238002A9141 /* PriorityQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C310091C555238002A9141 /* PriorityQueue.swift */; };
-		45C3104E1C555238002A9141 /* Publisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C3100A1C555238002A9141 /* Publisher.swift */; };
-		45C3104F1C555238002A9141 /* Publisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C3100A1C555238002A9141 /* Publisher.swift */; };
+		45C3104E1C555238002A9141 /* TestingPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C3100A1C555238002A9141 /* TestingPublisher.swift */; };
+		45C3104F1C555238002A9141 /* TestingPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C3100A1C555238002A9141 /* TestingPublisher.swift */; };
 		45C310501C555238002A9141 /* PureUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C3100B1C555238002A9141 /* PureUtilities.swift */; };
 		45C310511C555238002A9141 /* PureUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C3100B1C555238002A9141 /* PureUtilities.swift */; };
 		45C310581C555238002A9141 /* RegularExpression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C310101C555238002A9141 /* RegularExpression.swift */; };
@@ -191,6 +193,8 @@
 		456A88841C55F00800189B2C /* NSURL+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSURL+Extensions.swift"; sourceTree = "<group>"; };
 		456A88871C55F05600189B2C /* InternalUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InternalUtilities.swift; sourceTree = "<group>"; };
 		457D374E1B910DB100A67740 /* BitRange.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = BitRange.playground; sourceTree = "<group>"; };
+		457D6BD01D00AF220046EAB6 /* Publisher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Publisher.swift; sourceTree = "<group>"; };
+		457D6BD31D00B4140046EAB6 /* TestingPublisher.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = TestingPublisher.playground; sourceTree = "<group>"; };
 		458132071C01580900A113F7 /* ObservableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObservableTests.swift; sourceTree = "<group>"; };
 		45880D401BB43BCC00BB6344 /* README.markdown */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.markdown; sourceTree = "<group>"; };
 		45880D411BB43E9A00BB6344 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
@@ -233,7 +237,7 @@
 		45C310071C555238002A9141 /* Observable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		45C310081C555238002A9141 /* Path.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Path.swift; sourceTree = "<group>"; };
 		45C310091C555238002A9141 /* PriorityQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriorityQueue.swift; sourceTree = "<group>"; };
-		45C3100A1C555238002A9141 /* Publisher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Publisher.swift; sourceTree = "<group>"; };
+		45C3100A1C555238002A9141 /* TestingPublisher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestingPublisher.swift; sourceTree = "<group>"; };
 		45C3100B1C555238002A9141 /* PureUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PureUtilities.swift; sourceTree = "<group>"; };
 		45C310101C555238002A9141 /* RegularExpression.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegularExpression.swift; sourceTree = "<group>"; };
 		45C310111C555238002A9141 /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
@@ -309,6 +313,7 @@
 				45B6EABF1C45CAD100ED40D0 /* PriorityQueue.playground */,
 				45A976A61C59E67C0071D6C3 /* MapTable.playground */,
 				458D01B41CE27D400092A2E8 /* HexDump.playground */,
+				457D6BD31D00B4140046EAB6 /* TestingPublisher.playground */,
 			);
 			path = Playgrounds;
 			sourceTree = "<group>";
@@ -413,7 +418,8 @@
 			isa = PBXGroup;
 			children = (
 				45C310071C555238002A9141 /* Observable.swift */,
-				45C3100A1C555238002A9141 /* Publisher.swift */,
+				457D6BD01D00AF220046EAB6 /* Publisher.swift */,
+				45C3100A1C555238002A9141 /* TestingPublisher.swift */,
 			);
 			name = "Design Patterns";
 			sourceTree = "<group>";
@@ -673,7 +679,7 @@
 				45C310651C555238002A9141 /* Threading.swift in Sources */,
 				45C310211C555238002A9141 /* Bases.swift in Sources */,
 				45C310231C555238002A9141 /* BitRange.swift in Sources */,
-				45C3104F1C555238002A9141 /* Publisher.swift in Sources */,
+				45C3104F1C555238002A9141 /* TestingPublisher.swift in Sources */,
 				457A93151C59EE2D003137E4 /* NSObject+Extensions.swift in Sources */,
 				4535F4CC1CA70C3C0035C0EB /* Dispatch.swift in Sources */,
 				45C3103B1C555238002A9141 /* Heap.swift in Sources */,
@@ -686,6 +692,7 @@
 				45C3104B1C555238002A9141 /* Path.swift in Sources */,
 				45C310371C555238002A9141 /* Errors.swift in Sources */,
 				4541460E1CE65F8700B847E1 /* SimpleGraph.swift in Sources */,
+				457D6BD21D00AF220046EAB6 /* Publisher.swift in Sources */,
 				45C310451C555238002A9141 /* NSMapTable+Extensions.swift in Sources */,
 				45C310311C555238002A9141 /* DispatchData.swift in Sources */,
 				45C310611C555238002A9141 /* String+Foundation.swift in Sources */,
@@ -731,7 +738,7 @@
 				45C310641C555238002A9141 /* Threading.swift in Sources */,
 				45C310201C555238002A9141 /* Bases.swift in Sources */,
 				45C310221C555238002A9141 /* BitRange.swift in Sources */,
-				45C3104E1C555238002A9141 /* Publisher.swift in Sources */,
+				45C3104E1C555238002A9141 /* TestingPublisher.swift in Sources */,
 				457A93141C59EE2C003137E4 /* NSObject+Extensions.swift in Sources */,
 				4535F4CB1CA70C3C0035C0EB /* Dispatch.swift in Sources */,
 				45C3103A1C555238002A9141 /* Heap.swift in Sources */,
@@ -753,6 +760,7 @@
 				45C310501C555238002A9141 /* PureUtilities.swift in Sources */,
 				45C3103E1C555238002A9141 /* MutableBuffer.swift in Sources */,
 				45C310681C555238002A9141 /* Timestamp.swift in Sources */,
+				457D6BD11D00AF220046EAB6 /* Publisher.swift in Sources */,
 				45C3103C1C555238002A9141 /* Math.swift in Sources */,
 				45C310321C555238002A9141 /* Endianness.swift in Sources */,
 				45C310581C555238002A9141 /* RegularExpression.swift in Sources */,
