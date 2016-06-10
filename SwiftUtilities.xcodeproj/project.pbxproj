@@ -35,14 +35,6 @@
 		453C93301C83984C00A4F5E0 /* AssociatedObjectHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453C932E1C83984C00A4F5E0 /* AssociatedObjectHelper.swift */; };
 		453E47821B7C2D950070218B /* DataScannerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453E47811B7C2D950070218B /* DataScannerTest.swift */; };
 		453E47831B7C31E30070218B /* SwiftUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45E8EEA4199A8E080035C722 /* SwiftUtilities.framework */; };
-		454146091CE65F8700B847E1 /* Graph+DotFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454146051CE65F8700B847E1 /* Graph+DotFile.swift */; };
-		4541460A1CE65F8700B847E1 /* Graph+DotFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454146051CE65F8700B847E1 /* Graph+DotFile.swift */; };
-		4541460B1CE65F8700B847E1 /* GraphType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454146061CE65F8700B847E1 /* GraphType.swift */; };
-		4541460C1CE65F8700B847E1 /* GraphType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454146061CE65F8700B847E1 /* GraphType.swift */; };
-		4541460D1CE65F8700B847E1 /* SimpleGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454146071CE65F8700B847E1 /* SimpleGraph.swift */; };
-		4541460E1CE65F8700B847E1 /* SimpleGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454146071CE65F8700B847E1 /* SimpleGraph.swift */; };
-		4541460F1CE65F8700B847E1 /* TravellingSalesman.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454146081CE65F8700B847E1 /* TravellingSalesman.swift */; };
-		454146101CE65F8700B847E1 /* TravellingSalesman.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454146081CE65F8700B847E1 /* TravellingSalesman.swift */; };
 		454146121CE660DA00B847E1 /* Collections+Misc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454146111CE660DA00B847E1 /* Collections+Misc.swift */; };
 		454146131CE660DA00B847E1 /* Collections+Misc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454146111CE660DA00B847E1 /* Collections+Misc.swift */; };
 		455B239A1C55FA2400D19F7F /* PathTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455B23991C55FA2400D19F7F /* PathTests.swift */; };
@@ -183,10 +175,6 @@
 		453C932E1C83984C00A4F5E0 /* AssociatedObjectHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssociatedObjectHelper.swift; sourceTree = "<group>"; };
 		453D8D391C17577300CC5D8F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		453E47811B7C2D950070218B /* DataScannerTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataScannerTest.swift; sourceTree = "<group>"; };
-		454146051CE65F8700B847E1 /* Graph+DotFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Graph+DotFile.swift"; sourceTree = "<group>"; };
-		454146061CE65F8700B847E1 /* GraphType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphType.swift; sourceTree = "<group>"; };
-		454146071CE65F8700B847E1 /* SimpleGraph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleGraph.swift; sourceTree = "<group>"; };
-		454146081CE65F8700B847E1 /* TravellingSalesman.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TravellingSalesman.swift; sourceTree = "<group>"; };
 		454146111CE660DA00B847E1 /* Collections+Misc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Collections+Misc.swift"; sourceTree = "<group>"; };
 		45542EE31BEAA5F0000754E7 /* StructEncoding.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = StructEncoding.playground; sourceTree = "<group>"; };
 		455B23991C55FA2400D19F7F /* PathTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PathTests.swift; sourceTree = "<group>"; };
@@ -286,17 +274,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		454146041CE65F8700B847E1 /* Graph */ = {
-			isa = PBXGroup;
-			children = (
-				454146051CE65F8700B847E1 /* Graph+DotFile.swift */,
-				454146061CE65F8700B847E1 /* GraphType.swift */,
-				454146071CE65F8700B847E1 /* SimpleGraph.swift */,
-				454146081CE65F8700B847E1 /* TravellingSalesman.swift */,
-			);
-			path = Graph;
-			sourceTree = "<group>";
-		};
 		45B13E311AC076450035DEE9 /* Playgrounds */ = {
 			isa = PBXGroup;
 			children = (
@@ -333,7 +310,6 @@
 				45C30FFD1C555238002A9141 /* Errno.swift */,
 				45C30FFE1C555238002A9141 /* Errors.swift */,
 				45C310731C55533B002A9141 /* Foundation */,
-				454146041CE65F8700B847E1 /* Graph */,
 				45C310011C555238002A9141 /* Math.swift */,
 				45C310081C555238002A9141 /* Path.swift */,
 				45C310101C555238002A9141 /* RegularExpression.swift */,
@@ -674,7 +650,6 @@
 				45C310431C555238002A9141 /* NSDate+Extensions.swift in Sources */,
 				45C3106B1C555238002A9141 /* UnsafeBufferPointers.swift in Sources */,
 				45C3104D1C555238002A9141 /* PriorityQueue.swift in Sources */,
-				454146101CE65F8700B847E1 /* TravellingSalesman.swift in Sources */,
 				45C310391C555238002A9141 /* BlockValueTransformer.swift in Sources */,
 				45C310651C555238002A9141 /* Threading.swift in Sources */,
 				45C310211C555238002A9141 /* Bases.swift in Sources */,
@@ -691,7 +666,6 @@
 				452BF90C1C91F0D100E4086A /* Atomic.swift in Sources */,
 				45C3104B1C555238002A9141 /* Path.swift in Sources */,
 				45C310371C555238002A9141 /* Errors.swift in Sources */,
-				4541460E1CE65F8700B847E1 /* SimpleGraph.swift in Sources */,
 				457D6BD21D00AF220046EAB6 /* Publisher.swift in Sources */,
 				45C310451C555238002A9141 /* NSMapTable+Extensions.swift in Sources */,
 				45C310311C555238002A9141 /* DispatchData.swift in Sources */,
@@ -700,12 +674,10 @@
 				45C3106F1C555238002A9141 /* Walker.swift in Sources */,
 				45C310511C555238002A9141 /* PureUtilities.swift in Sources */,
 				45C3103F1C555238002A9141 /* MutableBuffer.swift in Sources */,
-				4541460C1CE65F8700B847E1 /* GraphType.swift in Sources */,
 				45C310691C555238002A9141 /* Timestamp.swift in Sources */,
 				45C3103D1C555238002A9141 /* Math.swift in Sources */,
 				45C310331C555238002A9141 /* Endianness.swift in Sources */,
 				45C310591C555238002A9141 /* RegularExpression.swift in Sources */,
-				4541460A1CE65F8700B847E1 /* Graph+DotFile.swift in Sources */,
 				45C310351C555238002A9141 /* Errno.swift in Sources */,
 				45C3105B1C555238002A9141 /* Result.swift in Sources */,
 				45C3106D1C555238002A9141 /* Utilities.swift in Sources */,
@@ -728,7 +700,6 @@
 			files = (
 				45C2A56D1C8641C300488C45 /* Version.swift in Sources */,
 				45C310461C555238002A9141 /* NSRange+Extensions.swift in Sources */,
-				454146091CE65F8700B847E1 /* Graph+DotFile.swift in Sources */,
 				45C2A5761C86428B00488C45 /* Comparison.swift in Sources */,
 				45C3105E1C555238002A9141 /* String+Extensions.swift in Sources */,
 				45C310421C555238002A9141 /* NSDate+Extensions.swift in Sources */,
@@ -754,7 +725,6 @@
 				45C310441C555238002A9141 /* NSMapTable+Extensions.swift in Sources */,
 				45C310301C555238002A9141 /* DispatchData.swift in Sources */,
 				45C310601C555238002A9141 /* String+Foundation.swift in Sources */,
-				4541460F1CE65F8700B847E1 /* TravellingSalesman.swift in Sources */,
 				456A88881C55F05600189B2C /* InternalUtilities.swift in Sources */,
 				45C3106E1C555238002A9141 /* Walker.swift in Sources */,
 				45C310501C555238002A9141 /* PureUtilities.swift in Sources */,
@@ -771,9 +741,7 @@
 				45C3101E1C555238002A9141 /* AStarSearch.swift in Sources */,
 				456A88851C55F00800189B2C /* NSURL+Extensions.swift in Sources */,
 				454146121CE660DA00B847E1 /* Collections+Misc.swift in Sources */,
-				4541460D1CE65F8700B847E1 /* SimpleGraph.swift in Sources */,
 				45C3102C1C555238002A9141 /* CRC16.swift in Sources */,
-				4541460B1CE65F8700B847E1 /* GraphType.swift in Sources */,
 				45C3102A1C555238002A9141 /* BufferType.swift in Sources */,
 				45C3105C1C555238002A9141 /* Search.swift in Sources */,
 				4525C3961CB7654900B5F529 /* Benchmark.swift in Sources */,
