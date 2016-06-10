@@ -31,7 +31,7 @@ import Foundation
 
 public func benchmark(closure: Void -> Void) -> NSTimeInterval {
     let start = mach_absolute_time()
-    let result = closure()
+    closure()
     let end = mach_absolute_time()
 
     var info = mach_timebase_info_data_t()
