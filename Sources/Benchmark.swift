@@ -27,6 +27,8 @@
 //  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 //  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+import Foundation
+
 public func benchmark(closure: Void -> Void) -> NSTimeInterval {
     let start = mach_absolute_time()
     let result = closure()
