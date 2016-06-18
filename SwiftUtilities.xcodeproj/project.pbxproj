@@ -37,6 +37,7 @@
 		453E47831B7C31E30070218B /* SwiftUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45E8EEA4199A8E080035C722 /* SwiftUtilities.framework */; };
 		454146121CE660DA00B847E1 /* Collections+Misc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454146111CE660DA00B847E1 /* Collections+Misc.swift */; };
 		454146131CE660DA00B847E1 /* Collections+Misc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454146111CE660DA00B847E1 /* Collections+Misc.swift */; };
+		454820EA1D15CF23003AB1D6 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 454820E91D15CF23003AB1D6 /* Info.plist */; };
 		455B239A1C55FA2400D19F7F /* PathTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455B23991C55FA2400D19F7F /* PathTests.swift */; };
 		456A88851C55F00800189B2C /* NSURL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456A88841C55F00800189B2C /* NSURL+Extensions.swift */; };
 		456A88861C55F00800189B2C /* NSURL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456A88841C55F00800189B2C /* NSURL+Extensions.swift */; };
@@ -176,6 +177,7 @@
 		453D8D391C17577300CC5D8F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		453E47811B7C2D950070218B /* DataScannerTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataScannerTest.swift; sourceTree = "<group>"; };
 		454146111CE660DA00B847E1 /* Collections+Misc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Collections+Misc.swift"; sourceTree = "<group>"; };
+		454820E91D15CF23003AB1D6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		45542EE31BEAA5F0000754E7 /* StructEncoding.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = StructEncoding.playground; sourceTree = "<group>"; };
 		455B23991C55FA2400D19F7F /* PathTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PathTests.swift; sourceTree = "<group>"; };
 		456A88841C55F00800189B2C /* NSURL+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSURL+Extensions.swift"; sourceTree = "<group>"; };
@@ -242,7 +244,6 @@
 		45E8EEA4199A8E080035C722 /* SwiftUtilities.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftUtilities.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		45E8EEC6199A8EA50035C722 /* SwiftUtilities.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftUtilities.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		45E8EEE2199A90720035C722 /* SwiftUtilities_OSX_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftUtilities_OSX_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		45E8EEE5199A90720035C722 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.info; path = Info.plist; sourceTree = "<group>"; };
 		45EA099E1B44C62B00505D14 /* DispatchDataTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DispatchDataTest.swift; sourceTree = "<group>"; };
 		45F3EDAC1B3E50E6007F55E3 /* Buffer.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Buffer.playground; sourceTree = "<group>"; };
 		45FDD2D01B423CD400BF207C /* Bits.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Bits.playground; sourceTree = "<group>"; };
@@ -438,18 +439,11 @@
 				455B23991C55FA2400D19F7F /* PathTests.swift */,
 				45C2A57A1C86430D00488C45 /* ComparisonTests.swift */,
 				45C2A57C1C86438900488C45 /* VersionTests.swift */,
-				45E8EEE4199A90720035C722 /* Supporting Files */,
 				459BADE91C86959F0014F696 /* ResultTests.swift */,
+				454820E91D15CF23003AB1D6 /* Info.plist */,
 			);
-			path = "Unit Tests";
-			sourceTree = "<group>";
-		};
-		45E8EEE4199A90720035C722 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				45E8EEE5199A90720035C722 /* Info.plist */,
-			);
-			path = "Supporting Files";
+			name = "Unit Tests";
+			path = Tests;
 			sourceTree = "<group>";
 		};
 		683243C9FC6F570CB43FF73E /* Supporting Files */ = {
@@ -601,6 +595,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				454820EA1D15CF23003AB1D6 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -979,7 +974,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "Unit Tests/Supporting Files/Info.plist";
+				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "schwa.io.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -994,7 +989,7 @@
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "Unit Tests/Supporting Files/Info.plist";
+				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "schwa.io.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
