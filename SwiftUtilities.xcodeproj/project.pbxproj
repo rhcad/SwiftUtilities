@@ -296,7 +296,7 @@
 			path = Playgrounds;
 			sourceTree = "<group>";
 		};
-		45C30FF01C555238002A9141 /* Sources */ = {
+		45C30FF01C555238002A9141 /* Source */ = {
 			isa = PBXGroup;
 			children = (
 				453C932E1C83984C00A4F5E0 /* AssociatedObjectHelper.swift */,
@@ -325,7 +325,7 @@
 				45C310181C555238002A9141 /* Timestamp.swift */,
 				45C2A5751C86428B00488C45 /* Comparison.swift */,
 			);
-			path = Sources;
+			path = Source;
 			sourceTree = "<group>";
 		};
 		45C310701C555268002A9141 /* Collections */ = {
@@ -407,7 +407,7 @@
 				45880D401BB43BCC00BB6344 /* README.markdown */,
 				45880D411BB43E9A00BB6344 /* LICENSE */,
 				45B13E311AC076450035DEE9 /* Playgrounds */,
-				45C30FF01C555238002A9141 /* Sources */,
+				45C30FF01C555238002A9141 /* Source */,
 				683243C9FC6F570CB43FF73E /* Supporting Files */,
 				45E8EEE3199A90720035C722 /* Unit Tests */,
 				45E8EEA5199A8E080035C722 /* Products */,
