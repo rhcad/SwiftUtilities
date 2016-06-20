@@ -38,7 +38,7 @@ public extension NSURL {
 }
 
 public func + (lhs: NSURL, rhs: String) -> NSURL {
-    return lhs.URLByAppendingPathComponent(rhs)
+    return lhs.URLByAppendingPathComponent(rhs)!
 }
 
 public func += (inout left: NSURL, right: String) {

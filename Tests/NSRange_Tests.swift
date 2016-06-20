@@ -39,8 +39,8 @@ class NSRange_Tests: XCTestCase {
 //        XCTAssertEqual(NSRange(5..<15), NSMakeRange(5, 10))
 //        XCTAssertEqual(NSRange(location: 5, length: 10), NSMakeRange(5, 10))
 
-        XCTAssertEqual(NSRange(range: 1...10).endIndex, Range <Int> (1...10).endIndex)
-        XCTAssertEqual(NSRange(range: 1..<10).endIndex, Range <Int> (1..<10).endIndex)
+        XCTAssertEqual(NSRange(range: 1...10).endIndex, Range<Int> (1...10).endIndex)
+        XCTAssertEqual(NSRange(range: 1..<10).endIndex, Range<Int> (1..<10).endIndex)
 
         XCTAssertTrue(NSRange(location: 1, length: 0).isEmpty)
         XCTAssertFalse(NSRange(location: 0, length: 1).isEmpty)
