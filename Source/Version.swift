@@ -144,9 +144,13 @@ private extension String {
 private enum Label {
     case string(String)
     case numeric(Int)
+    case empty
 
     init(string: String) {
-        if string.isNumeric {
+        if string.isEmpty {
+            self = .empty
+        }
+        else if string.isNumeric {
             self = .numeric(Int(string)!)
         }
         else {
@@ -175,6 +179,10 @@ private func < (lhs: Label, rhs: Label) -> Bool {
         return lhs < rhs
     case (.numeric(let lhs), .numeric(let rhs)):
         return lhs < rhs
+    case (.empty, .numeric):
+        return true
+    case (.empty, .string):
+        return true
     default:
         return false
     }
