@@ -8,7 +8,7 @@
 
 import Foundation
 
-public func hexdump <Target : OutputStreamType>(buffer: UnsafeBufferPointer <Void>, width: Int = 16, zeroBased: Bool = false, separator: String = "\n", terminator: String = "", inout stream: Target) {
+public func hexdump <Target: OutputStreamType>(buffer: UnsafeBufferPointer <Void>, width: Int = 16, zeroBased: Bool = false, separator: String = "\n", terminator: String = "", inout stream: Target) {
 
     let buffer = UnsafeBufferPointer <UInt8> (start: UnsafePointer <UInt8> (buffer.baseAddress), count: buffer.count)
 

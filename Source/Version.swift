@@ -142,7 +142,7 @@ private extension String {
 private enum Label {
     case string(String)
     case numeric(Int)
-    
+
     init(string: String) {
         if string.isNumeric {
             self = .numeric(Int(string)!)

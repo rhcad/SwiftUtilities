@@ -251,4 +251,3 @@ private enum ValueChangeCallback <T> {
     case NewValue(T -> Void)
     case NewAndOldValue((T, T) -> Void)
 }
-

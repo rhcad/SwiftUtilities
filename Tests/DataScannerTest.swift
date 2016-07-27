@@ -114,5 +114,3 @@ extension UnsafeBufferPointer {
         return String(data: data, encoding: NSUTF8StringEncoding)!
     }
 }
-
-
