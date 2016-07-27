@@ -131,6 +131,9 @@ public extension Version {
 
 private extension String {
     var isNumeric: Bool {
+        if isEmpty {
+            return false
+        }
         return unicodeScalars.reduce(true) {
             accumulator, value in
             return accumulator && ("0" ... "9").contains(value)

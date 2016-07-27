@@ -19,3 +19,9 @@ do {
     let b = try! Version("1.0-X100")
     a > b
 }
+
+do {
+    let a = try! Version("0")
+    let b = try! Version("1.0-1")
+    a > b
+}
