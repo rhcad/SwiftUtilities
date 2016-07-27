@@ -131,10 +131,9 @@ public extension Version {
 
 private extension String {
     var isNumeric: Bool {
-        let digits = Set("012345689".unicodeScalars)
         return unicodeScalars.reduce(true) {
             accumulator, value in
-            return accumulator && digits.contains(value)
+            return accumulator && ("0" ... "9").contains(value)
         }
     }
 }
