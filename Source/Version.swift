@@ -139,17 +139,6 @@ private extension String {
     }
 }
 
-extension Int {
-    init?(string: String) {
-        if string.isNumeric == false {
-            return nil
-        }
-        else {
-            self = (string as NSString).integerValue
-        }
-    }
-}
-
 private enum Label {
     case string(String)
     case numeric(Int)
