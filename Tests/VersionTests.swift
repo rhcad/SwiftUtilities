@@ -35,9 +35,9 @@ class VersionTests: XCTestCase {
         let version2 = try? Version("1.2.3-hello.world")
         XCTAssertEqual(version2!.labels[0], "hello")
         XCTAssertEqual(version2!.labels[1], "world")
-
+        
     }
-
+    
     func testString() {
         let versions = [
             (try! Version("1"), Version(major: 1, minor: 0, patch: 0)),
@@ -59,4 +59,13 @@ class VersionTests: XCTestCase {
         XCTAssertLessThan(try! Version("1.0.2"), try! Version("1.0.3"))
     }
 
+    func testLabelComparisons() {
+        XCTAssertEqual(try! Version("1.0-a"), try! Version("1.0-a"))
+        XCTAssertEqual(try! Version("1.0-10"), try! Version("1.0-10"))
+        XCTAssertLessThan(try! Version("1.0-1"), try! Version("1.0-10"))
+        XCTAssertLessThan(try! Version("1.0-10"), try! Version("1.0-100"))
+        XCTAssertLessThan(try! Version("1.0-13"), try! Version("1.0-100"))
+    }
+    
+    
 }

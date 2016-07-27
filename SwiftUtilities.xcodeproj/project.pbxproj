@@ -240,6 +240,7 @@
 		45C310191C555238002A9141 /* UnsafeBufferPointers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnsafeBufferPointers.swift; sourceTree = "<group>"; };
 		45C3101A1C555238002A9141 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		45C3101B1C555238002A9141 /* Walker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Walker.swift; sourceTree = "<group>"; };
+		45D1CDBE1D494875005BE75C /* Versions.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Versions.playground; sourceTree = "<group>"; };
 		45D52E6E1BE036E70020F6E7 /* HeapTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeapTests.swift; sourceTree = "<group>"; };
 		45E8EEA4199A8E080035C722 /* SwiftUtilities.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftUtilities.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		45E8EEC6199A8EA50035C722 /* SwiftUtilities.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftUtilities.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -292,6 +293,7 @@
 				45A976A61C59E67C0071D6C3 /* MapTable.playground */,
 				458D01B41CE27D400092A2E8 /* HexDump.playground */,
 				457D6BD31D00B4140046EAB6 /* TestingPublisher.playground */,
+				45D1CDBE1D494875005BE75C /* Versions.playground */,
 			);
 			path = Playgrounds;
 			sourceTree = "<group>";
