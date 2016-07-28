@@ -32,7 +32,7 @@
 import XCTest
 import SwiftUtilities
 
-class BitRange_Tests: XCTestCase {
+class BitRangeTests: XCTestCase {
 
     func testScalarBitRange() {
         XCTAssertEqual(bitRange(UInt8(0b00011011), start: 0, length: 2, flipped: false), 0b11)

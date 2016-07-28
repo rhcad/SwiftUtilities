@@ -32,7 +32,7 @@
 import XCTest
 import SwiftUtilities
 
-class NSRange_Tests: XCTestCase {
+class NSRangeTests: XCTestCase {
 
     func testRange() {
 

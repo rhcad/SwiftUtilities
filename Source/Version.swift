@@ -103,19 +103,19 @@ public extension Version {
                 if result == false {
                     throw Error.InvalidFormatString
                 }
-                if scanner.scanString("-", intoString: nil) {
-                    let set = NSCharacterSet.alphanumericCharacterSet() + NSCharacterSet(charactersInString: "-")
-                    while true {
-                        var label: NSString? = nil
-                        result = scanner.scanCharactersFromSet(set, intoString: &label)
-                        if result == false {
-                            throw Error.InvalidFormatString
-                        }
-                        labels.append(label as! String)
-                        result = scanner.scanString(".", intoString: nil)
-                        if result == false {
-                            break
-                        }
+            }
+            if scanner.scanString("-", intoString: nil) {
+                let set = NSCharacterSet.alphanumericCharacterSet() + NSCharacterSet(charactersInString: "-")
+                while true {
+                    var label: NSString? = nil
+                    result = scanner.scanCharactersFromSet(set, intoString: &label)
+                    if result == false {
+                        throw Error.InvalidFormatString
+                    }
+                    labels.append(label as! String)
+                    result = scanner.scanString(".", intoString: nil)
+                    if result == false {
+                        break
                     }
                 }
             }
@@ -129,6 +129,66 @@ public extension Version {
     }
 }
 
+private extension String {
+    var isNumeric: Bool {
+        if isEmpty {
+            return false
+        }
+        return unicodeScalars.reduce(true) {
+            accumulator, value in
+            return accumulator && ("0" ... "9").contains(value)
+        }
+    }
+}
+
+private enum Label {
+    case string(String)
+    case numeric(Int)
+    case empty
+
+    init(string: String) {
+        if string.isEmpty {
+            self = .empty
+        }
+        else if string.isNumeric {
+            self = .numeric(Int(string)!)
+        }
+        else {
+            self = .string(string)
+        }
+    }
+}
+
+extension Label: Comparable {
+}
+
+private func == (lhs: Label, rhs: Label) -> Bool {
+    switch (lhs, rhs) {
+    case (.string(let lhs), .string(let rhs)):
+        return lhs == rhs
+    case (.numeric(let lhs), .numeric(let rhs)):
+        return lhs == rhs
+    default:
+        return false
+    }
+}
+
+private func < (lhs: Label, rhs: Label) -> Bool {
+    switch (lhs, rhs) {
+    case (.string(let lhs), .string(let rhs)):
+        return lhs < rhs
+    case (.numeric(let lhs), .numeric(let rhs)):
+        return lhs < rhs
+    case (.empty, .numeric):
+        return true
+    case (.empty, .string):
+        return true
+    default:
+        return false
+    }
+}
+
+
 func compare(lhs: Version, _ rhs: Version) -> Comparison {
     var comparisons = [
         compare(lhs.major, rhs.major),
@@ -138,7 +198,7 @@ func compare(lhs: Version, _ rhs: Version) -> Comparison {
     let count = max(lhs.labels.count, rhs.labels.count)
     let lhsLabels = lhs.labels + Repeat(count: count - lhs.labels.count, repeatedValue: "")
     let rhsLabels = rhs.labels + Repeat(count: count - rhs.labels.count, repeatedValue: "")
-    comparisons += zip(lhsLabels, rhsLabels).map(compare)
+    comparisons += zip(lhsLabels.map(Label.init), rhsLabels.map(Label.init)).map(compare)
     for comparison in comparisons {
         if comparison != .Equal {
             return comparison

@@ -61,7 +61,7 @@ public extension Comparison {
         return .Equal
     }
 
-    init<Sequence1 : SequenceType , Sequence2 : SequenceType where Sequence1.Generator.Element: Comparable> (sequence1: Sequence1, _ sequence2: Sequence2) {
+    init<Sequence1: SequenceType, Sequence2: SequenceType where Sequence1.Generator.Element: Comparable> (sequence1: Sequence1, _ sequence2: Sequence2) {
         self = .Equal
     }
 

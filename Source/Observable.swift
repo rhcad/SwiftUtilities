@@ -81,14 +81,14 @@ public class ObservableProperty <Element: Equatable>: ObservableType {
     public var value: Element {
         get {
             return lock.with() {
-                return _value
+                return internalValue
             }
         }
         set {
             let oldValue = lock.with() {
                 () -> Element in
-                let oldValue = _value
-                _value = newValue
+                let oldValue = internalValue
+                internalValue = newValue
                 return oldValue
             }
             if oldValue != newValue {
@@ -97,10 +97,10 @@ public class ObservableProperty <Element: Equatable>: ObservableType {
         }
     }
 
-    public var _value: Element
+    internal var internalValue: Element
 
     public init(_ value: Element) {
-        _value = value
+        internalValue = value
     }
 
     public func addObserver(observer: AnyObject, closure: () -> Void) {
@@ -165,14 +165,14 @@ public class ObservableOptionalProperty <Element: Equatable>: ObservableType, Ni
     public var value: Element? {
         get {
             return lock.with() {
-                return _value
+                return internalValue
             }
         }
         set {
             let oldValue = lock.with() {
                 () -> Element? in
-                let oldValue = _value
-                _value = newValue
+                let oldValue = internalValue
+                internalValue = newValue
                 return oldValue
             }
             if oldValue != newValue {
@@ -181,10 +181,10 @@ public class ObservableOptionalProperty <Element: Equatable>: ObservableType, Ni
         }
     }
 
-    public var _value: Element?
+    internal var internalValue: Element?
 
     public init(_ value: Element?) {
-        _value = value
+        internalValue = value
     }
 
     public func addObserver(observer: AnyObject, closure: () -> Void) {
@@ -251,4 +251,3 @@ private enum ValueChangeCallback <T> {
     case NewValue(T -> Void)
     case NewAndOldValue((T, T) -> Void)
 }
-

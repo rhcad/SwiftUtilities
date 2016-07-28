@@ -32,7 +32,7 @@
 import XCTest
 import SwiftUtilities
 
-class NumberBases_Tests: XCTestCase {
+class NumberBasesTests: XCTestCase {
 
     func testFromString() {
         XCTAssertEqual(try! UIntMax(decode: "0b1111"), 0b1111)

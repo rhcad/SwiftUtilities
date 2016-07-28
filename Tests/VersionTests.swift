@@ -59,4 +59,18 @@ class VersionTests: XCTestCase {
         XCTAssertLessThan(try! Version("1.0.2"), try! Version("1.0.3"))
     }
 
+    func testLabelComparisons() {
+        XCTAssertEqual(try! Version("1.0-a"), try! Version("1.0-a"))
+        XCTAssertEqual(try! Version("1.0-10"), try! Version("1.0-10"))
+        XCTAssertLessThan(try! Version("1.0-1"), try! Version("1.0-10"))
+        XCTAssertLessThan(try! Version("1.0-10"), try! Version("1.0-100"))
+        XCTAssertLessThan(try! Version("1.0-13"), try! Version("1.0-100"))
+
+        XCTAssertLessThan(try! Version("1.0"), try! Version("1.0-1"))
+    }
+
+    func testLabelDegenerateCases() {
+        XCTAssertNil(try? Version(""))
+        XCTAssertNil(try? Version("weird"))
+    }
 }

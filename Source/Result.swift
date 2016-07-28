@@ -62,4 +62,3 @@ public func ?? <T> (lhs: Result<T>, @autoclosure rhs: () -> T) -> T {
         return rhs()
     }
 }
-
