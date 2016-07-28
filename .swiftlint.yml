@@ -5,6 +5,7 @@ disabled_rules: # rule identifiers to exclude from running
 - statement_position
 - todo
 - valid_docs
+- conditional_binding_cascade
 #enabled_rules: # some rules are only opt-in
 #  - empty_count
 #  - missing_docs
@@ -15,9 +16,21 @@ disabled_rules: # rule identifiers to exclude from running
 excluded: # paths to ignore during linting. Takes precedence over `included`.
 - Carthage
 - Pods
-- Unit Tests
+- Tests
 - Playgrounds
 force_cast:
   severity: warning
 force_try:
   severity: warning
+variable_name:
+  min_length: # only min_length
+    warning: 4 # only error
+  excluded: # excluded via string array
+    - lhs
+    - rhs
+    - f
+    - crc
+    - url
+    - hex
+    - i
+    - key
