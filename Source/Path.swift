@@ -84,14 +84,22 @@ public extension Path {
         return (path as NSString).pathExtension
     }
 
-    var stem: String {
-        return ((path as NSString).lastPathComponent as NSString).stringByDeletingPathExtension
+    var pathExtensions: [String] {
+        return Array(name.componentsSeparatedByString(".").suffixFrom(1))
     }
 
+
+    /// The "stem" of the path is the filename without path extensions
+    var stem: String {
+        return (( path as NSString).lastPathComponent as NSString).stringByDeletingPathExtension
+    }
+
+    /// Replace the file name portion of a path with name
     func withName(name: String) -> Path {
         return parent! + name
     }
 
+    /// Replace the path extension portion of a path. Note path extensions in iOS seem to refer just to last path extension e.g. "z" of "foo.x.y.z".
     func withPathExtension(pathExtension: String) -> Path {
         if pathExtension.isEmpty {
             return self
@@ -99,10 +107,15 @@ public extension Path {
         return withName(stem + "." + pathExtension)
     }
 
+    func withPathExtensions(pathExtensions: [String]) -> Path {
+        let pathExtension = pathExtensions.joinWithSeparator(".")
+        return withPathExtension(pathExtension)
+    }
+
+    /// Replace the stem portion of a path: e.g. calling withStem("bar") on /tmp/foo.txt returns /tmp/bar.txt
     func withStem(stem: String) -> Path {
         return (parent! + stem).withPathExtension(pathExtension)
     }
-
 
     func pathByExpandingTilde() -> Path {
         return Path((path as NSString).stringByExpandingTildeInPath)
@@ -111,8 +124,6 @@ public extension Path {
     func pathByDeletingLastComponent() -> Path {
         return Path((path as NSString).stringByDeletingLastPathComponent)
     }
-
-
 
     var normalizedComponents: [String] {
         var components = self.components
@@ -142,7 +153,6 @@ public extension Path {
 
         return Array(lhs[(lhs.count - rhs.count)..<lhs.count]) == rhs
     }
-
 
 }
 
@@ -335,20 +345,26 @@ public extension Path {
 // MARK: File Rotation
 
 public extension Path {
-    func rotate() throws {
-        if exists == false {
+    func rotate(limit: Int? = nil) throws {
+        guard exists else {
             return
         }
-        var index = 1
-        var newPath = self
-        while true {
-            if newPath.exists == false {
-                try move(newPath)
+        guard let parent = parent else {
+            throw Error.Generic("No parent")
+        }
+        let destination: Path
+        if let index = Int(pathExtension) {
+            destination = parent + (stem + ".\(index + 1)")
+            if let limit = limit where index >= limit && exists {
+                try remove()
                 return
             }
-            newPath = withStem(stem + " \(index)")
-            index += 1
         }
+        else {
+            destination = parent + (name + ".1")
+        }
+        try destination.rotate()
+        try move(destination)
     }
 }
 
