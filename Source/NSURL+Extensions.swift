@@ -38,7 +38,11 @@ public extension NSURL {
 }
 
 public func + (lhs: NSURL, rhs: String) -> NSURL {
+#if swift(>=2.3)
+    return lhs.URLByAppendingPathComponent(rhs)!
+#else
     return lhs.URLByAppendingPathComponent(rhs)
+#endif
 }
 
 public func += (inout left: NSURL, right: String) {
