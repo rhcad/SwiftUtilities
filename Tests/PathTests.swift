@@ -42,14 +42,4 @@ class PathTests: XCTestCase {
 
 }
 
-extension Path {
 
-    func createFile() throws {
-
-        if NSFileManager.defaultManager().createFileAtPath(path, contents: nil, attributes: nil) == false {
-            throw Error.Generic("Could not create file")
-        }
-
-    }
-
-}

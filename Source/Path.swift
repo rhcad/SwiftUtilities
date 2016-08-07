@@ -163,6 +163,10 @@ public func + (lhs: Path, rhs: String) -> Path {
     return Path(URL)
 }
 
+public func / (lhs: Path, rhs: String) -> Path {
+    let URL = (lhs.path as NSString).stringByAppendingPathComponent(rhs)
+    return Path(URL)
+}
 
 // MARK: Working Directory
 
@@ -295,6 +299,43 @@ public extension Path {
             }
         }
     }
+
+    var children: [Path]? {
+        guard let enumerator = NSFileManager().enumeratorAtURL(url, includingPropertiesForKeys: nil, options: NSDirectoryEnumerationOptions.SkipsSubdirectoryDescendants, errorHandler: nil) else {
+            return nil
+        }
+
+        do {
+            let children: [Path] = try enumerator.map() {
+                url -> Path in
+
+                guard let url = url as? NSURL else {
+                    throw Error.Generic("HMM")
+                }
+                return try Path(url)
+            }
+            return children
+        }
+        catch {
+            return nil
+        }
+    }
+
+    func walk(closure: (Path) -> Void) throws {
+        guard let enumerator = NSFileManager().enumeratorAtURL(url, includingPropertiesForKeys: nil, options: NSDirectoryEnumerationOptions(), errorHandler: nil) else {
+            throw Error.Generic("Could not create enumerator")
+        }
+
+        for url in enumerator {
+            guard let url = url as? NSURL else {
+                throw Error.Generic("HMM")
+            }
+            let path = try Path(url)
+            closure(path)
+        }
+    }
+
+
 }
 
 // MARK: Creating, moving, removing etc.
@@ -345,7 +386,7 @@ public extension Path {
 // MARK: File Rotation
 
 public extension Path {
-    func rotate(limit: Int? = nil) throws {
+    func rotate(limit limit: Int? = nil) throws {
         guard exists else {
             return
         }
@@ -355,15 +396,17 @@ public extension Path {
         let destination: Path
         if let index = Int(pathExtension) {
             destination = parent + (stem + ".\(index + 1)")
-            if let limit = limit where index >= limit && exists {
-                try remove()
-                return
+            if let limit = limit {
+                if index >= limit && exists {
+                    try remove()
+                    return
+                }
             }
         }
         else {
             destination = parent + (name + ".1")
         }
-        try destination.rotate()
+        try destination.rotate(limit: limit)
         try move(destination)
     }
 }
@@ -375,15 +418,27 @@ public extension Path {
         return Path(NSTemporaryDirectory())
     }
 
-    static func withTemporaryDirectory <R> (@noescape closure: Path throws -> R) throws -> R {
+    static func makeTemporaryDirectory(temporaryDirectory: Path? = nil) throws -> Path {
 
-        var template = String(temporaryDirectory + "XXXXXXXX").cStringUsingEncoding(NSUTF8StringEncoding)!
-
-        let foo = template.withUnsafeMutableBufferPointer() {
-            (inout buffer: UnsafeMutableBufferPointer <Int8>) -> UnsafeMutablePointer <Int8> in
-            return mkdtemp(buffer.baseAddress)
+        let temporaryDirectory = (temporaryDirectory ?? self.temporaryDirectory)
+        if temporaryDirectory.exists == false {
+            try temporaryDirectory.createDirectory(withIntermediateDirectories: true)
         }
-        let path = Path(String(CString: foo, encoding: NSUTF8StringEncoding)!)
+
+        let templateDirectory = temporaryDirectory + "XXXXXXXX"
+        var template = templateDirectory.path.cStringUsingEncoding(NSUTF8StringEncoding)!
+        return template.withUnsafeMutableBufferPointer() {
+            (inout buffer: UnsafeMutableBufferPointer <Int8>) -> Path in
+            let pointer = mkdtemp(buffer.baseAddress)
+            let pathString = String(CString: pointer, encoding: NSUTF8StringEncoding)!
+            let path = Path(pathString)
+            return path
+        }
+    }
+
+    static func withTemporaryDirectory <R> (temporaryDirectory: Path? = nil, @noescape closure: Path throws -> R) throws -> R {
+
+        let path = try makeTemporaryDirectory(temporaryDirectory)
         defer {
             tryElseFatalError() {
                 try path.remove()
@@ -396,17 +451,11 @@ public extension Path {
 // MARK: Well-Known/Special Directories
 
 public extension Path {
-    static var applicationSupportDirectory: Path {
-        return tryElseFatalError() {
-            let url = try NSFileManager().URLForDirectory(.ApplicationSupportDirectory, inDomain: .UserDomainMask, appropriateForURL: nil, create: true)
-            return try Path(url)
-        }
-    }
 
     static var applicationSpecificSupportDirectory: Path {
         let bundle = NSBundle.mainBundle()
         let bundleIdentifier = bundle.bundleIdentifier!
-        let path = applicationSupportDirectory + bundleIdentifier
+        let path = applicationSupportDirectory! + bundleIdentifier
         if path.exists == false {
             tryElseFatalError() {
                 try path.createDirectory(withIntermediateDirectories: true)
@@ -423,4 +472,54 @@ public extension Path {
 
         return try Path(url)
     }
+    
+    static var libraryDirectory: Path? {
+        return try? Path.specialDirectory(.LibraryDirectory)
+    }
+
+    static var applicationSupportDirectory: Path? {
+        return try? Path.specialDirectory(.ApplicationSupportDirectory)
+    }
+
+    static var documentDirectory: Path? {
+        return try? Path.specialDirectory(.DocumentDirectory)
+    }
+}
+
+
+public extension Path {
+
+    func createFile() throws {
+        if NSFileManager.defaultManager().createFileAtPath(path, contents: nil, attributes: nil) == false {
+            throw Error.Generic("Could not create file")
+        }
+
+    }
+
+    func read() throws -> String {
+
+        let data = try NSData(contentsOfURL: url, options: NSDataReadingOptions())
+
+        var string: NSString?
+        var usedLossyConversion = ObjCBool(false)
+
+        let encodingOptions = [
+            NSStringEncodingDetectionSuggestedEncodingsKey: [NSUTF8StringEncoding],
+            NSStringEncodingDetectionUseOnlySuggestedEncodingsKey: false,
+            NSStringEncodingDetectionAllowLossyKey: true,
+        ]
+
+        let encoding = NSString.stringEncodingForData(data, encodingOptions: encodingOptions, convertedString: &string, usedLossyConversion: &usedLossyConversion)
+
+        if let string = string as? String where encoding != 0 {
+            return string
+        }
+
+        throw Error.Generic("Could not decode data.")
+    }
+
+    func write(string: String, encoding: UInt = NSUTF8StringEncoding) throws {
+        try string.writeToFile(String(self), atomically: true, encoding: encoding)
+    }
+
 }

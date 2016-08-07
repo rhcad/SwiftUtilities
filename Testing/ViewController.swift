@@ -15,16 +15,29 @@ class ViewController: NSViewController {
     @IBAction func test(sender: AnyObject) {
         super.viewDidLoad()
 
-        let path = Path("/tmp/test.txt")
-        try! path.rotate()
+        let parent = Path("/tmp/testing")
+
+
+        let path = parent / "test.txt"
+        print(path)
+        try! path.rotate(limit: 5)
         try! path.write("Hello world")
     }
 
 }
 
+extension Path: StringLiteralConvertible {
 
-extension Path {
-    func write(string: String, encoding: UInt = NSUTF8StringEncoding) throws {
-        try string.writeToFile(String(self), atomically: true, encoding: encoding)
+    public init(stringLiteral value: String) {
+        self.init(value)
     }
+
+    public init(extendedGraphemeClusterLiteral value: String) {
+        self.init(value)
+    }
+
+    public init(unicodeScalarLiteral value: String) {
+        self.init(value)
+    }
+
 }
