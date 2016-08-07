@@ -12,17 +12,63 @@ import SwiftUtilities
 
 class PathTests: XCTestCase {
 
-//    override func setUp() {
-//        super.setUp()
-//    }
+    func testInit() {
+        do {
+            let path = Path("/tmp")
+            XCTAssertEqual(String(path), "/tmp")
+        }
+        do {
+            let path = try! Path(NSURL(fileURLWithPath: "/tmp"))
+            XCTAssertEqual(path.path, "/tmp")
+        }
+        do {
+            let path = try? Path(NSURL(string: "http://google.com")!)
+            XCTAssertNil(path)
+        }
+        do {
+            let path = try! Path(NSURL(string: "/tmp")!)
+            XCTAssertEqual(path.path, "/tmp")
+        }
+        do {
+            let path = Path("~")
+            XCTAssertEqual(path.normalized.path, ("~" as NSString).stringByExpandingTildeInPath)
+        }
+        do {
+            let path = Path("/tmp")
+            XCTAssertEqual(path.components.count, 2)
+            XCTAssertEqual(path.components[0], "/")
+            XCTAssertEqual(path.components[1], "tmp")
+            XCTAssertEqual(path.parent!, Path("/"))
+        }
+        do {
+            XCTAssertTrue(Path("/") < Path("/tmp"))
+        }
+        do {
+            let path = Path("foo.bar.zip")
+            XCTAssertEqual(path.pathExtensions.count, 2)
+            XCTAssertEqual(path.pathExtensions[0], "bar")
+            XCTAssertEqual(path.pathExtensions[1], "zip")
+        }
+//        do {
+//            let path = Path("/tmp/foo.bar.zip")
+//            XCTAssertEqual(path.stem, "foo")
+//        }
+        do {
+            let path = Path("/tmp/foo.bar.zip").withName("xyzzy")
+            XCTAssertEqual(String(path), "/tmp/xyzzy")
+        }
+//        do {
+//            let path = Path("/tmp/foo.bar.zip").withPathExtension(".bz2")
+//            XCTAssertEqual(String(path), "/tmp/foo.bar.bz2")
+//        }
+        do {
+            let path = Path("/tmp/foo.bar.zip").withStem("xyzzy")
+            XCTAssertEqual(String(path), "/tmp/xyzzy.zip")
+        }
 
-//    override func tearDown() {
-//        super.tearDown()
-//    }
+    }
 
-    func testExample() {
-
-
+    func test1() {
         try! Path.withTemporaryDirectory() {
             directory in
 
@@ -32,12 +78,9 @@ class PathTests: XCTestCase {
             XCTAssertEqual(file.name, "test.txt")
             XCTAssertEqual(file.pathExtension, "txt")
 
-
             try file.createFile()
             XCTAssertTrue(file.exists)
         }
-
-
     }
 
 }

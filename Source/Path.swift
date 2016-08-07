@@ -38,7 +38,7 @@ public struct Path {
     }
 
     public init(_ url: NSURL) throws {
-        guard let path = url.path else {
+        guard let path = url.path where url.scheme == "file" || url.scheme == "" && url.path != nil else {
             throw Error.Generic("Not a file url")
         }
         self.path = path
@@ -48,10 +48,23 @@ public struct Path {
         return NSURL(fileURLWithPath: path)
     }
 
-    public var normalizedPath: String {
-        return (path as NSString).stringByExpandingTildeInPath
+    public var normalized: Path {
+        return Path((path as NSString).stringByExpandingTildeInPath)
     }
 }
+
+extension Path: Equatable, Comparable {
+}
+
+public func == (lhs: Path, rhs: Path) -> Bool {
+    return lhs.normalized.path == rhs.normalized.path
+}
+
+public func < (lhs: Path, rhs: Path) -> Bool {
+    return lhs.normalized.path < rhs.normalized.path
+}
+
+
 
 // MARK: CustomStringConvertible
 
@@ -188,6 +201,7 @@ public extension Path {
             NSFileManager().changeCurrentDirectoryPath(newValue.path)
         }
     }
+
 }
 
 // MARK: File Types
@@ -522,7 +536,7 @@ extension Path: SequenceType {
 
 // MARK: -
 
-extension Path: StringLiteralConvertible {
+extension Path: UnicodeScalarLiteralConvertible, StringLiteralConvertible, ExtendedGraphemeClusterLiteralConvertible {
 
     public init(stringLiteral value: String) {
         self.init(value)
