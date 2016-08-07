@@ -22,22 +22,12 @@ class ViewController: NSViewController {
         print(path)
         try! path.rotate(limit: 5)
         try! path.write("Hello world")
+
+        for f in parent {
+            print(f)
+        }
+
     }
 
 }
 
-extension Path: StringLiteralConvertible {
-
-    public init(stringLiteral value: String) {
-        self.init(value)
-    }
-
-    public init(extendedGraphemeClusterLiteral value: String) {
-        self.init(value)
-    }
-
-    public init(unicodeScalarLiteral value: String) {
-        self.init(value)
-    }
-
-}

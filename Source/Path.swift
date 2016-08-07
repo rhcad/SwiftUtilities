@@ -146,11 +146,9 @@ public extension Path {
     func hasSuffix(other: Path) -> Bool {
         let lhs = normalizedComponents
         let rhs = other.normalizedComponents
-
         if rhs.count > lhs.count {
             return false
         }
-
         return Array(lhs[(lhs.count - rhs.count)..<lhs.count]) == rhs
     }
 
@@ -158,14 +156,24 @@ public extension Path {
 
 // MARK: Operators
 
+public func + (lhs: Path, rhs: Path) -> Path {
+    let url = (lhs.path as NSString).stringByAppendingPathComponent(rhs.path)
+    return Path(url)
+}
+
+public func / (lhs: Path, rhs: Path) -> Path {
+    let url = (lhs.path as NSString).stringByAppendingPathComponent(rhs.path)
+    return Path(url)
+}
+
 public func + (lhs: Path, rhs: String) -> Path {
-    let URL = (lhs.path as NSString).stringByAppendingPathComponent(rhs)
-    return Path(URL)
+    let url = (lhs.path as NSString).stringByAppendingPathComponent(rhs)
+    return Path(url)
 }
 
 public func / (lhs: Path, rhs: String) -> Path {
-    let URL = (lhs.path as NSString).stringByAppendingPathComponent(rhs)
-    return Path(URL)
+    let url = (lhs.path as NSString).stringByAppendingPathComponent(rhs)
+    return Path(url)
 }
 
 // MARK: Working Directory
@@ -287,38 +295,8 @@ public struct FileAttributes {
 
 public extension Path {
 
-    func iter(@noescape closure: Path -> Void) {
-        let enumerator = NSFileManager().enumeratorAtURL(url, includingPropertiesForKeys: nil, options: NSDirectoryEnumerationOptions.SkipsSubdirectoryDescendants, errorHandler: nil)
-        for url in enumerator! {
-            guard let url = url as? NSURL else {
-                fatalError()
-            }
-            tryElseFatalError() {
-                let path = try Path(url)
-                closure(path)
-            }
-        }
-    }
-
-    var children: [Path]? {
-        guard let enumerator = NSFileManager().enumeratorAtURL(url, includingPropertiesForKeys: nil, options: NSDirectoryEnumerationOptions.SkipsSubdirectoryDescendants, errorHandler: nil) else {
-            return nil
-        }
-
-        do {
-            let children: [Path] = try enumerator.map() {
-                url -> Path in
-
-                guard let url = url as? NSURL else {
-                    throw Error.Generic("HMM")
-                }
-                return try Path(url)
-            }
-            return children
-        }
-        catch {
-            return nil
-        }
+    var children: [Path] {
+        return Array(self)
     }
 
     func walk(closure: (Path) -> Void) throws {
@@ -493,33 +471,69 @@ public extension Path {
         if NSFileManager.defaultManager().createFileAtPath(path, contents: nil, attributes: nil) == false {
             throw Error.Generic("Could not create file")
         }
-
     }
 
     func read() throws -> String {
-
         let data = try NSData(contentsOfURL: url, options: NSDataReadingOptions())
-
         var string: NSString?
         var usedLossyConversion = ObjCBool(false)
-
         let encodingOptions = [
             NSStringEncodingDetectionSuggestedEncodingsKey: [NSUTF8StringEncoding],
             NSStringEncodingDetectionUseOnlySuggestedEncodingsKey: false,
             NSStringEncodingDetectionAllowLossyKey: true,
         ]
-
         let encoding = NSString.stringEncodingForData(data, encodingOptions: encodingOptions, convertedString: &string, usedLossyConversion: &usedLossyConversion)
-
         if let string = string as? String where encoding != 0 {
             return string
         }
-
         throw Error.Generic("Could not decode data.")
     }
 
     func write(string: String, encoding: UInt = NSUTF8StringEncoding) throws {
         try string.writeToFile(String(self), atomically: true, encoding: encoding)
+    }
+
+}
+
+// MARK: -
+
+extension Path: SequenceType {
+
+    public class Generator: GeneratorType {
+        let enumerator: NSEnumerator
+
+        init(path: Path) {
+            enumerator = NSFileManager().enumeratorAtURL(path.url, includingPropertiesForKeys: nil, options: [.SkipsSubdirectoryDescendants, .SkipsPackageDescendants], errorHandler: nil)!
+        }
+
+        public func next() -> Path? {
+            guard let url = enumerator.nextObject() as? NSURL else {
+                return nil
+            }
+            return try? Path(url)
+        }
+    }
+
+    public func generate() -> Generator {
+        return Generator(path: self)
+    }
+
+}
+
+// MARK: -
+
+extension Path: StringLiteralConvertible {
+
+    public init(stringLiteral value: String) {
+        self.init(value)
+    }
+
+    public init(extendedGraphemeClusterLiteral value: String) {
+        self.init(value)
+    }
+
+    public init(unicodeScalarLiteral value: String) {
+        self.init(value)
     }
 
 }
