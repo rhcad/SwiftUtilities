@@ -209,6 +209,11 @@ public extension Path {
 public enum FileType {
     case Regular
     case Directory
+    case SymbolicLink
+    case Socket
+    case CharacterSpecial
+    case BlockSpecial
+    case Unknown
 }
 
 // MARK: File Attributes
@@ -270,7 +275,7 @@ public struct FileAttributes {
         return attribute
     }
 
-    public var fileType: FileType! {
+    public var fileType: FileType {
         do {
             let type: String = try getAttribute(NSFileType)
             switch type {
@@ -278,12 +283,20 @@ public struct FileAttributes {
                     return .Directory
                 case NSFileTypeRegular:
                     return .Regular
+                case NSFileTypeSymbolicLink:
+                    return .SymbolicLink
+                case NSFileTypeSocket:
+                    return .Socket
+                case NSFileTypeCharacterSpecial:
+                    return .CharacterSpecial
+                case NSFileTypeBlockSpecial:
+                    return .BlockSpecial
                 default:
-                    return nil
+                    return .Unknown
             }
         }
         catch {
-            return nil
+            return .Unknown
         }
     }
 
