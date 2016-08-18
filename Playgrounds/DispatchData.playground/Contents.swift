@@ -8,7 +8,6 @@ extension DispatchData: SequenceType {
 
     public typealias Generator = DispatchDataGenerator <Element>
 
-    @warn_unused_result
     public func generate() -> Generator {
         return DispatchDataGenerator <Element> (self)
     }
@@ -19,7 +18,6 @@ public struct DispatchDataGenerator <Element>: GeneratorType {
 
     var remaining: DispatchData <Element>
 
-    @warn_unused_result
     public init(_ dispatchData: DispatchData <Element>) {
         remaining = dispatchData
     }
