@@ -9,8 +9,8 @@ A smorgasbord of Swift source code.
 * A NSScanner-like DataScanner class. Useful for parsing binary data.
 * Base conversions between strings, integers and data (e.g. UnsafeBufferPointer). Hex, octal, binary and other bases supported (also includes support for Swift style constants e.g. convert "0xDEAD_BEEF" into an integer)
 * BitRange - get set bits or ranges of bits inside binary data
-* BufferType protocol - an attempt to unify NSData, UnsafeBufferPointers and DispatchData.
-* DispatchData - a lovely Swift wrapper around GCD's dispatch_data_t.
+* BufferType protocol - an attempt to unify NSData, UnsafeBufferPointers and GenericDispatchData.
+* GenericDispatchData - a lovely Swift wrapper around GCD's dispatch_data_t.
 * Path - yet another Path implementation. Loosely based on Python's pathlib
 * RegularExpression
 * Swift String/NSString range conversions

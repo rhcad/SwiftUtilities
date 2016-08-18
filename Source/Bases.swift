@@ -150,16 +150,16 @@ extension UnsignedIntegerType {
     }
 }
 
-// MARK: DispatchData + BaseDecodable
+// MARK: GenericDispatchData + BaseDecodable
 
-extension DispatchData: BaseDecodable {
-    public static func decodeFromString(string: String, base: Int?) throws -> DispatchData {
+extension GenericDispatchData: BaseDecodable {
+    public static func decodeFromString(string: String, base: Int?) throws -> GenericDispatchData {
         let data = try NSData.decodeFromString(string, base: base)
-        return DispatchData(data)
+        return GenericDispatchData(data)
     }
 }
 
-// MARK: DispatchData + BaseDecodable(ish)
+// MARK: GenericDispatchData + BaseDecodable(ish)
 
 extension NSData: BaseDecodable {
 
@@ -286,7 +286,7 @@ extension NSData: BaseEncodable {
     }
 }
 
-extension DispatchData: BaseEncodable {
+extension GenericDispatchData: BaseEncodable {
     public func encodeToString(base base: Int, prefix: Bool = false, width: Int? = nil) throws -> String {
         return try createMap() {
             (data, buffer) in

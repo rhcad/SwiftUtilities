@@ -4,21 +4,26 @@ import Foundation
 
 import SwiftUtilities
 
-extension DispatchData: SequenceType {
+extension GenericDispatchData: SequenceType {
 
-    public typealias Generator = DispatchDataGenerator <Element>
+    public typealias Generator = GenericDispatchDataGenerator <Element>
 
     public func generate() -> Generator {
-        return DispatchDataGenerator <Element> (self)
+        return GenericDispatchDataGenerator <Element> (self)
     }
 
 }
 
-public struct DispatchDataGenerator <Element>: GeneratorType {
+public struct GenericDispatchDataGenerator <Element>: GeneratorType {
 
-    var remaining: DispatchData <Element>
+    var remaining: GenericDispatchData <Element>
 
+<<<<<<< Updated upstream
     public init(_ dispatchData: DispatchData <Element>) {
+=======
+    @warn_unused_result
+    public init(_ dispatchData: GenericDispatchData <Element>) {
+>>>>>>> Stashed changes
         remaining = dispatchData
     }
 
@@ -37,10 +42,10 @@ public struct DispatchDataGenerator <Element>: GeneratorType {
 
 let array = [1, 2, 3, 4, 5, 6]
 
-// Copy array into a DispatchData
+// Copy array into a GenericDispatchData
 let data = array.withUnsafeBufferPointer() {
     (buffer) in
-    return DispatchData <Int> (buffer: buffer)
+    return GenericDispatchData <Int> (buffer: buffer)
 }
 
 for value in data {
@@ -48,7 +53,7 @@ for value in data {
 }
 
 
-extension DispatchData {
+extension GenericDispatchData {
 
     public func map(transform: (Element) throws -> Element) rethrows -> [Element] {
         var result: [Element] = []
@@ -61,10 +66,4 @@ extension DispatchData {
             return true
         }
         return result
-    }
-
-}
-//
-//
-let result = data.map() { return $0 }
-print(result)
+    

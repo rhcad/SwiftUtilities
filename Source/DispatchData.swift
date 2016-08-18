@@ -1,5 +1,5 @@
 //
-//  DispatchData.swift
+//  GenericDispatchData.swift
 //  RTP Test
 //
 //  Created by Jonathan Wight on 6/30/15.
@@ -30,9 +30,9 @@
 
 import Foundation
 
-// MARK: DispatchData
+// MARK: GenericDispatchData
 
-public struct DispatchData <Element> {
+public struct GenericDispatchData <Element> {
 
     public let data: dispatch_data_t
 
@@ -45,7 +45,7 @@ public struct DispatchData <Element> {
     }
 
     public var elementSize: Int {
-        return DispatchData <Element>.elementSize
+        return GenericDispatchData <Element>.elementSize
     }
 
     public var length: Int {
@@ -76,20 +76,20 @@ public struct DispatchData <Element> {
     }
 
     public init(start: UnsafePointer <Element>, count: Int) {
-        self.init(data: dispatch_data_create(start, count * DispatchData <Element>.elementSize, nil, nil))
+        self.init(data: dispatch_data_create(start, count * GenericDispatchData <Element>.elementSize, nil, nil))
     }
 
     // MARK: Mapping data.
 
     // TODO: Rename to "with", "withUnsafeBufferPointer", "withDataAndUnsafeBufferPointer"
 
-    // IMPORTANT: If you need to keep the buffer beyond the scope of block you must hold on to data DispatchData instance too. The DispatchData and the buffer share the same life time.
-    public func createMap <R> (@noescape block: (DispatchData <Element>, UnsafeBufferPointer <Element>) throws -> R) rethrows -> R {
+    // IMPORTANT: If you need to keep the buffer beyond the scope of block you must hold on to data GenericDispatchData instance too. The GenericDispatchData and the buffer share the same life time.
+    public func createMap <R> (@noescape block: (GenericDispatchData <Element>, UnsafeBufferPointer <Element>) throws -> R) rethrows -> R {
         var pointer: UnsafePointer <Void> = nil
         var size: Int = 0
         let mappedData = dispatch_data_create_map(data, &pointer, &size)
         let buffer = UnsafeBufferPointer <Element> (start: UnsafePointer <Element> (pointer), count: size)
-        return try block(DispatchData <Element> (data: mappedData), buffer)
+        return try block(GenericDispatchData <Element> (data: mappedData), buffer)
     }
 
     // MARK: -
@@ -122,14 +122,14 @@ public struct DispatchData <Element> {
         }
     }
 
-    public func convert <U> () -> DispatchData <U> {
-        return DispatchData <U> (data: data)
+    public func convert <U> () -> GenericDispatchData <U> {
+        return GenericDispatchData <U> (data: data)
     }
 }
 
 // MARK: Equatable
 
-extension DispatchData: Equatable {
+extension GenericDispatchData: Equatable {
 }
 
 /**
@@ -137,7 +137,7 @@ extension DispatchData: Equatable {
 
     Warning. This can copy zero, one or both Data buffers. This can be extremely slow.
 */
-public func == <Element> (lhs: DispatchData <Element>, rhs: DispatchData <Element>) -> Bool {
+public func == <Element> (lhs: GenericDispatchData <Element>, rhs: GenericDispatchData <Element>) -> Bool {
 
     // If we're backed by the same dispatch_data then yes, we're equal.
     if lhs.data === rhs.data {
@@ -164,7 +164,7 @@ public func == <Element> (lhs: DispatchData <Element>, rhs: DispatchData <Elemen
 
 // MARK: CustomStringConvertible
 
-extension DispatchData: CustomStringConvertible {
+extension GenericDispatchData: CustomStringConvertible {
     public var description: String {
         var chunkCount = 0
         apply() {
@@ -172,14 +172,14 @@ extension DispatchData: CustomStringConvertible {
             chunkCount += 1
             return true
         }
-        return "DispatchData(count: \(count), length: \(length), chunk count: \(chunkCount), data: \(data))"
+        return "GenericDispatchData(count: \(count), length: \(length), chunk count: \(chunkCount), data: \(data))"
     }
 }
 
 // MARK: subscript
 
-public extension DispatchData {
-    public subscript (range: Range <Int>) -> DispatchData <Element> {
+public extension GenericDispatchData {
+    public subscript (range: Range <Int>) -> GenericDispatchData <Element> {
         do {
             return try subBuffer(range)
         }
@@ -191,18 +191,18 @@ public extension DispatchData {
 
 // MARK: Concot.
 
-public func + <Element> (lhs: DispatchData <Element>, rhs: DispatchData <Element>) -> DispatchData <Element> {
+public func + <Element> (lhs: GenericDispatchData <Element>, rhs: GenericDispatchData <Element>) -> GenericDispatchData <Element> {
     let data = dispatch_data_create_concat(lhs.data, rhs.data)
-    return DispatchData <Element> (data: data)
+    return GenericDispatchData <Element> (data: data)
 }
 
 
 // MARK: Manipulation
 
 /// Do not really like these function names but they're very useful.
-public extension DispatchData {
+public extension GenericDispatchData {
 
-    public func subBuffer(range: Range <Int>) throws -> DispatchData <Element> {
+    public func subBuffer(range: Range <Int>) throws -> GenericDispatchData <Element> {
         guard range.startIndex >= startIndex && range.startIndex <= endIndex else {
             throw Error.Generic("Index out of range")
         }
@@ -212,24 +212,24 @@ public extension DispatchData {
         guard range.startIndex <= range.endIndex else {
             throw Error.Generic("Index out of range")
         }
-        return DispatchData <Element> (data: dispatch_data_create_subrange(data, range.startIndex * elementSize, (range.endIndex - range.startIndex) * elementSize))
+        return GenericDispatchData <Element> (data: dispatch_data_create_subrange(data, range.startIndex * elementSize, (range.endIndex - range.startIndex) * elementSize))
     }
 
-    public func subBuffer(startIndex startIndex: Int, count: Int) throws -> DispatchData <Element> {
+    public func subBuffer(startIndex startIndex: Int, count: Int) throws -> GenericDispatchData <Element> {
         return try subBuffer(startIndex..<startIndex + count)
     }
 
-    public func inset(startInset startInset: Int = 0, endInset: Int = 0) throws -> DispatchData <Element> {
+    public func inset(startInset startInset: Int = 0, endInset: Int = 0) throws -> GenericDispatchData <Element> {
         return try subBuffer(startIndex: startInset, count: count - (startInset + endInset))
     }
 
-    public func split(startIndex: Int) throws -> (DispatchData <Element>, DispatchData <Element>) {
+    public func split(startIndex: Int) throws -> (GenericDispatchData <Element>, GenericDispatchData <Element>) {
         let lhs = try subBuffer(startIndex: 0, count: startIndex)
         let rhs = try subBuffer(startIndex: startIndex, count: count - startIndex)
         return (lhs, rhs)
     }
 
-    func split <T> () throws -> (T, DispatchData) {
+    func split <T> () throws -> (T, GenericDispatchData) {
         let (left, right) = try split(sizeof(T))
         let value = left.createMap() {
             (data, buffer) in
@@ -242,21 +242,21 @@ public extension DispatchData {
 
 // MARK: -
 
-public extension DispatchData {
+public extension GenericDispatchData {
     init <U: IntegerType> (value: U) {
         var copy = value
         self = withUnsafePointer(&copy) {
             let buffer = UnsafeBufferPointer <U> (start: $0, count: 1)
-            return DispatchData <U> (buffer: buffer).convert()
+            return GenericDispatchData <U> (buffer: buffer).convert()
         }
     }
 }
 
 // MARK: -
 
-public extension DispatchData {
+public extension GenericDispatchData {
 
-    // TODO: This is a bit dangerous (not anything can/should be convertable to a DispatchData). Investigate deprecating? No more dangerous than & operator though?
+    // TODO: This is a bit dangerous (not anything can/should be convertable to a GenericDispatchData). Investigate deprecating? No more dangerous than & operator though?
     init <U> (value: U) {
         var copy = value
         let data: dispatch_data_t = withUnsafePointer(&copy) {
@@ -269,10 +269,10 @@ public extension DispatchData {
 
 // MARK: -
 
-public extension DispatchData {
+public extension GenericDispatchData {
 
     init(_ data: NSData) {
-        self = DispatchData(buffer: data.toUnsafeBufferPointer())
+        self = GenericDispatchData(buffer: data.toUnsafeBufferPointer())
     }
 
     func toNSData() -> NSData {
@@ -285,13 +285,13 @@ public extension DispatchData {
 
 // MARK: -
 
-public extension DispatchData {
+public extension GenericDispatchData {
 
     init(_ string: String, encoding: NSStringEncoding = NSUTF8StringEncoding) throws {
         guard let data = string.dataUsingEncoding(encoding) else {
             throw Error.Generic("Could not encoding string.")
         }
-        self = DispatchData(buffer: data.toUnsafeBufferPointer())
+        self = GenericDispatchData(buffer: data.toUnsafeBufferPointer())
     }
 
 }

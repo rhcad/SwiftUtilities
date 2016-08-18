@@ -123,5 +123,5 @@ extension UnsafeBufferPointer: IndexedBufferType {
 
 // MARK: -
 
-extension DispatchData: BufferType {
+extension GenericDispatchData: BufferType {
 }
