@@ -29,7 +29,7 @@
 
 import Foundation
 
-public class DispatchQueue {
+public class MyDispatchQueue {
 
     public let queue: dispatch_queue_t
 
@@ -37,16 +37,16 @@ public class DispatchQueue {
         self.queue = queue
     }
 
-    public static let main: DispatchQueue = DispatchQueue(queue: dispatch_get_main_queue())
+    public static let main: MyDispatchQueue = MyDispatchQueue(queue: dispatch_get_main_queue())
 
-    public static func serial(label: String, qos: qos_class_t = QOS_CLASS_DEFAULT, relativePriority: Int32 = 0) -> DispatchQueue {
+    public static func serial(label: String, qos: qos_class_t = QOS_CLASS_DEFAULT, relativePriority: Int32 = 0) -> MyDispatchQueue {
         let attribute = dispatch_queue_attr_make_with_qos_class(DISPATCH_QUEUE_SERIAL, qos, relativePriority)
-        return DispatchQueue(queue: dispatch_queue_create(label, attribute))
+        return MyDispatchQueue(queue: dispatch_queue_create(label, attribute))
     }
 
-    public static func concurrent(label: String, qos: qos_class_t = QOS_CLASS_DEFAULT, relativePriority: Int32 = 0) -> DispatchQueue {
+    public static func concurrent(label: String, qos: qos_class_t = QOS_CLASS_DEFAULT, relativePriority: Int32 = 0) -> MyDispatchQueue {
         let attribute = dispatch_queue_attr_make_with_qos_class(DISPATCH_QUEUE_CONCURRENT, qos, relativePriority)
-        return DispatchQueue(queue: dispatch_queue_create(label, attribute))
+        return MyDispatchQueue(queue: dispatch_queue_create(label, attribute))
     }
 
     public func sync(block: () -> Void) {
@@ -75,8 +75,8 @@ public class DispatchQueue {
         dispatch_async(queue, block)
     }
 
-    public func timer(start start: NSTimeInterval, handler: Void -> Void) -> DispatchSource {
-        let source = DispatchSource(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue)
+    public func timer(start start: NSTimeInterval, handler: Void -> Void) -> MyDispatchSource {
+        let source = MyDispatchSource(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue)
 
         let startTime = dispatch_time(DISPATCH_TIME_NOW, timeIntervalToNSEC(start))
         dispatch_source_set_timer(source.source, startTime, 0, 0)
@@ -84,36 +84,36 @@ public class DispatchQueue {
         source.cancelHandler = {
             [weak source] in
             if let source = source {
-                DispatchQueue.timers.value.remove(source)
+                MyDispatchQueue.timers.value.remove(source)
             }
         }
-        DispatchQueue.timers.value.insert(source)
+        MyDispatchQueue.timers.value.insert(source)
         source.resume()
         return source
     }
 
-    public func timer(interval interval: NSTimeInterval, handler: Void -> Void) -> DispatchSource {
-        let source = DispatchSource(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue)
+    public func timer(interval interval: NSTimeInterval, handler: Void -> Void) -> MyDispatchSource {
+        let source = MyDispatchSource(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue)
         dispatch_source_set_timer(source.source, DISPATCH_TIME_NOW, timeIntervalToNSEC(interval), 0)
         source.eventHandler = handler
         source.cancelHandler = {
             [weak source] in
             if let source = source {
-                DispatchQueue.timers.value.remove(source)
+                MyDispatchQueue.timers.value.remove(source)
             }
         }
-        DispatchQueue.timers.value.insert(source)
+        MyDispatchQueue.timers.value.insert(source)
         source.resume()
         return source
     }
 
-    private static var timers = Atomic(Set <DispatchSource> ())
+    private static var timers = Atomic(Set <MyDispatchSource> ())
 
 }
 
 // MARK: -
 
-public class DispatchSource {
+public class MyDispatchSource {
     public let source: dispatch_source_t
 
     public init(source: dispatch_source_t) {
@@ -149,14 +149,14 @@ public class DispatchSource {
 
 // MARK: -
 
-extension DispatchSource: Equatable {
+extension MyDispatchSource: Equatable {
 }
 
-public func == (lhs: DispatchSource, rhs: DispatchSource) -> Bool {
+public func == (lhs: MyDispatchSource, rhs: MyDispatchSource) -> Bool {
     return lhs.source === rhs.source
 }
 
-extension DispatchSource: Hashable {
+extension MyDispatchSource: Hashable {
     public var hashValue: Int {
         return ObjectIdentifier(self).hashValue
     }

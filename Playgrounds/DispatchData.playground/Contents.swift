@@ -18,12 +18,7 @@ public struct GenericDispatchDataGenerator <Element>: GeneratorType {
 
     var remaining: GenericDispatchData <Element>
 
-<<<<<<< Updated upstream
-    public init(_ dispatchData: DispatchData <Element>) {
-=======
-    @warn_unused_result
     public init(_ dispatchData: GenericDispatchData <Element>) {
->>>>>>> Stashed changes
         remaining = dispatchData
     }
 
