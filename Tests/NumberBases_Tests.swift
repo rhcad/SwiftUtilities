@@ -42,10 +42,10 @@ class NumberBasesTests: XCTestCase {
     }
 
     func testFromStringWithBase() {
-        XCTAssertEqual(try! UIntMax(decode: "0b1111", base: 2), 0b1111)
-        XCTAssertEqual(try! UIntMax(decode: "0o1234", base: 8), 0o1234)
-        XCTAssertEqual(try! UIntMax(decode: "0x1234abcd", base: 16), 0x1234abcd)
-        XCTAssertEqual(try! UIntMax(decode: "123456", base: 10), 123456)
+        XCTAssertEqual(UIntMax("1111", radix: 2), 0b1111)
+        XCTAssertEqual(UIntMax("1234", radix: 8), 0o1234)
+        XCTAssertEqual(UIntMax("1234abcd", radix: 16), 0x1234abcd)
+        XCTAssertEqual(UIntMax("123456", radix: 10), 123456)
     }
 
     func testBadFromString() {

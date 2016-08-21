@@ -29,19 +29,30 @@
 
 
 import Foundation
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
 
 public struct AStarSearch <Location: Hashable> {
 
     public typealias Cost = Int
 
-    public var neighbors: (Location -> [Location])!
+    public var neighbors: ((Location) -> [Location])!
     public var cost: ((Location, Location) -> Cost)!
     public var heuristic: ((Location, Location) -> Cost)!
 
     public init() {
     }
 
-    public func search(start: Location, goal: Location) -> [Location] {
+    public func search(_ start: Location, goal: Location) -> [Location] {
         var frontier = PriorityQueue <Location, Int> ()
         frontier.put(start, priority: 0)
 
@@ -81,6 +92,6 @@ public struct AStarSearch <Location: Hashable> {
                 current = from
             }
         }
-        return Array(path.reverse())
+        return Array(path.reversed())
     }
 }

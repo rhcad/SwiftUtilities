@@ -30,30 +30,30 @@
 
 import Foundation
 
-extension NSMapTable: SequenceType {
-
-    public typealias Generator = NSMapTableGenerator
-
-    public func generate() -> NSMapTableGenerator {
-        return NSMapTableGenerator(mapTable: self)
-    }
-}
-
-public struct NSMapTableGenerator: GeneratorType {
-    public typealias Element =  (AnyObject, AnyObject)
-
-    let keyEnumerator: NSEnumerator
-    let objectEnumerator: NSEnumerator
-
-    init(mapTable: NSMapTable) {
-        keyEnumerator = mapTable.keyEnumerator()
-        objectEnumerator = mapTable.objectEnumerator()!
-    }
-
-    public mutating func next() -> Element? {
-        guard let nextKey = keyEnumerator.nextObject(), let nextObject = objectEnumerator.nextObject() else {
-            return nil
-        }
-        return (nextKey, nextObject)
-    }
-}
+//extension NSMapTable: Sequence {
+//
+//    public typealias Iterator = NSMapTableGenerator
+//
+//    public func makeIterator() -> NSMapTableGenerator {
+//        return NSMapTableGenerator(mapTable: self as! NSMapTable<AnyObject, AnyObject>)
+//    }
+//}
+//
+//public struct NSMapTableGenerator: IteratorProtocol {
+//    public typealias Element =  (AnyObject, AnyObject)
+//
+//    let keyEnumerator: NSEnumerator
+//    let objectEnumerator: NSEnumerator
+//
+//    init(mapTable: NSMapTable<AnyObject, AnyObject>) {
+//        keyEnumerator = mapTable.keyEnumerator()
+//        objectEnumerator = mapTable.objectEnumerator()!
+//    }
+//
+//    public mutating func next() -> Element? {
+//        guard let nextKey = keyEnumerator.nextObject(), let nextObject = objectEnumerator.nextObject() else {
+//            return nil
+//        }
+//        return (nextKey, nextObject)
+//    }
+//}

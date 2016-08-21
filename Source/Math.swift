@@ -32,7 +32,7 @@ import CoreGraphics
 
 // MARK: Math
 
-infix operator ** { associativity none precedence 160 }
+infix operator ** /* { associativity none precedence 160 } */
 
 public func ** (lhs: Float, rhs: Float) -> Float {
     if rhs == 2 {
@@ -55,17 +55,17 @@ public func ** (lhs: CGFloat, rhs: CGFloat) -> CGFloat {
     return pow(lhs, rhs)
 }
 
-public func log(value: Double, base: Double) -> Double {
+public func log(_ value: Double, base: Double) -> Double {
     return log(value) / log(base)
 }
 
 // MARK: Basics
 
-public func clamp <T: Comparable> (value: T, lower: T, upper: T) -> T {
+public func clamp <T: Comparable> (_ value: T, lower: T, upper: T) -> T {
     return max(min(value, upper), lower)
 }
 
-public func round(value: CGFloat, decimal: Int) -> CGFloat {
+public func round(_ value: CGFloat, decimal: Int) -> CGFloat {
     let e10n = pow(10.0, CGFloat(clamp(decimal, lower: -6, upper: 7)))
     let fl = floor(e10n * value + 0.5)
     return fl / e10n
@@ -131,26 +131,26 @@ public extension CGFloat {
 
 // Basic functions
 
-public func degreesToRadians(value: Float) -> Float {
+public func degreesToRadians(_ value: Float) -> Float {
     return value * Float(M_PI) / 180
 }
 
-public func radiansToDegrees(value: Float) -> Float {
+public func radiansToDegrees(_ value: Float) -> Float {
     return value * 180 / Float(M_PI)
 }
 
-public func degreesToRadians(value: Double) -> Double {
+public func degreesToRadians(_ value: Double) -> Double {
     return value * M_PI / 180
 }
 
-public func radiansToDegrees(value: Double) -> Double {
+public func radiansToDegrees(_ value: Double) -> Double {
     return value * 180 / M_PI
 }
 
-public func degreesToRadians(value: CGFloat) -> CGFloat {
+public func degreesToRadians(_ value: CGFloat) -> CGFloat {
     return value * CGFloat(M_PI) / 180
 }
 
-public func radiansToDegrees(value: CGFloat) -> CGFloat {
+public func radiansToDegrees(_ value: CGFloat) -> CGFloat {
     return value * 180 / CGFloat(M_PI)
 }

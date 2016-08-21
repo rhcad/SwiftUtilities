@@ -34,39 +34,36 @@ import Foundation
 public extension NSRange {
 
     init(range: Range <Int>) {
-        self.location = range.startIndex
-        self.length = range.endIndex - range.startIndex
-    }
-
-    init(_ range: Range <Int>) {
-        self.location = range.startIndex
-        self.length = range.endIndex - range.startIndex
+        self.location = range.lowerBound
+        self.length = range.upperBound - range.lowerBound
     }
 
     var startIndex: Int { return location }
     var endIndex: Int { return location + length }
-    var asRange: Range<Int> { return location..<location + length }
+    var asRange: CountableRange<Int> { return location..<location + length }
     var isEmpty: Bool { return length == 0 }
 
-    func contains(index: Int) -> Bool {
+    func contains(_ index: Int) -> Bool {
         return index >= location && index < endIndex
     }
 
-    func clamp(index: Int) -> Int {
-        return max(self.startIndex, min(self.endIndex - 1, index))
+
+    func clamp(_ index: Int) -> Int {
+        return max(self.startIndex, min(self.endIndex, index))
     }
 
-    func clamp(range: NSRange) -> NSRange {
-        let startIndex = self.clamp(range.startIndex)
-        let endIndex = self.clamp(range.endIndex)
-        return NSRange(range: startIndex...endIndex)
+    func clamp(_ range: NSRange) -> NSRange {
+
+        let startIndex = clamp(range.startIndex)
+        let endIndex = clamp(range.endIndex)
+        return NSRange(range: startIndex..<endIndex)
     }
 
-    func intersects(range: NSRange) -> Bool {
+    func intersects(_ range: NSRange) -> Bool {
         return NSIntersectionRange(self, range).isEmpty == false
     }
 
-    func intersection(range: NSRange) -> NSRange? {
+    func intersection(_ range: NSRange) -> NSRange? {
         let intersection = NSIntersectionRange(self, range)
         if intersection.isEmpty {
             return nil
@@ -76,13 +73,19 @@ public extension NSRange {
         }
     }
 
-    func contiguous(range: NSRange) -> Bool {
+    func contiguous(_ range: NSRange) -> Bool {
         let (lhs, rhs) = ordered((self, range))
         return lhs.endIndex == rhs.startIndex
     }
 
-    func union(range: NSRange) -> NSRange {
+    func union(_ range: NSRange) -> NSRange {
         return NSUnionRange(self, range)
+    }
+}
+
+extension NSRange: CustomStringConvertible {
+    public var description: String {
+        return "\(startIndex)..<\(endIndex)"
     }
 }
 

@@ -32,39 +32,39 @@ import Foundation
 
 public protocol ObservableType {
     associatedtype ElementType
-    func addObserver(observer: AnyObject, closure: () -> Void)
-    func addObserver(observer: AnyObject, closure: (ElementType) -> Void)
-    func addObserver(observer: AnyObject, closure: (ElementType, ElementType) -> Void)
-    func removeObserver(observer: AnyObject)
+    func addObserver(_ observer: AnyObject, closure: @escaping () -> Void)
+    func addObserver(_ observer: AnyObject, closure: @escaping (ElementType) -> Void)
+    func addObserver(_ observer: AnyObject, closure: @escaping (ElementType, ElementType) -> Void)
+    func removeObserver(_ observer: AnyObject)
 }
 
 // MARK: -
 
 extension ObservableType {
 
-    public func addObserver(observer: AnyObject, queue: dispatch_queue_t, closure: () -> Void) {
+    public func addObserver(_ observer: AnyObject, queue: DispatchQueue, closure: @escaping () -> Void) {
         addObserver(observer) {
-            dispatch_async(queue) {
+            queue.async {
                 closure()
             }
         }
     }
 
-    public func addObserver(observer: AnyObject, queue: dispatch_queue_t, closure: (ElementType) -> Void) {
+    public func addObserver(_ observer: AnyObject, queue: DispatchQueue, closure: @escaping (ElementType) -> Void) {
         addObserver(observer) {
             (newValue: ElementType) in
 
-            dispatch_async(queue) {
+            queue.async {
                 closure(newValue)
             }
         }
     }
 
-    public func addObserver(observer: AnyObject, queue: dispatch_queue_t, closure: (ElementType, ElementType) -> Void) {
+    public func addObserver(_ observer: AnyObject, queue: DispatchQueue, closure: @escaping (ElementType, ElementType) -> Void) {
         addObserver(observer) {
             (oldValue: ElementType, newValue: ElementType) in
 
-            dispatch_async(queue) {
+            queue.async {
                 closure(oldValue, newValue)
             }
         }
@@ -74,11 +74,11 @@ extension ObservableType {
 
 // MARK: -
 
-public class ObservableProperty <Element: Equatable>: ObservableType {
+open class ObservableProperty <Element: Equatable>: ObservableType {
 
     public typealias ElementType = Element
 
-    public var value: Element {
+    open var value: Element {
         get {
             return lock.with() {
                 return internalValue
@@ -103,41 +103,42 @@ public class ObservableProperty <Element: Equatable>: ObservableType {
         internalValue = value
     }
 
-    public func addObserver(observer: AnyObject, closure: () -> Void) {
+    open func addObserver(_ observer: AnyObject, closure: @escaping () -> Void) {
         lock.with() {
-            observers[observer] = Box(Callback.NoValue(closure))
+            observers.setObject(Box(Callback.noValue(closure)), forKey: observer)
             closure()
         }
     }
 
-    public func addObserver(observer: AnyObject, closure: (Element) -> Void) {
+    open func addObserver(_ observer: AnyObject, closure: @escaping (Element) -> Void) {
         lock.with() {
-            observers[observer] = Box(Callback.NewValue(closure))
+            observers.setObject(Box(Callback.newValue(closure)), forKey: observer)
             closure(value)
         }
     }
 
-    public func addObserver(observer: AnyObject, closure: (Element, Element) -> Void) {
+    open func addObserver(_ observer: AnyObject, closure: @escaping (Element, Element) -> Void) {
         lock.with() {
-            observers[observer] = Box(Callback.NewAndOldValue(closure))
+            observers.setObject(Box(Callback.newAndOldValue(closure)), forKey: observer)
         }
     }
 
-    public func removeObserver(observer: AnyObject) {
+    open func removeObserver(_ observer: AnyObject) {
         lock.with() {
-            observers[observer] = nil
+            observers.removeObject(forKey: observer)
         }
     }
 
-    private var lock = NSRecursiveLock()
+    fileprivate var lock = NSRecursiveLock()
 
-    private typealias Callback = ValueChangeCallback <Element>
-    private var observers = MapTable <AnyObject, Box <Callback>> (keyReference: .Weak, valueReference: .Strong)
+    fileprivate typealias Callback = ValueChangeCallback <Element>
+    fileprivate var observers = NSMapTable <AnyObject, Box <Callback>> (keyOptions: .weakMemory, valueOptions: .strongMemory)
 
-    private func notifyObservers(oldValue oldValue: Element, newValue: Element) {
+    fileprivate func notifyObservers(oldValue: Element, newValue: Element) {
         let callbacks = lock.with() {
-            return observers.map() {
-                (key, box) -> Callback in
+            return observers.objectEnumerator()!.allObjects.map() {
+                object -> Callback in
+                let box = object as! Box <Callback>
                 return box.value
             }
         }
@@ -145,11 +146,11 @@ public class ObservableProperty <Element: Equatable>: ObservableType {
             (callback) in
 
             switch callback {
-                case .NoValue(let closure):
+                case .noValue(let closure):
                     closure()
-                case .NewValue(let closure):
+                case .newValue(let closure):
                     closure(newValue)
-                case .NewAndOldValue(let closure):
+                case .newAndOldValue(let closure):
                     closure(oldValue, newValue)
             }
         }
@@ -158,11 +159,11 @@ public class ObservableProperty <Element: Equatable>: ObservableType {
 
 // MARK: -
 
-public class ObservableOptionalProperty <Element: Equatable>: ObservableType, NilLiteralConvertible {
+open class ObservableOptionalProperty <Element: Equatable>: ObservableType, ExpressibleByNilLiteral {
 
     public typealias ElementType = Element?
 
-    public var value: Element? {
+    open var value: Element? {
         get {
             return lock.with() {
                 return internalValue
@@ -187,41 +188,42 @@ public class ObservableOptionalProperty <Element: Equatable>: ObservableType, Ni
         internalValue = value
     }
 
-    public func addObserver(observer: AnyObject, closure: () -> Void) {
+    open func addObserver(_ observer: AnyObject, closure: @escaping () -> Void) {
         lock.with() {
-            observers[observer] = Box(Callback.NoValue(closure))
+            observers.setObject(Box(Callback.noValue(closure)), forKey: observer)
             closure()
         }
     }
 
-    public func addObserver(observer: AnyObject, closure: (Element?) -> Void) {
+    open func addObserver(_ observer: AnyObject, closure: @escaping (Element?) -> Void) {
         lock.with() {
-            observers[observer] = Box(Callback.NewValue(closure))
+            observers.setObject(Box(Callback.newValue(closure)), forKey: observer)
             closure(value)
         }
     }
 
-    public func addObserver(observer: AnyObject, closure: (Element?, Element?) -> Void) {
+    open func addObserver(_ observer: AnyObject, closure: @escaping (Element?, Element?) -> Void) {
         lock.with() {
-            observers[observer] = Box(Callback.NewAndOldValue(closure))
+            observers.setObject(Box(Callback.newAndOldValue(closure)), forKey: observer)
         }
     }
 
-    public func removeObserver(observer: AnyObject) {
+    open func removeObserver(_ observer: AnyObject) {
         lock.with() {
-            observers[observer] = nil
+            observers.removeObject(forKey: observer)
         }
     }
 
-    private var lock = NSRecursiveLock()
+    fileprivate var lock = NSRecursiveLock()
 
-    private typealias Callback = ValueChangeCallback <Element?>
-    private var observers = MapTable <AnyObject, Box <Callback>> (keyReference: .Weak, valueReference: .Strong)
+    fileprivate typealias Callback = ValueChangeCallback <Element?>
+    fileprivate var observers = NSMapTable <AnyObject, Box <Callback>> (keyOptions: .weakMemory, valueOptions: .strongMemory)
 
-    private func notifyObservers(oldValue oldValue: Element?, newValue: Element?) {
+    fileprivate func notifyObservers(oldValue: Element?, newValue: Element?) {
         let callbacks = lock.with() {
-            return observers.map() {
-                (key, box) -> Callback in
+            return observers.objectEnumerator()!.allObjects.map() {
+                object -> Callback in
+                let box = object as! Box <Callback>
                 return box.value
             }
         }
@@ -229,11 +231,11 @@ public class ObservableOptionalProperty <Element: Equatable>: ObservableType, Ni
             (callback) in
 
             switch callback {
-                case .NoValue(let closure):
+                case .noValue(let closure):
                     closure()
-                case .NewValue(let closure):
+                case .newValue(let closure):
                     closure(newValue)
-                case .NewAndOldValue(let closure):
+                case .newAndOldValue(let closure):
                     closure(oldValue, newValue)
             }
         }
@@ -247,7 +249,7 @@ public class ObservableOptionalProperty <Element: Equatable>: ObservableType, Ni
 // MARK: -
 
 private enum ValueChangeCallback <T> {
-    case NoValue(() -> Void)
-    case NewValue(T -> Void)
-    case NewAndOldValue((T, T) -> Void)
+    case noValue(() -> Void)
+    case newValue((T) -> Void)
+    case newAndOldValue((T, T) -> Void)
 }

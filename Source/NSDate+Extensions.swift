@@ -29,10 +29,10 @@
 
 import Foundation
 
-public func + (lhs: NSDate, rhs: NSTimeInterval) -> NSDate {
-    return lhs.dateByAddingTimeInterval(rhs)
+public func + (lhs: Date, rhs: TimeInterval) -> Date {
+    return lhs.addingTimeInterval(rhs)
 }
 
-public func - (lhs: NSDate, rhs: NSTimeInterval) -> NSDate {
-    return lhs.dateByAddingTimeInterval(-rhs)
+public func - (lhs: Date, rhs: TimeInterval) -> Date {
+    return lhs.addingTimeInterval(-rhs)
 }

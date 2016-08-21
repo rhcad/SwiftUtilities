@@ -29,29 +29,29 @@
 
 import Foundation
 
-public class TestingPublisher <MessageType> {
+open class TestingPublisher <MessageType> {
 
-    public typealias Test = MessageType -> Bool
-    public typealias Handler = MessageType -> Void
+    public typealias Test = (MessageType) -> Bool
+    public typealias Handler = (MessageType) -> Void
 
     public init() {
     }
 
-    public func subscribe(subscriber: AnyObject, test: Test, handler: Handler) {
+    open func subscribe(_ subscriber: AnyObject, test: Test, handler: Handler) {
         lock.with() {
             let newEntry = Entry(subscriber: subscriber, test: test, handler: handler)
             entries.append(newEntry)
         }
     }
 
-    public func unsubscribe(subscriber: AnyObject) {
+    open func unsubscribe(_ subscriber: AnyObject) {
         rewrite() {
             entry in
             return entry.subscriber != nil && entry.subscriber !== subscriber
         }
     }
 
-    public func publish(message: MessageType) -> Bool {
+    open func publish(_ message: MessageType) -> Bool {
         let (needsPurging, handled): (Bool, Bool) = lock.with() {
             var needsPurging = false
             var handled = false
@@ -76,11 +76,11 @@ public class TestingPublisher <MessageType> {
     }
 
     /// This is a recursive lock because it is expected that observers _could_ remove themselves while handling messages.
-    private var lock = NSRecursiveLock()
+    fileprivate var lock = NSRecursiveLock()
 
-    private var entries: [Entry <MessageType>] = []
+    fileprivate var entries: [Entry <MessageType>] = []
 
-    private var queue = dispatch_queue_create("io.schwa.SwiftIO.TestingPublisher", DISPATCH_QUEUE_SERIAL)
+    fileprivate var queue = DispatchQueue(label: "io.schwa.SwiftIO.TestingPublisher", attributes: [])
 }
 
 // MARK: -
@@ -94,7 +94,7 @@ private extension TestingPublisher {
         }
     }
 
-    func rewrite(test: Entry<MessageType> -> Bool) {
+    func rewrite(_ test: (Entry<MessageType>) -> Bool) {
         lock.with() {
             entries = entries.filter() {
                 (entry) in
@@ -107,8 +107,8 @@ private extension TestingPublisher {
 // MARK: -
 
 private struct Entry <Message> {
-    typealias Test = Message -> Bool
-    typealias Handler = Message -> Void
+    typealias Test = (Message) -> Bool
+    typealias Handler = (Message) -> Void
     weak var subscriber: AnyObject?
     let test: Test
     let handler: Handler

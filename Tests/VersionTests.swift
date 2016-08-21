@@ -17,7 +17,7 @@ class VersionTests: XCTestCase {
         XCTAssertEqual(version.major, 1)
         XCTAssertEqual(version.minor, 2)
         XCTAssertEqual(version.patch, 3)
-        XCTAssertEqual(String(version), "1.2.3")
+        XCTAssertEqual(String(describing: version), "1.2.3")
 
 
         let version2 = try? Version("1.2.3")

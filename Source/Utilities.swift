@@ -31,10 +31,22 @@
 
 import Foundation
 
-public func unsafeBitwiseEquality <T> (lhs: T, _ rhs: T) -> Bool {
+public func unsafeBitwiseEquality <T> (_ lhs: T, _ rhs: T) -> Bool {
     var lhs = lhs
     var rhs = rhs
+
     return withUnsafePointers(&lhs, &rhs) {
-        return memcmp($0, $1, sizeof(T))  == 0
+        return memcmp($0, $1, MemoryLayout<T>.size) == 0
+    }
+}
+
+private func withUnsafePointers <T, R> (_ lhs: inout T, _ rhs: inout T, block: (UnsafePointer <T>, UnsafePointer <T>) throws -> R) rethrows -> R {
+    return try withUnsafePointer(to: &lhs) {
+        lhs -> R in
+
+        return try withUnsafePointer(to: &rhs) {
+            rhs -> R in
+            return try block(lhs, rhs)
+        }
     }
 }

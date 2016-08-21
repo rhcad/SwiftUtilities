@@ -7,10 +7,10 @@
 //
 
 /// [1,2,3,4,5].slidingWindow(3) -> [1,2,3], [2,3,4], [3,4,5]
-public extension SequenceType {
-    func slidingWindow(windowCount: Int, closure: Array<Generator.Element> -> Void) {
-        var generator = generate()
-        var window = Array <Generator.Element> ()
+public extension Sequence {
+    func slidingWindow(_ windowCount: Int, closure: (Array<Iterator.Element>) -> Void) {
+        var generator = makeIterator()
+        var window = Array <Iterator.Element> ()
         while window.count < windowCount {
             guard let next = generator.next() else {
                 return
@@ -30,11 +30,11 @@ public extension SequenceType {
 }
 
 /// [1,2,3,4,5,6,7,8,9,0].chunks(3) -> [1,2,3], [4,5,6], [7,8,9]
-public extension SequenceType {
-    func chunks(chunkCount: Int, includeIncomplete: Bool = false, closure: Array<Generator.Element> -> Void) {
-        var generator = generate()
+public extension Sequence {
+    func chunks(_ chunkCount: Int, includeIncomplete: Bool = false, closure: (Array<Iterator.Element>) -> Void) {
+        var generator = makeIterator()
         while true {
-            var window = Array <Generator.Element> ()
+            var window = Array <Iterator.Element> ()
             while window.count < chunkCount {
                 guard let next = generator.next() else {
                     if includeIncomplete == true {

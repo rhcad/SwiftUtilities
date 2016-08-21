@@ -31,15 +31,15 @@
 
 import Foundation
 
-public class Atomic <T> {
-    public var value: T {
+open class Atomic <T> {
+    open var value: T {
         get {
             return lock.with() {
                 return _value
             }
         }
         set {
-            let valueChanged: (Void -> Void)? = lock.with() {
+            let valueChanged: ((Void) -> Void)? = lock.with() {
                 let oldValue = _value
                 _value = newValue
                 guard let valueChanged = _valueChanged else {
@@ -54,7 +54,7 @@ public class Atomic <T> {
     }
 
     /// Called whenever value changes. NOT called during init.
-    public var valueChanged: ((T, T) -> Void)? {
+    open var valueChanged: ((T, T) -> Void)? {
         get {
             return lock.with() {
                 return _valueChanged
@@ -67,10 +67,10 @@ public class Atomic <T> {
         }
     }
 
-    private var lock: Locking
+    fileprivate var lock: Locking
 
-    private var _value: T
-    private var _valueChanged: ((T, T) -> Void)?
+    fileprivate var _value: T
+    fileprivate var _valueChanged: ((T, T) -> Void)?
 
     /** - Parameters:
             - Parameter value: Initial value.
@@ -96,7 +96,7 @@ public extension Atomic {
 //    }
 
     /// Perform a locking transaction on the instance. This version allows you to modify the value.
-    func with <R> (@noescape closure: inout T -> R) -> R {
+    func with <R> (_ closure: (inout T) -> R) -> R {
         return lock.with() {
             return closure(&_value)
         }

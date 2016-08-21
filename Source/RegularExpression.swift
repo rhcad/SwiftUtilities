@@ -34,34 +34,34 @@ public struct RegularExpression {
     public let pattern: String
     public let expression: NSRegularExpression
 
-    public init(_ pattern: String, options: NSRegularExpressionOptions = NSRegularExpressionOptions()) throws {
+    public init(_ pattern: String, options: NSRegularExpression.Options = NSRegularExpression.Options()) throws {
         self.pattern = pattern
         self.expression = try NSRegularExpression(pattern: pattern, options: options)
     }
 
-    public func search(string: String, options: NSMatchingOptions = NSMatchingOptions()) -> Match? {
+    public func search(_ string: String, options: NSRegularExpression.MatchingOptions = NSRegularExpression.MatchingOptions()) -> Match? {
         let length = (string as NSString).length
-        guard let result = expression.firstMatchInString(string, options: options, range: NSRange(location: 0, length: length)) else {
+        guard let result = expression.firstMatch(in: string, options: options, range: NSRange(location: 0, length: length)) else {
             return nil
         }
         return Match(string: string, result: result)
     }
 
-    public func searchAll(string: String, options: NSMatchingOptions = NSMatchingOptions()) -> [Match] {
+    public func searchAll(_ string: String, options: NSRegularExpression.MatchingOptions = NSRegularExpression.MatchingOptions()) -> [Match] {
         let length = (string as NSString).length
-        let result = expression.matchesInString(string, options: options, range: NSRange(location: 0, length: length))
+        let result = expression.matches(in: string, options: options, range: NSRange(location: 0, length: length))
 
         return result.map() {
             return Match(string: string, result: $0)
         }
     }
 
-    public func match(string: String, options: NSMatchingOptions = NSMatchingOptions()) -> Match? {
+    public func match(_ string: String, options: NSRegularExpression.MatchingOptions = NSRegularExpression.MatchingOptions()) -> Match? {
         guard let match = search(string, options: options) else {
             return nil
         }
         let firstRange = match.ranges[0]
-        if firstRange.startIndex != string.startIndex {
+        if firstRange.lowerBound != string.startIndex {
             return nil
         }
         return match
@@ -83,24 +83,24 @@ public struct RegularExpression {
             return "Match(\(result.numberOfRanges))"
         }
 
-        public var ranges: BlockBackedCollection <Range <String.Index>> {
+        public var ranges: [Range <String.Index>] {
             let count = result.numberOfRanges
-            let ranges = BlockBackedCollection <Range <String.Index>> (count: count) {
-                let nsRange = self.result.rangeAtIndex($0)
+            let ranges: [Range <String.Index>] = (0..<count).map() {
+                let nsRange = self.result.rangeAt($0)
                 let range = self.string.convert(nsRange)
                 return range!
                 }
             return ranges
         }
 
-        public var strings: BlockBackedCollection <String?> {
+        public var strings: [String?] {
             let count = result.numberOfRanges
-            let groups = BlockBackedCollection <String?> (count: count) {
-                let range = self.result.rangeAtIndex($0)
+            let groups: [String?] = (0..<count).map() {
+                let range = self.result.rangeAt($0)
                 if range.location == NSNotFound {
                     return nil
                 }
-                return (self.string as NSString).substringWithRange(range)
+                return (self.string as NSString).substring(with: range)
                 }
             return groups
         }

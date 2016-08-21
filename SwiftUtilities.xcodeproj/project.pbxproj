@@ -42,8 +42,6 @@
 		456A88861C55F00800189B2C /* NSURL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456A88841C55F00800189B2C /* NSURL+Extensions.swift */; };
 		456A88881C55F05600189B2C /* InternalUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456A88871C55F05600189B2C /* InternalUtilities.swift */; };
 		456A88891C55F05600189B2C /* InternalUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456A88871C55F05600189B2C /* InternalUtilities.swift */; };
-		457A93141C59EE2C003137E4 /* NSObject+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C0A6691C59ED18004EE217 /* NSObject+Extensions.swift */; };
-		457A93151C59EE2D003137E4 /* NSObject+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C0A6691C59ED18004EE217 /* NSObject+Extensions.swift */; };
 		457D6BD11D00AF220046EAB6 /* Publisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457D6BD01D00AF220046EAB6 /* Publisher.swift */; };
 		457D6BD21D00AF220046EAB6 /* Publisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457D6BD01D00AF220046EAB6 /* Publisher.swift */; };
 		458132081C01580900A113F7 /* ObservableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458132071C01580900A113F7 /* ObservableTests.swift */; };
@@ -71,12 +69,8 @@
 		45C310211C555238002A9141 /* Bases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C30FF31C555238002A9141 /* Bases.swift */; };
 		45C310221C555238002A9141 /* BitRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C30FF41C555238002A9141 /* BitRange.swift */; };
 		45C310231C555238002A9141 /* BitRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C30FF41C555238002A9141 /* BitRange.swift */; };
-		45C310241C555238002A9141 /* BlockBackedCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C30FF51C555238002A9141 /* BlockBackedCollection.swift */; };
-		45C310251C555238002A9141 /* BlockBackedCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C30FF51C555238002A9141 /* BlockBackedCollection.swift */; };
 		45C310261C555238002A9141 /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C30FF61C555238002A9141 /* Box.swift */; };
 		45C310271C555238002A9141 /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C30FF61C555238002A9141 /* Box.swift */; };
-		45C310281C555238002A9141 /* Buffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C30FF71C555238002A9141 /* Buffer.swift */; };
-		45C310291C555238002A9141 /* Buffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C30FF71C555238002A9141 /* Buffer.swift */; };
 		45C3102A1C555238002A9141 /* BufferType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C30FF81C555238002A9141 /* BufferType.swift */; };
 		45C3102B1C555238002A9141 /* BufferType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C30FF81C555238002A9141 /* BufferType.swift */; };
 		45C3102C1C555238002A9141 /* CRC16.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C30FF91C555238002A9141 /* CRC16.swift */; };
@@ -97,10 +91,8 @@
 		45C3103B1C555238002A9141 /* Heap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C310001C555238002A9141 /* Heap.swift */; };
 		45C3103C1C555238002A9141 /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C310011C555238002A9141 /* Math.swift */; };
 		45C3103D1C555238002A9141 /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C310011C555238002A9141 /* Math.swift */; };
-		45C3103E1C555238002A9141 /* MutableBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C310021C555238002A9141 /* MutableBuffer.swift */; };
-		45C3103F1C555238002A9141 /* MutableBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C310021C555238002A9141 /* MutableBuffer.swift */; };
-		45C310401C555238002A9141 /* NSData+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C310031C555238002A9141 /* NSData+Extensions.swift */; };
-		45C310411C555238002A9141 /* NSData+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C310031C555238002A9141 /* NSData+Extensions.swift */; };
+		45C310401C555238002A9141 /* Data+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C310031C555238002A9141 /* Data+Extensions.swift */; };
+		45C310411C555238002A9141 /* Data+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C310031C555238002A9141 /* Data+Extensions.swift */; };
 		45C310421C555238002A9141 /* NSDate+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C310041C555238002A9141 /* NSDate+Extensions.swift */; };
 		45C310431C555238002A9141 /* NSDate+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C310041C555238002A9141 /* NSDate+Extensions.swift */; };
 		45C310441C555238002A9141 /* NSMapTable+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C310051C555238002A9141 /* NSMapTable+Extensions.swift */; };
@@ -191,7 +183,6 @@
 		4521A3B81B90F2F6007087D2 /* BloomFilter.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = BloomFilter.playground; sourceTree = "<group>"; };
 		4525C3951CB7654900B5F529 /* Benchmark.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Benchmark.swift; sourceTree = "<group>"; };
 		452B30AB1AC0996100920B6A /* RegularExpressionPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = RegularExpressionPlayground.playground; sourceTree = "<group>"; };
-		452BAC241B3E8A7300F3DF48 /* Random.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Random.playground; sourceTree = "<group>"; };
 		452BF90A1C91F0D100E4086A /* Atomic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Atomic.swift; sourceTree = "<group>"; };
 		452E1A2C1BCDC30F000FC9FA /* RegularExpressionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegularExpressionTests.swift; sourceTree = "<group>"; };
 		452E96FC1B3CA523002269CD /* NumberBases_Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberBases_Tests.swift; sourceTree = "<group>"; };
@@ -203,7 +194,6 @@
 		453E47811B7C2D950070218B /* DataScannerTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataScannerTest.swift; sourceTree = "<group>"; };
 		454146111CE660DA00B847E1 /* Collections+Misc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Collections+Misc.swift"; sourceTree = "<group>"; };
 		454820E91D15CF23003AB1D6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		45542EE31BEAA5F0000754E7 /* StructEncoding.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = StructEncoding.playground; sourceTree = "<group>"; };
 		455B23991C55FA2400D19F7F /* PathTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PathTests.swift; sourceTree = "<group>"; };
 		456A88841C55F00800189B2C /* NSURL+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSURL+Extensions.swift"; sourceTree = "<group>"; };
 		456A88871C55F05600189B2C /* InternalUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InternalUtilities.swift; sourceTree = "<group>"; };
@@ -214,7 +204,6 @@
 		45880D401BB43BCC00BB6344 /* README.markdown */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.markdown; sourceTree = "<group>"; };
 		45880D411BB43E9A00BB6344 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		458825021B90CD2900D438AD /* DispatchData.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = DispatchData.playground; sourceTree = "<group>"; };
-		458D01B41CE27D400092A2E8 /* HexDump.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = HexDump.playground; sourceTree = "<group>"; };
 		458D01B51CE282120092A2E8 /* Hexdump.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hexdump.swift; sourceTree = "<group>"; };
 		459826D21D56C74800B54CB1 /* Testing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Testing.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		459826D41D56C74900B54CB1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -224,12 +213,9 @@
 		459826DD1D56C74900B54CB1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		459BADE91C86959F0014F696 /* ResultTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultTests.swift; sourceTree = "<group>"; };
 		45A976A01C59DF000071D6C3 /* MapTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapTable.swift; sourceTree = "<group>"; };
-		45A976A61C59E67C0071D6C3 /* MapTable.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MapTable.playground; sourceTree = "<group>"; };
-		45ADDE581BCCB9E40012EB0D /* Scratch.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Scratch.playground; sourceTree = "<group>"; };
 		45B13E331AC076450035DEE9 /* Walker.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Walker.playground; sourceTree = "<group>"; };
 		45B6EABF1C45CAD100ED40D0 /* PriorityQueue.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = PriorityQueue.playground; sourceTree = "<group>"; };
 		45BA690F19C4C48E00FA7252 /* NSRange_Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSRange_Tests.swift; sourceTree = "<group>"; };
-		45C0A6691C59ED18004EE217 /* NSObject+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+Extensions.swift"; sourceTree = "<group>"; };
 		45C2A56C1C8641C300488C45 /* Version.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Version.swift; sourceTree = "<group>"; };
 		45C2A5751C86428B00488C45 /* Comparison.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comparison.swift; sourceTree = "<group>"; };
 		45C2A57A1C86430D00488C45 /* ComparisonTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComparisonTests.swift; sourceTree = "<group>"; };
@@ -237,9 +223,7 @@
 		45C30FF21C555238002A9141 /* AStarSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AStarSearch.swift; sourceTree = "<group>"; };
 		45C30FF31C555238002A9141 /* Bases.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bases.swift; sourceTree = "<group>"; };
 		45C30FF41C555238002A9141 /* BitRange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BitRange.swift; sourceTree = "<group>"; };
-		45C30FF51C555238002A9141 /* BlockBackedCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockBackedCollection.swift; sourceTree = "<group>"; };
 		45C30FF61C555238002A9141 /* Box.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Box.swift; sourceTree = "<group>"; };
-		45C30FF71C555238002A9141 /* Buffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Buffer.swift; sourceTree = "<group>"; };
 		45C30FF81C555238002A9141 /* BufferType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BufferType.swift; sourceTree = "<group>"; };
 		45C30FF91C555238002A9141 /* CRC16.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CRC16.swift; sourceTree = "<group>"; };
 		45C30FFA1C555238002A9141 /* DataScanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataScanner.swift; sourceTree = "<group>"; };
@@ -250,8 +234,7 @@
 		45C30FFF1C555238002A9141 /* BlockValueTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockValueTransformer.swift; sourceTree = "<group>"; };
 		45C310001C555238002A9141 /* Heap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Heap.swift; sourceTree = "<group>"; };
 		45C310011C555238002A9141 /* Math.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
-		45C310021C555238002A9141 /* MutableBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MutableBuffer.swift; sourceTree = "<group>"; };
-		45C310031C555238002A9141 /* NSData+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSData+Extensions.swift"; sourceTree = "<group>"; };
+		45C310031C555238002A9141 /* Data+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+Extensions.swift"; sourceTree = "<group>"; };
 		45C310041C555238002A9141 /* NSDate+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDate+Extensions.swift"; sourceTree = "<group>"; };
 		45C310051C555238002A9141 /* NSMapTable+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSMapTable+Extensions.swift"; sourceTree = "<group>"; };
 		45C310061C555238002A9141 /* NSRange+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSRange+Extensions.swift"; sourceTree = "<group>"; };
@@ -278,7 +261,6 @@
 		45E8EEC6199A8EA50035C722 /* SwiftUtilities.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftUtilities.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		45E8EEE2199A90720035C722 /* SwiftUtilities_OSX_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftUtilities_OSX_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		45EA099E1B44C62B00505D14 /* DispatchDataTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DispatchDataTest.swift; sourceTree = "<group>"; };
-		45F3EDAC1B3E50E6007F55E3 /* Buffer.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Buffer.playground; sourceTree = "<group>"; };
 		45FDD2D01B423CD400BF207C /* Bits.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Bits.playground; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -331,19 +313,13 @@
 		45B13E311AC076450035DEE9 /* Playgrounds */ = {
 			isa = PBXGroup;
 			children = (
-				45F3EDAC1B3E50E6007F55E3 /* Buffer.playground */,
 				452B30AB1AC0996100920B6A /* RegularExpressionPlayground.playground */,
 				45B13E331AC076450035DEE9 /* Walker.playground */,
-				452BAC241B3E8A7300F3DF48 /* Random.playground */,
 				45FDD2D01B423CD400BF207C /* Bits.playground */,
 				458825021B90CD2900D438AD /* DispatchData.playground */,
 				4521A3B81B90F2F6007087D2 /* BloomFilter.playground */,
 				457D374E1B910DB100A67740 /* BitRange.playground */,
-				45ADDE581BCCB9E40012EB0D /* Scratch.playground */,
-				45542EE31BEAA5F0000754E7 /* StructEncoding.playground */,
 				45B6EABF1C45CAD100ED40D0 /* PriorityQueue.playground */,
-				45A976A61C59E67C0071D6C3 /* MapTable.playground */,
-				458D01B41CE27D400092A2E8 /* HexDump.playground */,
 				457D6BD31D00B4140046EAB6 /* TestingPublisher.playground */,
 				45D1CDBE1D494875005BE75C /* Versions.playground */,
 				45E4699E1D5679A100F99DB3 /* Paths.playground */,
@@ -386,7 +362,6 @@
 		45C310701C555268002A9141 /* Collections */ = {
 			isa = PBXGroup;
 			children = (
-				45C30FF51C555238002A9141 /* BlockBackedCollection.swift */,
 				45C310001C555238002A9141 /* Heap.swift */,
 				45A976A01C59DF000071D6C3 /* MapTable.swift */,
 				45C310091C555238002A9141 /* PriorityQueue.swift */,
@@ -409,9 +384,8 @@
 		45C310731C55533B002A9141 /* Foundation */ = {
 			isa = PBXGroup;
 			children = (
-				45C310031C555238002A9141 /* NSData+Extensions.swift */,
+				45C310031C555238002A9141 /* Data+Extensions.swift */,
 				45C310041C555238002A9141 /* NSDate+Extensions.swift */,
-				45C0A6691C59ED18004EE217 /* NSObject+Extensions.swift */,
 				45C310051C555238002A9141 /* NSMapTable+Extensions.swift */,
 				45C310061C555238002A9141 /* NSRange+Extensions.swift */,
 				456A88841C55F00800189B2C /* NSURL+Extensions.swift */,
@@ -424,11 +398,9 @@
 			children = (
 				45C30FF31C555238002A9141 /* Bases.swift */,
 				45C30FF41C555238002A9141 /* BitRange.swift */,
-				45C30FF71C555238002A9141 /* Buffer.swift */,
 				45C30FF81C555238002A9141 /* BufferType.swift */,
 				45C30FFB1C555238002A9141 /* DispatchData.swift */,
 				45C30FFC1C555238002A9141 /* Endianness.swift */,
-				45C310021C555238002A9141 /* MutableBuffer.swift */,
 				45C310191C555238002A9141 /* UnsafeBufferPointers.swift */,
 				458D01B51CE282120092A2E8 /* Hexdump.swift */,
 			);
@@ -750,12 +722,9 @@
 				45C310211C555238002A9141 /* Bases.swift in Sources */,
 				45C310231C555238002A9141 /* BitRange.swift in Sources */,
 				45C3104F1C555238002A9141 /* TestingPublisher.swift in Sources */,
-				457A93151C59EE2D003137E4 /* NSObject+Extensions.swift in Sources */,
 				4535F4CC1CA70C3C0035C0EB /* Dispatch.swift in Sources */,
 				45C3103B1C555238002A9141 /* Heap.swift in Sources */,
 				45C3102F1C555238002A9141 /* DataScanner.swift in Sources */,
-				45C310291C555238002A9141 /* Buffer.swift in Sources */,
-				45C310251C555238002A9141 /* BlockBackedCollection.swift in Sources */,
 				45A976A21C59DF0F0071D6C3 /* MapTable.swift in Sources */,
 				45C310271C555238002A9141 /* Box.swift in Sources */,
 				452BF90C1C91F0D100E4086A /* Atomic.swift in Sources */,
@@ -768,7 +737,6 @@
 				456A88891C55F05600189B2C /* InternalUtilities.swift in Sources */,
 				45C3106F1C555238002A9141 /* Walker.swift in Sources */,
 				45C310511C555238002A9141 /* PureUtilities.swift in Sources */,
-				45C3103F1C555238002A9141 /* MutableBuffer.swift in Sources */,
 				45C310691C555238002A9141 /* Timestamp.swift in Sources */,
 				45C3103D1C555238002A9141 /* Math.swift in Sources */,
 				45C310331C555238002A9141 /* Endianness.swift in Sources */,
@@ -776,7 +744,7 @@
 				45C310351C555238002A9141 /* Errno.swift in Sources */,
 				45C3105B1C555238002A9141 /* Result.swift in Sources */,
 				45C3106D1C555238002A9141 /* Utilities.swift in Sources */,
-				45C310411C555238002A9141 /* NSData+Extensions.swift in Sources */,
+				45C310411C555238002A9141 /* Data+Extensions.swift in Sources */,
 				45C3101F1C555238002A9141 /* AStarSearch.swift in Sources */,
 				458D01B71CE282120092A2E8 /* Hexdump.swift in Sources */,
 				456A88861C55F00800189B2C /* NSURL+Extensions.swift in Sources */,
@@ -805,12 +773,9 @@
 				45C310201C555238002A9141 /* Bases.swift in Sources */,
 				45C310221C555238002A9141 /* BitRange.swift in Sources */,
 				45C3104E1C555238002A9141 /* TestingPublisher.swift in Sources */,
-				457A93141C59EE2C003137E4 /* NSObject+Extensions.swift in Sources */,
 				4535F4CB1CA70C3C0035C0EB /* Dispatch.swift in Sources */,
 				45C3103A1C555238002A9141 /* Heap.swift in Sources */,
 				45C3102E1C555238002A9141 /* DataScanner.swift in Sources */,
-				45C310281C555238002A9141 /* Buffer.swift in Sources */,
-				45C310241C555238002A9141 /* BlockBackedCollection.swift in Sources */,
 				45A976A11C59DF000071D6C3 /* MapTable.swift in Sources */,
 				45C310261C555238002A9141 /* Box.swift in Sources */,
 				452BF90B1C91F0D100E4086A /* Atomic.swift in Sources */,
@@ -823,7 +788,6 @@
 				456A88881C55F05600189B2C /* InternalUtilities.swift in Sources */,
 				45C3106E1C555238002A9141 /* Walker.swift in Sources */,
 				45C310501C555238002A9141 /* PureUtilities.swift in Sources */,
-				45C3103E1C555238002A9141 /* MutableBuffer.swift in Sources */,
 				45C310681C555238002A9141 /* Timestamp.swift in Sources */,
 				457D6BD11D00AF220046EAB6 /* Publisher.swift in Sources */,
 				45C3103C1C555238002A9141 /* Math.swift in Sources */,
@@ -832,7 +796,7 @@
 				45C310341C555238002A9141 /* Errno.swift in Sources */,
 				45C3105A1C555238002A9141 /* Result.swift in Sources */,
 				45C3106C1C555238002A9141 /* Utilities.swift in Sources */,
-				45C310401C555238002A9141 /* NSData+Extensions.swift in Sources */,
+				45C310401C555238002A9141 /* Data+Extensions.swift in Sources */,
 				45C3101E1C555238002A9141 /* AStarSearch.swift in Sources */,
 				456A88851C55F00800189B2C /* NSURL+Extensions.swift in Sources */,
 				454146121CE660DA00B847E1 /* Collections+Misc.swift in Sources */,
@@ -1061,6 +1025,7 @@
 				PRODUCT_NAME = SwiftUtilities;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -1080,6 +1045,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "io.schwa.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = SwiftUtilities;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -1139,6 +1105,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "schwa.io.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -1154,6 +1121,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "schwa.io.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

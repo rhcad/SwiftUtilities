@@ -15,23 +15,23 @@ class PathTests: XCTestCase {
     func testInit() {
         do {
             let path = Path("/tmp")
-            XCTAssertEqual(String(path), "/tmp")
-        }
-        do {
-            let path = try! Path(NSURL(fileURLWithPath: "/tmp"))
             XCTAssertEqual(path.path, "/tmp")
         }
         do {
-            let path = try? Path(NSURL(string: "http://google.com")!)
+            let path = try! Path(URL(fileURLWithPath: "/tmp"))
+            XCTAssertEqual(path.path, "/tmp")
+        }
+        do {
+            let path = try? Path(URL(string: "http://google.com")!)
             XCTAssertNil(path)
         }
         do {
-            let path = try! Path(NSURL(string: "/tmp")!)
+            let path = try! Path(URL(fileURLWithPath: "/tmp"))
             XCTAssertEqual(path.path, "/tmp")
         }
         do {
             let path = Path("~")
-            XCTAssertEqual(path.normalized.path, ("~" as NSString).stringByExpandingTildeInPath)
+            XCTAssertEqual(path.normalized.path, ("~" as NSString).expandingTildeInPath)
         }
         do {
             let path = Path("/tmp")
@@ -55,7 +55,7 @@ class PathTests: XCTestCase {
 //        }
         do {
             let path = Path("/tmp/foo.bar.zip").withName("xyzzy")
-            XCTAssertEqual(String(path), "/tmp/xyzzy")
+            XCTAssertEqual(path.path, "/tmp/xyzzy")
         }
 //        do {
 //            let path = Path("/tmp/foo.bar.zip").withPathExtension(".bz2")
@@ -63,7 +63,7 @@ class PathTests: XCTestCase {
 //        }
         do {
             let path = Path("/tmp/foo.bar.zip").withStem("xyzzy")
-            XCTAssertEqual(String(path), "/tmp/xyzzy.zip")
+            XCTAssertEqual(path.path, "/tmp/xyzzy.zip")
         }
 
     }

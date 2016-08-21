@@ -33,17 +33,17 @@ public struct WalkerState <T> {
     public var depth: Int = 0
     public var stack: [T] = []
 
-    public func filler(string: String = " ") -> String {
-        return String(count: self.depth, repeatedValue: Character(string))
+    public func filler(_ string: String = " ") -> String {
+        return String(repeating: string, count: self.depth)
     }
 }
 
 public struct Walker <T> {
 
     public typealias State = WalkerState <T>
-    public typealias Children = (node: T) -> [T]?
-    public typealias StatelessVisitor = (node: T, depth: Int) -> Void
-    public typealias StatefulVisitor = (node: T, state: State) -> Void
+    public typealias Children = (_ node: T) -> [T]?
+    public typealias StatelessVisitor = (_ node: T, _ depth: Int) -> Void
+    public typealias StatefulVisitor = (_ node: T, _ state: State) -> Void
 
     public let childrenBlock: Children!
 
@@ -51,15 +51,15 @@ public struct Walker <T> {
         self.childrenBlock = childrenBlock
     }
 
-    public func walk(node: T, visitor: StatefulVisitor) {
+    public func walk(_ node: T, visitor: StatefulVisitor) {
         self.walk(node, state: State(), visitor: visitor)
     }
 
-    public func walk(node: T, state: State, visitor: StatefulVisitor) {
+    public func walk(_ node: T, state: State, visitor: StatefulVisitor) {
         var state = state
-        visitor(node: node, state: state)
+        visitor(node, state)
         state = State(depth: state.depth + 1, stack: state.stack + [node])
-        if let children = self.childrenBlock(node: node) {
+        if let children = self.childrenBlock(node) {
 
             for child in children {
                 walk(child, state: state, visitor: visitor)
@@ -67,13 +67,13 @@ public struct Walker <T> {
         }
     }
 
-    public func walk(node: T, visitor: StatelessVisitor) {
+    public func walk(_ node: T, visitor: StatelessVisitor) {
         self.walk(node, depth: 0, visitor: visitor)
     }
 
-    func walk(node: T, depth: Int, visitor: StatelessVisitor) {
-        visitor(node: node, depth: depth)
-        if let children = self.childrenBlock(node: node) {
+    func walk(_ node: T, depth: Int, visitor: StatelessVisitor) {
+        visitor(node, depth)
+        if let children = self.childrenBlock(node) {
 
             for child in children {
                 walk(child, depth: depth + 1, visitor: visitor)
