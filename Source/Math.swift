@@ -32,7 +32,12 @@ import CoreGraphics
 
 // MARK: Math
 
-infix operator ** /* { associativity none precedence 160 } */
+precedencegroup ExponentPrecedence {
+  associativity: left
+  higherThan: MultiplicationPrecedence
+}
+
+infix operator **: ExponentPrecedence
 
 public func ** (lhs: Float, rhs: Float) -> Float {
     if rhs == 2 {
