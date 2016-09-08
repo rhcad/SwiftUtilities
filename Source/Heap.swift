@@ -39,11 +39,11 @@ public struct BinaryHeap <Element> {
     public typealias Storage = Array <Element>
     public var array: Storage = []
 
-    public init(comparator: Comparator) {
+    public init(comparator: @escaping Comparator) {
         self.comparator = comparator
     }
 
-    public init(values: [Element], comparator: Comparator) {
+    public init(values: [Element], comparator: @escaping Comparator) {
         self.array = values
         self.comparator = comparator
         build(&self.array)

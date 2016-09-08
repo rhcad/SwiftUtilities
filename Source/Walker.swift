@@ -47,7 +47,7 @@ public struct Walker <T> {
 
     public let childrenBlock: Children!
 
-    public init(childrenBlock: Children) {
+    public init(childrenBlock: @escaping Children) {
         self.childrenBlock = childrenBlock
     }
 

@@ -43,13 +43,13 @@ open class BlockValueTransformer: ValueTransformer {
     BlockValueTransformer.register(name: "Foo") { return Foo($0) }
     }
     */
-    open static func register(_ name: String, block: TransformerBlock) -> BlockValueTransformer {
+    open static func register(_ name: String, block: @escaping TransformerBlock) -> BlockValueTransformer {
         let transformer = BlockValueTransformer(block: block)
         self.setValueTransformer(transformer, forName: NSValueTransformerName(rawValue: name))
         return transformer
     }
 
-    public init(block: TransformerBlock) {
+    public init(block: @escaping TransformerBlock) {
         self.block = block
     }
 

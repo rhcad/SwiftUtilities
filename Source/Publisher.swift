@@ -47,14 +47,14 @@ open class Publisher <MessageKey: Hashable, Message> {
      - parameter messageKey:  The message type. `MessageKey` must conform to the `Hashable` protocol.
      - parameter handler:     Closure to be called when a Message is published. Be careful about not capturing the subscriber object in this closure.
      */
-    open func subscribe(_ subscriber: AnyObject, messageKey: MessageKey, handler: Handler) {
+    open func subscribe(_ subscriber: AnyObject, messageKey: MessageKey, handler: @escaping Handler) {
         subscribe(subscriber, messageKeys: [messageKey], handler: handler)
     }
 
     /**
      Registers a subscriber for multiple message types.
      */
-    open func subscribe(_ subscriber: AnyObject, messageKeys: [MessageKey], handler: Handler) {
+    open func subscribe(_ subscriber: AnyObject, messageKeys: [MessageKey], handler: @escaping Handler) {
         lock.with() {
             let newEntry = Entry(subscriber: subscriber, handler: handler)
             for messageKey in messageKeys {

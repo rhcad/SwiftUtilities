@@ -37,7 +37,7 @@ open class TestingPublisher <MessageType> {
     public init() {
     }
 
-    open func subscribe(_ subscriber: AnyObject, test: Test, handler: Handler) {
+    open func subscribe(_ subscriber: AnyObject, test: @escaping Test, handler: @escaping Handler) {
         lock.with() {
             let newEntry = Entry(subscriber: subscriber, test: test, handler: handler)
             entries.append(newEntry)
