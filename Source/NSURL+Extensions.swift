@@ -30,21 +30,17 @@
 
 import Foundation
 
-public extension NSURL {
-    func URLByResolvingURL() throws -> NSURL {
-        let bookmarkData = try self.bookmarkDataWithOptions(NSURLBookmarkCreationOptions.MinimalBookmark, includingResourceValuesForKeys: nil, relativeToURL: nil)
-        return try NSURL(byResolvingBookmarkData: bookmarkData, options: .WithoutUI, relativeToURL: nil, bookmarkDataIsStale: nil)
+public extension URL {
+    func URLByResolvingURL() throws -> URL {
+        let bookmarkData = try (self as NSURL).bookmarkData(options: NSURL.BookmarkCreationOptions.minimalBookmark, includingResourceValuesForKeys: nil, relativeTo: nil)
+        return try (NSURL(resolvingBookmarkData: bookmarkData, options: .withoutUI, relativeTo: nil, bookmarkDataIsStale: nil) as URL)
     }
 }
 
-public func + (lhs: NSURL, rhs: String) -> NSURL {
-#if swift(>=2.3)
-    return lhs.URLByAppendingPathComponent(rhs)!
-#else
-    return lhs.URLByAppendingPathComponent(rhs)
-#endif
+public func + (lhs: URL, rhs: String) -> URL {
+    return lhs.appendingPathComponent(rhs)
 }
 
-public func += (inout left: NSURL, right: String) {
+public func += (left: inout URL, right: String) {
     left = left + right
 }

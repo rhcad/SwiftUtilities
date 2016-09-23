@@ -39,11 +39,11 @@ public struct BinaryHeap <Element> {
     public typealias Storage = Array <Element>
     public var array: Storage = []
 
-    public init(comparator: Comparator) {
+    public init(comparator: @escaping Comparator) {
         self.comparator = comparator
     }
 
-    public init(values: [Element], comparator: Comparator) {
+    public init(values: [Element], comparator: @escaping Comparator) {
         self.array = values
         self.comparator = comparator
         build(&self.array)
@@ -53,7 +53,7 @@ public struct BinaryHeap <Element> {
         return array.count
     }
 
-    public mutating func push(element: Element) {
+    public mutating func push(_ element: Element) {
         assert(valid(array))
         var index = array.count
         array.append(element)
@@ -89,21 +89,21 @@ public struct BinaryHeap <Element> {
 
 private extension BinaryHeap {
 
-    func parentIndexOfElementAtIndex(index: Int) -> Int? {
+    func parentIndexOfElementAtIndex(_ index: Int) -> Int? {
         return index < array.count ? (index - 1) / 2 : nil
     }
 
-    func childIndicesOfElementAtIndex(index: Int) -> (Int?, Int?) {
+    func childIndicesOfElementAtIndex(_ index: Int) -> (Int?, Int?) {
         let lhsIndex = 2 * index + 1
         let rhsIndex = 2 * index + 2
         return (lhsIndex < array.count ? lhsIndex : nil, rhsIndex < array.count ? rhsIndex : nil)
     }
 
-    mutating func heapify(index: Int) {
+    mutating func heapify(_ index: Int) {
         heapify(&array, index)
     }
 
-    func heapify(inout elements: [Element], _ index: Int) {
+    func heapify(_ elements: inout [Element], _ index: Int) {
         let left = 2 * index + 1
         let right = 2 * index + 2
         var largest = index
@@ -120,15 +120,15 @@ private extension BinaryHeap {
     }
 
     // TODO: Not working yet.
-    func build(inout elements: [Element]) {
+    func build(_ elements: inout [Element]) {
         assert(false)
 
-        for i in (elements.count - 1).stride(through: 0, by: -1) {
+        for i in stride(from: (elements.count - 1), through: 0, by: -1) {
             self.heapify(&elements, i)
         }
     }
 
-    func valid(elements: [Element], index: Int = 0) -> Bool {
+    func valid(_ elements: [Element], index: Int = 0) -> Bool {
         guard elements.count > 0 else {
             return true
         }

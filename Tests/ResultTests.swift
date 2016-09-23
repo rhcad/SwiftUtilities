@@ -14,19 +14,19 @@ class ResultTests: XCTestCase {
 
     func testExample() {
 
-        let success = Result <Int>.Success(100)
-        let failure = Result <Int>.Failure(Error.Unknown)
+        let success = Result <Int>.success(100)
+        let failure = Result <Int>.failure(Error.unknown)
 
         //
 
-        if case .Success(let value) = success {
+        if case .success(let value) = success {
             XCTAssertEqual(value, 100)
         }
         else {
             // Nothing to do here
         }
 
-        if case .Failure = success {
+        if case .failure = success {
             XCTFail()
         }
         else {
@@ -35,7 +35,7 @@ class ResultTests: XCTestCase {
 
         //
 
-        if case .Success = failure {
+        if case .success = failure {
             XCTFail()
         }
         else {
@@ -50,21 +50,21 @@ class ResultTests: XCTestCase {
         XCTAssertEqual(success.flatMap({ return $0 * 2 }), 200)
         XCTAssertNil(failure.flatMap({ return $0 * 2 }))
 
-        if case .Success(let value) = success.map({ return $0 * 2 }) {
+        if case .success(let value) = success.map({ return $0 * 2 }) {
             XCTAssertEqual(value, 200)
         }
         else {
             XCTFail()
         }
 
-        if case .Success(let value) = failure.map({ return $0 * 2 }) {
+        if case .success(let value) = failure.map({ return $0 * 2 }) {
             XCTAssertEqual(value, 100)
         }
         else {
             // Nothing to do here
         }
 
-        if case .Failure = failure.map({ return $0 * 2 }) {
+        if case .failure = failure.map({ return $0 * 2 }) {
             // Nothing to do here
         } else {
             XCTFail()

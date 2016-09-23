@@ -28,34 +28,33 @@
 //  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 public enum Result <T> {
-    case Success(T)
-    case Failure(ErrorType)
+    case success(T)
+    case failure(Error)
 }
 
 public extension Result {
-    @warn_unused_result
-    func map<U>(@noescape f: T throws -> U) rethrows -> Result<U> {
+
+    func map<U>(_ f: (T) throws -> U) rethrows -> Result<U> {
         switch self {
-            case .Success(let value):
-                return .Success(try f(value))
-            case .Failure(let error):
-                return .Failure(error)
+            case .success(let value):
+                return .success(try f(value))
+            case .failure(let error):
+                return .failure(error)
         }
     }
 
-    @warn_unused_result
-    func flatMap<U>(@noescape f: T throws -> U?) rethrows -> U? {
+    func flatMap<U>(_ f: (T) throws -> U?) rethrows -> U? {
         switch self {
-            case .Success(let value):
+            case .success(let value):
                 return try f(value)
-            case .Failure:
+            case .failure:
                 return nil
         }
     }
 }
 
-public func ?? <T> (lhs: Result<T>, @autoclosure rhs: () -> T) -> T {
-	if case .Success(let value) = lhs {
+public func ?? <T> (lhs: Result<T>, rhs: @autoclosure () -> T) -> T {
+	if case .success(let value) = lhs {
         return value
     }
     else {

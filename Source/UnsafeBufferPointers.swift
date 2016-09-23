@@ -31,10 +31,34 @@
 import Foundation
 
 public extension UnsafeBufferPointer {
-    public init(start: UnsafePointer<Element>, length: Int) {
-        precondition(length % UnsafeBufferPointer <Element>.elementSize == 0)
-        self.init(start: start, count: length / UnsafeBufferPointer <Element>.elementSize)
+
+    init() {
+        self.init(start: nil, count: 0)
     }
+
+    init(start: UnsafePointer<Element>, byteCount: Int) {
+        precondition(byteCount % UnsafeBufferPointer <Element>.elementSize == 0)
+        self.init(start: start, count: byteCount / UnsafeBufferPointer <Element>.elementSize)
+    }
+
+    func withUnsafeBufferPointer <T, R> (block: (UnsafeBufferPointer <T>) throws -> R) rethrows -> R {
+
+        guard let baseAddress = baseAddress else {
+            let buffer = UnsafeBufferPointer <T> ()
+            return try block(buffer)
+        }
+
+        // TODO: Swift3 make sure x % y == 0
+        let count = (self.count * UnsafeBufferPointer.elementSize) / UnsafeBufferPointer <T>.elementSize
+
+        return try baseAddress.withMemoryRebound(to: T.self, capacity: count) {
+            (pointer: UnsafeMutablePointer<T>) -> R in
+
+            let buffer = UnsafeBufferPointer <T> (start: pointer, count: count)
+            return try block(buffer)
+        }
+    }
+
 }
 
 public extension UnsafeMutableBufferPointer {

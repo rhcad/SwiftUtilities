@@ -42,14 +42,14 @@ import Foundation
  */
 public extension String {
 
-    func convert(index: NSInteger) -> String.Index? {
-        let utf16Index = utf16.startIndex.advancedBy(index)
-        return utf16Index.samePositionIn(self)
+    func convert(_ index: NSInteger) -> String.Index? {
+        let utf16Index = utf16.index(utf16.startIndex, offsetBy: index)
+        return utf16Index.samePosition(in: self)
     }
 
-    func convert(range: NSRange) -> Range <String.Index>? {
+    func convert(_ range: NSRange) -> Range <String.Index>? {
         let swiftRange = range.asRange
-        if let startIndex = convert(swiftRange.startIndex), let endIndex = convert(swiftRange.endIndex) {
+        if let startIndex = convert(swiftRange.lowerBound), let endIndex = convert(swiftRange.upperBound) {
             return startIndex..<endIndex
         }
         else {
@@ -57,14 +57,14 @@ public extension String {
         }
     }
 
-    func convert(index: String.Index) -> NSInteger {
-        let utf16Index = index.samePositionIn(utf16)
-        return utf16.startIndex.distanceTo(utf16Index)
+    func convert(_ index: String.Index) -> NSInteger {
+        let utf16Index = index.samePosition(in: utf16)
+        return utf16.distance(from: utf16.startIndex, to: utf16Index)
     }
 
-    func convert(range: Range <String.Index>) -> NSRange {
-        let startIndex = convert(range.startIndex)
-        let endIndex = convert(range.endIndex)
+    func convert(_ range: Range <String.Index>) -> NSRange {
+        let startIndex = convert(range.lowerBound)
+        let endIndex = convert(range.upperBound)
         return NSRange(location: startIndex, length: endIndex - startIndex)
     }
 

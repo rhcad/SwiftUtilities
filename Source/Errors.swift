@@ -30,12 +30,12 @@
 
 import Foundation
 
-struct AnnotatedError: ErrorType {
+struct AnnotatedError: Swift.Error {
 
-    let error: ErrorType
+    let error: Swift.Error
     let message: String
 
-    init(error: ErrorType, message: String) {
+    init(error: Swift.Error, message: String) {
         self.error = error
         self.message = message
     }
@@ -43,41 +43,41 @@ struct AnnotatedError: ErrorType {
 }
 
 // TODO: This is kinda crap.
-public enum Error: ErrorType {
-    case Generic(String)
-    case DispatchIO(Int32, String)
-    case Unimplemented
-    case Unknown
+public enum Error: Swift.Error {
+    case generic(String)
+    case dispatchIO(Int32, String)
+    case unimplemented
+    case unknown
 }
 
 extension Error: CustomStringConvertible {
     public var description: String {
         switch self {
-            case .Generic(let string):
+            case .generic(let string):
                 return string
-            case .DispatchIO(let code, let string):
+            case .dispatchIO(let code, let string):
                 return "\(code) \(string)"
-            case .Unimplemented:
+            case .unimplemented:
                 return "todo"
-            case .Unknown:
+            case .unknown:
                 return "unknown"
         }
     }
 }
 
-public func tryElseFatalError <T> (message: String? = nil, @noescape closure: (Void) throws -> T) -> T {
+public func tryElseFatalError <T> (_ message: String? = nil, closure: (Void) throws -> T) -> T {
     do {
         let result = try closure()
         return result
     }
     catch let error {
-        fatalError("\(message ?? "try failed"): \(String(error))")
+        fatalError("\(message ?? "try failed"): \(String(describing: error))")
     }
 }
 
-public func makeOSStatusError <T: IntegerType>(status: T, description: String? = nil) -> ErrorType {
+public func makeOSStatusError <T: Integer>(_ status: T, description: String? = nil) -> Swift.Error {
 
-    var userInfo: [NSObject: AnyObject]? = nil
+    var userInfo: [String: String]? = nil
 
     if let description = description {
         userInfo = [NSLocalizedDescriptionKey: description]
@@ -89,11 +89,11 @@ public func makeOSStatusError <T: IntegerType>(status: T, description: String? =
 }
 
 
-@noreturn public func unimplementedFailure(@autoclosure message: () -> String = "", file: StaticString = #file, line: UInt = #line) {
+public func unimplementedFailure( _ message: @autoclosure () -> String = "", file: StaticString = #file, line: UInt = #line) -> Never  {
     preconditionFailure(message, file: file, line: line)
 }
 
-public func withNoOutput <R>(@noescape block: () throws -> R) throws -> R {
+public func withNoOutput <R>( _ block: () throws -> R) throws -> R {
 
     fflush(stderr)
     let savedStdOut = dup(fileno(stdout))

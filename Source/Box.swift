@@ -29,8 +29,8 @@
 
 import Foundation
 
-public class Box <Element> {
-    public let value: Element
+open class Box <Element> {
+    open let value: Element
     public init(_ value: Element) {
         self.value = value
     }
@@ -38,13 +38,13 @@ public class Box <Element> {
 
 extension Box {
     // Stolen from https://github.com/robrix/Box/blob/master/Box/Box.swift
-    public func map<U> (@noescape transform: Element -> U) -> Box<U> {
+    public func map<U> (_ transform: (Element) -> U) -> Box<U> {
 		return Box<U> (transform(value))
 	}
 }
 
 extension Box: CustomStringConvertible {
     public var description: String {
-		return String(value)
+		return String(describing: value)
 	}
 }

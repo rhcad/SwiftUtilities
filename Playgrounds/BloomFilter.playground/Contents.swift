@@ -11,23 +11,19 @@ enum Contains {
 
 struct BloomFilter <Element: Hashable> {
 
-    var data: Array <UInt8>
-
+    private(set) var data: Array <UInt8>
     let count: Int
 
     init(count: Int) {
         self.count = count
-        self.data = Array <UInt8> (count: Int(ceil(Double(count) / 8)), repeatedValue: 0)
+        self.data = Array <UInt8> (repeating: 0, count: Int(ceil(Double(count) / 8)))
     }
 
     mutating func add(value: Element) {
         let hash = value.hashValue
-        let position = Int(unsafeBitCast(hash, UInt.self) % UInt(count))
+        let position = Int(unsafeBitCast(hash, to: UInt.self) % UInt(count))
         data.withUnsafeMutableBufferPointer() {
             (buffer) in
-
-
-
             bitSet(buffer, start: position, length: 1, newValue: 1)
             return
         }
@@ -35,7 +31,7 @@ struct BloomFilter <Element: Hashable> {
 
     func contains(value: Element) -> Contains {
         let hash = value.hashValue
-        let position = Int(unsafeBitCast(hash, UInt.self) % UInt(count))
+        let position = Int(unsafeBitCast(hash, to: UInt.self) % UInt(count))
         return data.withUnsafeBufferPointer() {
             (buffer) in
             return bitRange(buffer, start: position, length: 1) == 0 ? Contains.False : Contains.Maybe
@@ -46,9 +42,9 @@ struct BloomFilter <Element: Hashable> {
 
 var filter = BloomFilter <String>(count: 100)
 filter.data
-filter.add("hello world")
+filter.add(value: "hello world")
 filter.data
-filter.add("girafe")
+filter.add(value: "girafe")
 filter.data
-filter.contains("hello world")
-filter.contains("donkey")
+filter.contains(value: "hello world")
+filter.contains(value: "donkey")

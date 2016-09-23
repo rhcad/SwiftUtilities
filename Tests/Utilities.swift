@@ -38,7 +38,7 @@ import XCTest
 //}
 import SwiftUtilities
 
-func XCTAssertThrows(closure: () throws -> Void) {
+func XCTAssertThrows(_ closure: () throws -> Void) {
     do {
         try closure()
         XCTAssert(false)
@@ -48,36 +48,36 @@ func XCTAssertThrows(closure: () throws -> Void) {
     }
 }
 
-func bits(bits: Int) -> Int {
+func bits(_ bits: Int) -> Int {
     return bits * 8
 }
 
-func buildBinary(length: Int, @noescape closure: (UnsafeMutableBufferPointer <UInt8>) -> Void) -> [UInt8] {
-    var data = [UInt8](count: Int(ceil(Double(length) / 8)), repeatedValue: 0)
+func buildBinary(_ length: Int, closure: (UnsafeMutableBufferPointer <UInt8>) -> Void) -> [UInt8] {
+    var data = [UInt8](repeating: 0, count: Int(ceil(Double(length) / 8)))
     data.withUnsafeMutableBufferPointer() {
-        (inout buffer: UnsafeMutableBufferPointer <UInt8>) -> Void in
+        (buffer: inout UnsafeMutableBufferPointer <UInt8>) -> Void in
         closure(buffer)
     }
     return data
 }
 
-func byteArrayToBinary(bytes: Array <UInt8>) throws -> String {
-    return try bytes.map({ try binary($0, width: 8, prefix: false) }).joinWithSeparator("")
+func byteArrayToBinary(_ bytes: Array <UInt8>) throws -> String {
+    return try bytes.map({ try binary($0, prefix: false, width: 8) }).joined(separator: "")
 }
 
 struct BitString {
     var string: String
 
     init(count: Int) {
-        string = String(count: count, repeatedValue: Character("0"))
+        string = String(repeating: "0", count: count)
     }
 
-    mutating func bitSet(start: Int, length: Int, newValue: UIntMax) throws {
-
-        let newValue = try binary(newValue, width: length, prefix: false)
-
-        let start = string.startIndex.advancedBy(start)
-        let end = start.advancedBy(length)
-        string.replaceRange(start..<end, with: newValue)
-    }
+//    mutating func bitSet(_ start: Int, length: Int, newValue: UIntMax) throws {
+//
+//        let newValue = try binary(newValue, width: length, prefix: false)
+//
+//        let start = string.index(string.startIndex, offsetBy: start)
+//        let end = <#T##String.CharacterView corresponding to `start`##String.CharacterView#>.index(start, offsetBy: length)
+//        string.replaceRange(start..<end, with: newValue)
+//    }
 }

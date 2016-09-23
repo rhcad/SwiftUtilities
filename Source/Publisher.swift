@@ -34,8 +34,8 @@ Implementation of the Publish-Subscribe pattern for  https://en.wikipedia.org/wi
  - parameter MessageKey: A hashable type for messages. This is used as a unique key for each message. Ints or Hashable enums would make suitable MessageKeys.
  - parameter type:       The message type. `MessageKey` must conform to the `Hashable` protocol.
 */
-public class Publisher <MessageKey: Hashable, Message> {
-    public typealias Handler = Message -> Void
+open class Publisher <MessageKey: Hashable, Message> {
+    public typealias Handler = (Message) -> Void
 
     public init() {
     }
@@ -47,14 +47,14 @@ public class Publisher <MessageKey: Hashable, Message> {
      - parameter messageKey:  The message type. `MessageKey` must conform to the `Hashable` protocol.
      - parameter handler:     Closure to be called when a Message is published. Be careful about not capturing the subscriber object in this closure.
      */
-    public func subscribe(subscriber: AnyObject, messageKey: MessageKey, handler: Handler) {
+    open func subscribe(_ subscriber: AnyObject, messageKey: MessageKey, handler: @escaping Handler) {
         subscribe(subscriber, messageKeys: [messageKey], handler: handler)
     }
 
     /**
      Registers a subscriber for multiple message types.
      */
-    public func subscribe(subscriber: AnyObject, messageKeys: [MessageKey], handler: Handler) {
+    open func subscribe(_ subscriber: AnyObject, messageKeys: [MessageKey], handler: @escaping Handler) {
         lock.with() {
             let newEntry = Entry(subscriber: subscriber, handler: handler)
             for messageKey in messageKeys {
@@ -70,7 +70,7 @@ public class Publisher <MessageKey: Hashable, Message> {
 
      Note this is optional - a subscriber is automatically unregistered after it is deallocated.
      */
-    public func unsubscribe(subscriber: AnyObject) {
+    open func unsubscribe(_ subscriber: AnyObject) {
         rewrite() {
             (entry) in
             return entry.subscriber != nil && entry.subscriber !== subscriber
@@ -80,14 +80,14 @@ public class Publisher <MessageKey: Hashable, Message> {
     /**
      Unsubscribe a subscribe for some message types.
      */
-    public func unsubscribe(subscriber: AnyObject, messageKey: MessageKey) {
+    open func unsubscribe(_ subscriber: AnyObject, messageKey: MessageKey) {
         unsubscribe(subscriber, messageKeys: [messageKey])
     }
 
     /**
      Unsubscribe a subscribe for a single message type.
      */
-    public func unsubscribe(subscriber: AnyObject, messageKeys: [MessageKey]) {
+    open func unsubscribe(_ subscriber: AnyObject, messageKeys: [MessageKey]) {
         lock.with() {
             for messageKey in messageKeys {
                 guard let entries = entriesForType[messageKey] else {
@@ -104,7 +104,7 @@ public class Publisher <MessageKey: Hashable, Message> {
     /**
      Publish a message to all subscribers registerd a handler for `messageKey`
      */
-    public func publish(messageKey: MessageKey, message: Message) -> Bool {
+    open func publish(_ messageKey: MessageKey, message: Message) -> Bool {
 
         let (needsPurging, handled): (Bool, Bool) = lock.with() {
             guard let entries = entriesForType[messageKey] else {
@@ -130,13 +130,13 @@ public class Publisher <MessageKey: Hashable, Message> {
         return handled
     }
 
-    private typealias Entries = [Entry <Message>]
-    private var entriesForType: [MessageKey: Entries] = [:]
+    fileprivate typealias Entries = [Entry <Message>]
+    fileprivate var entriesForType: [MessageKey: Entries] = [:]
 
     /// This is a recursive lock because it is expected that observers _could_ remove themselves while handling messages.
-    private var lock = NSRecursiveLock()
+    fileprivate var lock = NSRecursiveLock()
 
-    private var queue = dispatch_queue_create("io.schwa.SwiftIO.Publisher", DISPATCH_QUEUE_SERIAL)
+    fileprivate var queue = DispatchQueue(label: "io.schwa.SwiftIO.Publisher", attributes: [])
 }
 
 extension Publisher: CustomDebugStringConvertible {
@@ -169,9 +169,9 @@ private extension Publisher {
     /**
      Enumerate through all entries for all types and remove entries that pass `test`.
      */
-    func rewrite(test: Entry<Message> -> Bool) {
+    func rewrite(_ test: @escaping (Entry<Message>) -> Bool) {
         lock.with() {
-            func filteredEntries(entries: [Entry<Message>]) -> [Entry<Message>] {
+            func filteredEntries(_ entries: [Entry<Message>]) -> [Entry<Message>] {
                 return entries.filter() {
                     (entry) in
                     return test(entry)
@@ -189,7 +189,7 @@ private extension Publisher {
 // MARK: -
 
 private struct Entry <Message> {
-    typealias Handler = Message -> Void
+    typealias Handler = (Message) -> Void
     weak var subscriber: AnyObject?
     let handler: Handler
 }
