@@ -195,6 +195,7 @@
 		454146111CE660DA00B847E1 /* Collections+Misc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Collections+Misc.swift"; sourceTree = "<group>"; };
 		454820E91D15CF23003AB1D6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		455B23991C55FA2400D19F7F /* PathTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PathTests.swift; sourceTree = "<group>"; };
+		455B6A201D95A83A00F0238E /* LICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		456A88841C55F00800189B2C /* NSURL+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSURL+Extensions.swift"; sourceTree = "<group>"; };
 		456A88871C55F05600189B2C /* InternalUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InternalUtilities.swift; sourceTree = "<group>"; };
 		457D374E1B910DB100A67740 /* BitRange.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = BitRange.playground; sourceTree = "<group>"; };
@@ -202,7 +203,6 @@
 		457D6BD31D00B4140046EAB6 /* TestingPublisher.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = TestingPublisher.playground; sourceTree = "<group>"; };
 		458132071C01580900A113F7 /* ObservableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObservableTests.swift; sourceTree = "<group>"; };
 		45880D401BB43BCC00BB6344 /* README.markdown */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.markdown; sourceTree = "<group>"; };
-		45880D411BB43E9A00BB6344 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		458825021B90CD2900D438AD /* DispatchData.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = DispatchData.playground; sourceTree = "<group>"; };
 		458D01B51CE282120092A2E8 /* Hexdump.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hexdump.swift; sourceTree = "<group>"; };
 		459826D21D56C74800B54CB1 /* Testing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Testing.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -432,7 +432,7 @@
 			isa = PBXGroup;
 			children = (
 				45880D401BB43BCC00BB6344 /* README.markdown */,
-				45880D411BB43E9A00BB6344 /* LICENSE */,
+				455B6A201D95A83A00F0238E /* LICENSE.txt */,
 				45B13E311AC076450035DEE9 /* Playgrounds */,
 				45C30FF01C555238002A9141 /* Source */,
 				683243C9FC6F570CB43FF73E /* Supporting Files */,
