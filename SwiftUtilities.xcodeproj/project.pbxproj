@@ -7,9 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		45112B2F1D9990050051CCD2 /* Atomic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452BF90A1C91F0D100E4086A /* Atomic.swift */; };
+		45112B471D9998740051CCD2 /* Benchmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4525C3951CB7654900B5F529 /* Benchmark.swift */; };
+		45112B481D9998960051CCD2 /* Collections+Misc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454146111CE660DA00B847E1 /* Collections+Misc.swift */; };
 		4525C3961CB7654900B5F529 /* Benchmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4525C3951CB7654900B5F529 /* Benchmark.swift */; };
 		452BF90B1C91F0D100E4086A /* Atomic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452BF90A1C91F0D100E4086A /* Atomic.swift */; };
-		452BF90C1C91F0D100E4086A /* Atomic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452BF90A1C91F0D100E4086A /* Atomic.swift */; };
 		452E1A2D1BCDC30F000FC9FA /* RegularExpressionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452E1A2C1BCDC30F000FC9FA /* RegularExpressionTests.swift */; };
 		452E96FE1B3CA523002269CD /* NumberBases_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452E96FC1B3CA523002269CD /* NumberBases_Tests.swift */; };
 		452E96FF1B3CA523002269CD /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452E96FD1B3CA523002269CD /* Utilities.swift */; };
@@ -21,7 +23,6 @@
 		453E47821B7C2D950070218B /* DataScannerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453E47811B7C2D950070218B /* DataScannerTest.swift */; };
 		453E47831B7C31E30070218B /* SwiftUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45E8EEA4199A8E080035C722 /* SwiftUtilities.framework */; };
 		454146121CE660DA00B847E1 /* Collections+Misc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454146111CE660DA00B847E1 /* Collections+Misc.swift */; };
-		454146131CE660DA00B847E1 /* Collections+Misc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454146111CE660DA00B847E1 /* Collections+Misc.swift */; };
 		455B239A1C55FA2400D19F7F /* PathTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 455B23991C55FA2400D19F7F /* PathTests.swift */; };
 		456A88851C55F00800189B2C /* NSURL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456A88841C55F00800189B2C /* NSURL+Extensions.swift */; };
 		456A88861C55F00800189B2C /* NSURL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456A88841C55F00800189B2C /* NSURL+Extensions.swift */; };
@@ -682,6 +683,7 @@
 				45C2A5771C86428B00488C45 /* Comparison.swift in Sources */,
 				45C3105F1C555238002A9141 /* String+Extensions.swift in Sources */,
 				45C310431C555238002A9141 /* NSDate+Extensions.swift in Sources */,
+				45112B471D9998740051CCD2 /* Benchmark.swift in Sources */,
 				45C3106B1C555238002A9141 /* UnsafeBufferPointers.swift in Sources */,
 				45C3104D1C555238002A9141 /* PriorityQueue.swift in Sources */,
 				45C310391C555238002A9141 /* BlockValueTransformer.swift in Sources */,
@@ -694,7 +696,6 @@
 				45C3102F1C555238002A9141 /* DataScanner.swift in Sources */,
 				45A976A21C59DF0F0071D6C3 /* MapTable.swift in Sources */,
 				45C310271C555238002A9141 /* Box.swift in Sources */,
-				452BF90C1C91F0D100E4086A /* Atomic.swift in Sources */,
 				45C3104B1C555238002A9141 /* Path.swift in Sources */,
 				45C310371C555238002A9141 /* Errors.swift in Sources */,
 				457D6BD21D00AF220046EAB6 /* Publisher.swift in Sources */,
@@ -709,9 +710,11 @@
 				45C310331C555238002A9141 /* Endianness.swift in Sources */,
 				45C310591C555238002A9141 /* RegularExpression.swift in Sources */,
 				45C310351C555238002A9141 /* Errno.swift in Sources */,
+				45112B481D9998960051CCD2 /* Collections+Misc.swift in Sources */,
 				45C3105B1C555238002A9141 /* Result.swift in Sources */,
 				45C3106D1C555238002A9141 /* Utilities.swift in Sources */,
 				45C310411C555238002A9141 /* Data+Extensions.swift in Sources */,
+				45112B2F1D9990050051CCD2 /* Atomic.swift in Sources */,
 				45C3101F1C555238002A9141 /* AStarSearch.swift in Sources */,
 				458D01B71CE282120092A2E8 /* Hexdump.swift in Sources */,
 				456A88861C55F00800189B2C /* NSURL+Extensions.swift in Sources */,
@@ -720,7 +723,6 @@
 				45C3105D1C555238002A9141 /* Search.swift in Sources */,
 				453C93301C83984C00A4F5E0 /* AssociatedObjectHelper.swift in Sources */,
 				45C310491C555238002A9141 /* Observable.swift in Sources */,
-				454146131CE660DA00B847E1 /* Collections+Misc.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -965,7 +967,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "io.schwa.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = SwiftUtilities;
 				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 			};
 			name = Debug;
 		};
