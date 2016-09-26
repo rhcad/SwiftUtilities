@@ -1,6 +1,6 @@
 language: objective-c
 osx_image: xcode8
 script:
-- xcodebuild -project SwiftUtilities.xcodeproj -scheme SwiftUtilities_iOS -sdk iphonesimulator build
-- xcodebuild -project SwiftUtilities.xcodeproj -scheme SwiftUtilities_OSX build test
-
+- xcodebuild -project SwiftUtilities.xcodeproj -scheme SwiftUtilities_iOS -sdk iphoneos -configuration Release build
+- xcodebuild -project SwiftUtilities.xcodeproj -scheme SwiftUtilities_iOS -sdk iphonesimulator -configuration Release build
+- xcodebuild -project SwiftUtilities.xcodeproj -scheme SwiftUtilities_OSX -configuration Release build test
