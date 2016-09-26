@@ -54,24 +54,6 @@ extension NSLock: Locking {
 extension NSRecursiveLock: Locking {
 }
 
-// MARK: -
-
-@available(*, deprecated)
-public struct Spinlock: Locking {
-
-    var spinlock = OS_SPINLOCK_INIT
-
-    public mutating func lock() {
-        OSSpinLockLock(&spinlock)
-    }
-
-    public mutating func unlock() {
-        OSSpinLockUnlock(&spinlock)
-    }
-}
-
-// MARK: -
-
 public func synchronized <R> (object: AnyObject, closure: () throws -> R) rethrows -> R {
     objc_sync_enter(object)
     defer {
