@@ -74,11 +74,11 @@ extension ObservableType {
 
 // MARK: -
 
-open class ObservableProperty <Element: Equatable>: ObservableType {
+public class ObservableProperty <Element: Equatable>: ObservableType {
 
     public typealias ElementType = Element
 
-    open var value: Element {
+    public var value: Element {
         get {
             return lock.with() {
                 return internalValue
@@ -103,27 +103,27 @@ open class ObservableProperty <Element: Equatable>: ObservableType {
         internalValue = value
     }
 
-    open func addObserver(_ observer: AnyObject, closure: @escaping () -> Void) {
+    public func addObserver(_ observer: AnyObject, closure: @escaping () -> Void) {
         lock.with() {
             observers.setObject(Box(Callback.noValue(closure)), forKey: observer)
             closure()
         }
     }
 
-    open func addObserver(_ observer: AnyObject, closure: @escaping (Element) -> Void) {
+    public func addObserver(_ observer: AnyObject, closure: @escaping (Element) -> Void) {
         lock.with() {
             observers.setObject(Box(Callback.newValue(closure)), forKey: observer)
             closure(value)
         }
     }
 
-    open func addObserver(_ observer: AnyObject, closure: @escaping (Element, Element) -> Void) {
+    public func addObserver(_ observer: AnyObject, closure: @escaping (Element, Element) -> Void) {
         lock.with() {
             observers.setObject(Box(Callback.newAndOldValue(closure)), forKey: observer)
         }
     }
 
-    open func removeObserver(_ observer: AnyObject) {
+    public func removeObserver(_ observer: AnyObject) {
         lock.with() {
             observers.removeObject(forKey: observer)
         }
@@ -159,11 +159,11 @@ open class ObservableProperty <Element: Equatable>: ObservableType {
 
 // MARK: -
 
-open class ObservableOptionalProperty <Element: Equatable>: ObservableType, ExpressibleByNilLiteral {
+public class ObservableOptionalProperty <Element: Equatable>: ObservableType, ExpressibleByNilLiteral {
 
     public typealias ElementType = Element?
 
-    open var value: Element? {
+    public var value: Element? {
         get {
             return lock.with() {
                 return internalValue
@@ -188,27 +188,27 @@ open class ObservableOptionalProperty <Element: Equatable>: ObservableType, Expr
         internalValue = value
     }
 
-    open func addObserver(_ observer: AnyObject, closure: @escaping () -> Void) {
+    public func addObserver(_ observer: AnyObject, closure: @escaping () -> Void) {
         lock.with() {
             observers.setObject(Box(Callback.noValue(closure)), forKey: observer)
             closure()
         }
     }
 
-    open func addObserver(_ observer: AnyObject, closure: @escaping (Element?) -> Void) {
+    public func addObserver(_ observer: AnyObject, closure: @escaping (Element?) -> Void) {
         lock.with() {
             observers.setObject(Box(Callback.newValue(closure)), forKey: observer)
             closure(value)
         }
     }
 
-    open func addObserver(_ observer: AnyObject, closure: @escaping (Element?, Element?) -> Void) {
+    public func addObserver(_ observer: AnyObject, closure: @escaping (Element?, Element?) -> Void) {
         lock.with() {
             observers.setObject(Box(Callback.newAndOldValue(closure)), forKey: observer)
         }
     }
 
-    open func removeObserver(_ observer: AnyObject) {
+    public func removeObserver(_ observer: AnyObject) {
         lock.with() {
             observers.removeObject(forKey: observer)
         }

@@ -34,7 +34,7 @@ Implementation of the Publish-Subscribe pattern for  https://en.wikipedia.org/wi
  - parameter MessageKey: A hashable type for messages. This is used as a unique key for each message. Ints or Hashable enums would make suitable MessageKeys.
  - parameter type:       The message type. `MessageKey` must conform to the `Hashable` protocol.
 */
-open class Publisher <MessageKey: Hashable, Message> {
+public class Publisher <MessageKey: Hashable, Message> {
     public typealias Handler = (Message) -> Void
 
     public init() {
@@ -47,14 +47,14 @@ open class Publisher <MessageKey: Hashable, Message> {
      - parameter messageKey:  The message type. `MessageKey` must conform to the `Hashable` protocol.
      - parameter handler:     Closure to be called when a Message is published. Be careful about not capturing the subscriber object in this closure.
      */
-    open func subscribe(_ subscriber: AnyObject, messageKey: MessageKey, handler: @escaping Handler) {
+    public func subscribe(_ subscriber: AnyObject, messageKey: MessageKey, handler: @escaping Handler) {
         subscribe(subscriber, messageKeys: [messageKey], handler: handler)
     }
 
     /**
      Registers a subscriber for multiple message types.
      */
-    open func subscribe(_ subscriber: AnyObject, messageKeys: [MessageKey], handler: @escaping Handler) {
+    public func subscribe(_ subscriber: AnyObject, messageKeys: [MessageKey], handler: @escaping Handler) {
         lock.with() {
             let newEntry = Entry(subscriber: subscriber, handler: handler)
             for messageKey in messageKeys {
@@ -70,7 +70,7 @@ open class Publisher <MessageKey: Hashable, Message> {
 
      Note this is optional - a subscriber is automatically unregistered after it is deallocated.
      */
-    open func unsubscribe(_ subscriber: AnyObject) {
+    public func unsubscribe(_ subscriber: AnyObject) {
         rewrite() {
             (entry) in
             return entry.subscriber != nil && entry.subscriber !== subscriber
@@ -80,14 +80,14 @@ open class Publisher <MessageKey: Hashable, Message> {
     /**
      Unsubscribe a subscribe for some message types.
      */
-    open func unsubscribe(_ subscriber: AnyObject, messageKey: MessageKey) {
+    public func unsubscribe(_ subscriber: AnyObject, messageKey: MessageKey) {
         unsubscribe(subscriber, messageKeys: [messageKey])
     }
 
     /**
      Unsubscribe a subscribe for a single message type.
      */
-    open func unsubscribe(_ subscriber: AnyObject, messageKeys: [MessageKey]) {
+    public func unsubscribe(_ subscriber: AnyObject, messageKeys: [MessageKey]) {
         lock.with() {
             for messageKey in messageKeys {
                 guard let entries = entriesForType[messageKey] else {
@@ -104,7 +104,7 @@ open class Publisher <MessageKey: Hashable, Message> {
     /**
      Publish a message to all subscribers registerd a handler for `messageKey`
      */
-    open func publish(_ messageKey: MessageKey, message: Message) -> Bool {
+    public func publish(_ messageKey: MessageKey, message: Message) -> Bool {
 
         let (needsPurging, handled): (Bool, Bool) = lock.with() {
             guard let entries = entriesForType[messageKey] else {

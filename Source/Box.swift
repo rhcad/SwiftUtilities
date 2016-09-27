@@ -29,8 +29,8 @@
 
 import Foundation
 
-open class Box <Element> {
-    open let value: Element
+public class Box <Element> {
+    public let value: Element
     public init(_ value: Element) {
         self.value = value
     }

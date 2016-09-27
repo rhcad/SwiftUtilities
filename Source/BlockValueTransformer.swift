@@ -31,11 +31,11 @@
 
 import Foundation
 
-open class BlockValueTransformer: ValueTransformer {
+public class BlockValueTransformer: ValueTransformer {
 
     public typealias TransformerBlock = (AnyObject!) -> (AnyObject!)
 
-    open let block: TransformerBlock
+    public let block: TransformerBlock
 
     /*
     Generally used:
@@ -43,7 +43,7 @@ open class BlockValueTransformer: ValueTransformer {
     BlockValueTransformer.register(name: "Foo") { return Foo($0) }
     }
     */
-    open static func register(_ name: String, block: @escaping TransformerBlock) -> BlockValueTransformer {
+    public static func register(_ name: String, block: @escaping TransformerBlock) -> BlockValueTransformer {
         let transformer = BlockValueTransformer(block: block)
         self.setValueTransformer(transformer, forName: NSValueTransformerName(rawValue: name))
         return transformer
@@ -53,7 +53,7 @@ open class BlockValueTransformer: ValueTransformer {
         self.block = block
     }
 
-    open override func transformedValue(_ value: Any?) -> Any? {
+    public override func transformedValue(_ value: Any?) -> Any? {
         return self.block(value as AnyObject!)
     }
 }

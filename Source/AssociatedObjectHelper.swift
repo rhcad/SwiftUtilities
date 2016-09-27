@@ -49,9 +49,9 @@ import Foundation
     helper.getAssociatedValueForObject(object) // nil
     ```
 */
-open class AssociatedObjectHelper <T> {
+public class AssociatedObjectHelper <T> {
 
-    open let policy: objc_AssociationPolicy
+    public let policy: objc_AssociationPolicy
 
     public init(atomic: Bool = true) {
         policy = atomic ? .OBJC_ASSOCIATION_RETAIN : .OBJC_ASSOCIATION_RETAIN_NONATOMIC
@@ -61,7 +61,7 @@ open class AssociatedObjectHelper <T> {
         fatalError("Associated Helpers should not deinit")
     }
 
-    open func getAssociatedValueForObject(_ object: AnyObject) -> T? {
+    public func getAssociatedValueForObject(_ object: AnyObject) -> T? {
         guard let associatedObject = objc_getAssociatedObject(object, key) else {
             return nil
         }
@@ -76,7 +76,7 @@ open class AssociatedObjectHelper <T> {
         }
     }
 
-    open func setAssociatedValueForObject(_ object: AnyObject, value: T?) {
+    public func setAssociatedValueForObject(_ object: AnyObject, value: T?) {
         let associatedObject: AnyObject?
         if let value = value {
             if T.self == AnyObject.self {
@@ -92,7 +92,7 @@ open class AssociatedObjectHelper <T> {
         objc_setAssociatedObject(object, key, associatedObject, policy)
     }
 
-    open func deleteAssociatedValueForObject(_ object: AnyObject) {
+    public func deleteAssociatedValueForObject(_ object: AnyObject) {
         var key = self
         objc_setAssociatedObject(object, &key, nil, policy)
     }
