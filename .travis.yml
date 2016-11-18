@@ -1,5 +1,5 @@
 language: objective-c
-osx_image: xcode8
+osx_image: xcode8.1
 script:
 - xcodebuild -project 'SwiftUtilities.xcodeproj' -scheme 'SwiftUtilities_iOS' -sdk iphoneos -configuration Debug build
 - xcodebuild -project 'SwiftUtilities.xcodeproj' -scheme 'SwiftUtilities_iOS' -sdk iphoneos -configuration Release build

@@ -48,11 +48,10 @@ public extension UnsafeBufferPointer {
             return try body(buffer)
         }
 
-        precondition((self.count * UnsafeBufferPointer <Element>.elementSize) % count == 0)
 
+        precondition((self.count * UnsafeBufferPointer <Element>.elementSize) % count == 0)
         return try baseAddress.withMemoryRebound(to: T.self, capacity: count) {
             (pointer: UnsafePointer<T>) -> Result in
-
             let buffer = UnsafeBufferPointer <T> (start: pointer, count: count)
             return try body(buffer)
         }
