@@ -52,8 +52,8 @@ func bits(_ bits: Int) -> Int {
     return bits * 8
 }
 
-func buildBinary(_ length: Int, closure: (UnsafeMutableBufferPointer <UInt8>) -> Void) -> [UInt8] {
-    var data = [UInt8](repeating: 0, count: Int(ceil(Double(length) / 8)))
+func buildBinary(_ count: Int, closure: (UnsafeMutableBufferPointer <UInt8>) -> Void) -> [UInt8] {
+    var data = [UInt8](repeating: 0, count: Int(ceil(Double(count) / 8)))
     data.withUnsafeMutableBufferPointer() {
         (buffer: inout UnsafeMutableBufferPointer <UInt8>) -> Void in
         closure(buffer)

@@ -31,39 +31,37 @@
 
 import Foundation
 
-open class Atomic <T> {
-    open var value: T {
+public class Atomic <T> {
+    public var value: T {
         get {
-            return lock.with() {
-                return _value
-            }
+            lock.lock()
+            let oldValue = _value
+            lock.unlock()
+            return oldValue
         }
         set {
-            let valueChanged: ((Void) -> Void)? = lock.with() {
-                let oldValue = _value
-                _value = newValue
-                guard let valueChanged = _valueChanged else {
-                    return nil
-                }
-                return {
-                    valueChanged(oldValue, newValue)
-                }
+            lock.lock()
+            let oldValue = _value
+            _value = newValue
+            if let valueChanged = _valueChanged {
+                valueChanged(oldValue, newValue)
             }
-            valueChanged?()
+            lock.unlock()
         }
     }
 
     /// Called whenever value changes. NOT called during init.
-    open var valueChanged: ((T, T) -> Void)? {
+    public var valueChanged: ((T, T) -> Void)? {
         get {
-            return lock.with() {
-                return _valueChanged
-            }
+            lock.lock()
+            let oldValue = _valueChanged
+            lock.unlock()
+            return oldValue
         }
         set {
-            lock.with() {
-                _valueChanged = newValue
-            }
+            lock.lock()
+            _valueChanged = newValue
+            lock.unlock()
         }
     }
 
@@ -88,17 +86,11 @@ open class Atomic <T> {
 
 public extension Atomic {
 
-    /// Perform a locking transaction on the instance.
-//    func with <R> (@noescape closure: T -> R) -> R {
-//        return lock.with() {
-//            return closure(value)
-//        }
-//    }
-
     /// Perform a locking transaction on the instance. This version allows you to modify the value.
     func with <R> (_ closure: (inout T) -> R) -> R {
-        return lock.with() {
-            return closure(&_value)
-        }
+        lock.lock()
+        let result = closure(&_value)
+        lock.unlock()
+        return result
     }
 }

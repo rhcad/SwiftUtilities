@@ -205,7 +205,7 @@ extension UnsafeBufferPointer: BaseEncodable {
         precondition(base == 16)
         precondition(prefix == false)
         precondition(width == nil)
-        return withUnsafeBufferPointer() {
+        return withMemoryRebound() {
             (buffer: UnsafeBufferPointer <UInt8>) -> String in
 
             let hex = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"]

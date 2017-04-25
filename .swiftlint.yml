@@ -34,3 +34,5 @@ variable_name:
     - hex
     - i
     - key
+    - _value
+    - _valueChanged

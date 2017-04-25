@@ -41,22 +41,26 @@ public extension UnsafeBufferPointer {
         self.init(start: start, count: byteCount / UnsafeBufferPointer <Element>.elementSize)
     }
 
-    func withUnsafeBufferPointer <T, R> (block: (UnsafeBufferPointer <T>) throws -> R) rethrows -> R {
-
+    func withMemoryRebound<T, Result>(to: T.Type, capacity count: Int, _ body: (UnsafeBufferPointer<T>) throws -> Result) rethrows -> Result {
         guard let baseAddress = baseAddress else {
+            // If base address is nil just return an empty buffer
             let buffer = UnsafeBufferPointer <T> ()
-            return try block(buffer)
+            return try body(buffer)
         }
 
-        // TODO: Swift3 make sure x % y == 0
-        let count = (self.count * UnsafeBufferPointer.elementSize) / UnsafeBufferPointer <T>.elementSize
 
+        precondition((self.count * UnsafeBufferPointer <Element>.elementSize) % count == 0)
         return try baseAddress.withMemoryRebound(to: T.self, capacity: count) {
-            (pointer: UnsafeMutablePointer<T>) -> R in
-
+            (pointer: UnsafePointer<T>) -> Result in
             let buffer = UnsafeBufferPointer <T> (start: pointer, count: count)
-            return try block(buffer)
+            return try body(buffer)
         }
+    }
+
+    func withMemoryRebound<T, Result>(_ body: (UnsafeBufferPointer<T>) throws -> Result) rethrows -> Result {
+        let count = (self.count * UnsafeBufferPointer <Element>.elementSize) / UnsafeBufferPointer <T>.elementSize
+        return try withMemoryRebound(to: T.self, capacity: count, body)
+
     }
 
 }

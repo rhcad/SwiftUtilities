@@ -1,6 +1,6 @@
 # SwiftUtilities
 
-A smorgasbord of Swift source code.
+A smorgasbord of Swift 3 source code.
 
 ## Highlights
 
@@ -22,7 +22,3 @@ A smorgasbord of Swift source code.
 This project is used in a lot of my Swift work (including 3D Robotics iSolo project). Interfaces do change rapidly and backwards compatibility is not guaranteed. To insulate yourself from this change you are welcome to pul out the individual files and classes you need - just so long as you maintain the license.
 
 The Xcode project produces iOS and Mac dynamic frameworks. This project is compatible with Carthage.
-
-## License
-
-BSD 2 Clause.

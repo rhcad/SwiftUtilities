@@ -526,14 +526,14 @@ public extension Path {
 
 extension Path: Sequence {
 
-    open class Iterator: IteratorProtocol {
+    public class Iterator: IteratorProtocol {
         let enumerator: NSEnumerator
 
         init(path: Path) {
             enumerator = FileManager().enumerator(at: path.url, includingPropertiesForKeys: nil, options: [.skipsSubdirectoryDescendants, .skipsPackageDescendants], errorHandler: nil)!
         }
 
-        open func next() -> Path? {
+        public func next() -> Path? {
             guard let url = enumerator.nextObject() as? URL else {
                 return nil
             }

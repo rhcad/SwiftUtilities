@@ -29,7 +29,7 @@
 
 public enum Result <T> {
     case success(T)
-    case failure(Error)
+    case failure(Swift.Error)
 }
 
 public extension Result {

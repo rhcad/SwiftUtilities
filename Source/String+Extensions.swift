@@ -41,15 +41,3 @@ public extension String {
     }
 }
 
-// MARK: -
-
-@available(*, deprecated, message: "To deprecate")
-public extension String {
-    func withCString<Result>(_ body: (UnsafeBufferPointer<Int8>) -> Result) -> Result {
-        return withCString() {
-            (ptr: UnsafePointer<Int8>) -> Result in
-            let buffer = UnsafeBufferPointer <Int8> (start: ptr, count: Int(strlen(ptr)))
-            return body(buffer)
-        }
-    }
-}

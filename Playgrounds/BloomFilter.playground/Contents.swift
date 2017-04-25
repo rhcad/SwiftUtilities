@@ -24,7 +24,7 @@ struct BloomFilter <Element: Hashable> {
         let position = Int(unsafeBitCast(hash, to: UInt.self) % UInt(count))
         data.withUnsafeMutableBufferPointer() {
             (buffer) in
-            bitSet(buffer, start: position, length: 1, newValue: 1)
+            bitSet(buffer: buffer, start: position, count: 1, newValue: 1)
             return
         }
     }
@@ -34,7 +34,7 @@ struct BloomFilter <Element: Hashable> {
         let position = Int(unsafeBitCast(hash, to: UInt.self) % UInt(count))
         return data.withUnsafeBufferPointer() {
             (buffer) in
-            return bitRange(buffer, start: position, length: 1) == 0 ? Contains.False : Contains.Maybe
+            return bitRange(buffer: buffer, start: position, count: 1) == 0 ? Contains.False : Contains.Maybe
         }
     }
 
