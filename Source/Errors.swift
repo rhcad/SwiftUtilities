@@ -65,7 +65,7 @@ extension Error: CustomStringConvertible {
     }
 }
 
-public func tryElseFatalError <T> (_ message: String? = nil, closure: (Void) throws -> T) -> T {
+public func tryElseFatalError <T> (_ message: String? = nil, closure: () throws -> T) -> T {
     do {
         let result = try closure()
         return result

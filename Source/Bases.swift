@@ -137,7 +137,7 @@ extension UnsignedInteger {
 
        if let width = width {
             let count = s.utf8.count
-            let pad = "".padding(toLength: max(width - count, 0), withPad: "0", startingAt: 0)
+            let pad = "".padding(toLength: [width - count, 0].max()!, withPad: "0", startingAt: 0)
             s = pad + s
         }
 

@@ -40,7 +40,7 @@ internal extension Array {
         }
         for N in stride(from: (count - 2), through: 0, by: -1) {
             if comparator(self[N + 1], self[N]) {
-                swap(&self[N], &self[N + 1])
+                self.swapAt(N, N + 1)
             }
         }
     }
@@ -49,7 +49,7 @@ internal extension Array {
 
 internal func cast <T, R> (_ value: Optional <T>) throws -> R {
     guard let castValue = value as? R else {
-        throw Error.generic("Could not cast value (\(value)) of type \(T.self) to \(R.self)")
+        throw Error.generic("Could not cast value (\(String(describing: value))) of type \(T.self) to \(R.self)")
     }
     return castValue
 }

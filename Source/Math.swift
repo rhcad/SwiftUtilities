@@ -86,7 +86,7 @@ public extension Float {
     }
 
     init(degrees: Float) {
-        self = degrees * Float(M_PI) / 180
+        self = degrees * Float(Double.pi) / 180
     }
 
     var radians: Float {
@@ -94,7 +94,7 @@ public extension Float {
     }
 
     var degrees: Float {
-        return self * 180 / Float(M_PI)
+        return self * 180 / Float(Double.pi)
     }
 }
 
@@ -104,7 +104,7 @@ public extension Double {
     }
 
     init(degrees: Double) {
-        self = degrees * M_PI / 180
+        self = degrees * Double.pi / 180
     }
 
     var radians: Double {
@@ -112,7 +112,7 @@ public extension Double {
     }
 
     var degrees: Double {
-        return self * 180 / M_PI
+        return self * 180 / Double.pi
     }
 }
 
@@ -122,7 +122,7 @@ public extension CGFloat {
     }
 
     init(degrees: CGFloat) {
-        self = degrees * CGFloat(M_PI) / 180
+        self = degrees * CGFloat(Double.pi) / 180
     }
 
     var radians: CGFloat {
@@ -130,32 +130,32 @@ public extension CGFloat {
     }
 
     var degrees: CGFloat {
-        return self * 180 / CGFloat(M_PI)
+        return self * 180 / CGFloat(Double.pi)
     }
 }
 
 // Basic functions
 
 public func degreesToRadians(_ value: Float) -> Float {
-    return value * Float(M_PI) / 180
+    return value * Float(Double.pi) / 180
 }
 
 public func radiansToDegrees(_ value: Float) -> Float {
-    return value * 180 / Float(M_PI)
+    return value * 180 / Float(Double.pi)
 }
 
 public func degreesToRadians(_ value: Double) -> Double {
-    return value * M_PI / 180
+    return value * Double.pi / 180
 }
 
 public func radiansToDegrees(_ value: Double) -> Double {
-    return value * 180 / M_PI
+    return value * 180 / Double.pi
 }
 
 public func degreesToRadians(_ value: CGFloat) -> CGFloat {
-    return value * CGFloat(M_PI) / 180
+    return value * CGFloat(Double.pi) / 180
 }
 
 public func radiansToDegrees(_ value: CGFloat) -> CGFloat {
-    return value * 180 / CGFloat(M_PI)
+    return value * 180 / CGFloat(Double.pi)
 }
