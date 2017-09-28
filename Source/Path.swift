@@ -510,7 +510,7 @@ public extension Path {
             StringEncodingDetectionOptionsKey.allowLossyKey: true,
         ] as [StringEncodingDetectionOptionsKey : Any]
         let encoding = NSString.stringEncoding(for: data, encodingOptions: encodingOptions, convertedString: &string, usedLossyConversion: &usedLossyConversion)
-        if let string = string as? String , encoding != 0 {
+        if let string = string as String? , encoding != 0 {
             return string
         }
         throw Error.generic("Could not decode data.")

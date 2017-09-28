@@ -83,14 +83,14 @@ public extension NSRange {
     }
 }
 
-extension NSRange: CustomStringConvertible {
-    public var description: String {
-        return "\(startIndex)..<\(endIndex)"
-    }
-}
+//extension NSRange: CustomStringConvertible {
+//    public var description: String {
+//        return "\(startIndex)..<\(endIndex)"
+//    }
+//}
 
-extension NSRange: Equatable {
-}
+//extension NSRange: Equatable {
+//}
 
 public func == (lhs: NSRange, rhs: NSRange) -> Bool {
     return NSEqualRanges(lhs, rhs)

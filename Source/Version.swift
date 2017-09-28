@@ -112,7 +112,7 @@ public extension Version {
                     if result == false {
                         throw Error.invalidFormatString
                     }
-                    labels.append(label as! String)
+                    labels.append((label ?? "") as String)
                     result = scanner.scanString(".", into: nil)
                     if result == false {
                         break

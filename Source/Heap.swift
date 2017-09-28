@@ -59,7 +59,7 @@ public struct BinaryHeap <Element> {
         array.append(element)
         while let parentIndex = parentIndexOfElementAtIndex(index) {
             if comparator(array[index], array[parentIndex]) {
-                swap(&array[index], &array[parentIndex])
+                array.swapAt(index, parentIndex)
                 index = parentIndex
             }
             else {
@@ -114,7 +114,7 @@ private extension BinaryHeap {
             largest = right
         }
         if largest != index {
-            swap(&elements[index], &elements[largest])
+            elements.swapAt(index, largest)
             heapify(&elements, largest)
         }
     }
