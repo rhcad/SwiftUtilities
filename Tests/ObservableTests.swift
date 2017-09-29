@@ -21,6 +21,4 @@ class ObservableTests: XCTestCase {
         expected = 101
         o.value = 101
     }
-
-
 }

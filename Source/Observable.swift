@@ -84,7 +84,7 @@ public class ObservableProperty <Element: Equatable>: ObservableType {
             return internalValue
         }
         set {
-            internalQueue.async {
+            internalQueue.sync {
                 if self.value != newValue {
                     self.internalValue = newValue
                     self.notifyObservers(oldValue: self.value, newValue: newValue)
@@ -100,27 +100,27 @@ public class ObservableProperty <Element: Equatable>: ObservableType {
     }
 
     public func addObserver(_ observer: AnyObject, closure: @escaping () -> Void) {
-        internalQueue.async {
+        internalQueue.sync {
             self.observers.setObject(Box(Callback.noValue(closure)), forKey: observer)
-            closure()
         }
+        closure()
     }
 
     public func addObserver(_ observer: AnyObject, closure: @escaping (Element) -> Void) {
-        internalQueue.async {
+        internalQueue.sync {
             self.observers.setObject(Box(Callback.newValue(closure)), forKey: observer)
-            closure(self.value)
         }
+        closure(self.value)
     }
 
     public func addObserver(_ observer: AnyObject, closure: @escaping (Element, Element) -> Void) {
-        internalQueue.async {
+        internalQueue.sync {
             self.observers.setObject(Box(Callback.newAndOldValue(closure)), forKey: observer)
         }
     }
 
     public func removeObserver(_ observer: AnyObject) {
-        internalQueue.async {
+        internalQueue.sync {
             self.observers.removeObject(forKey: observer)
         }
     }
@@ -129,24 +129,22 @@ public class ObservableProperty <Element: Equatable>: ObservableType {
     fileprivate var observers = NSMapTable <AnyObject, Box <Callback>> (keyOptions: .weakMemory, valueOptions: .strongMemory)
 
     fileprivate func notifyObservers(oldValue: Element, newValue: Element) {
-        internalQueue.async {
-            let callbacks = self.observers.objectEnumerator()!.allObjects.map() {
-                object -> Callback in
-                let box = object as! Box <Callback>
-                return box.value
-            }
+        let callbacks = observers.objectEnumerator()!.allObjects.map() {
+            object -> Callback in
+            let box = object as! Box <Callback>
+            return box.value
+        }
+        
+        callbacks.forEach() {
+            (callback) in
             
-            callbacks.forEach() {
-                (callback) in
-                
-                switch callback {
-                case .noValue(let closure):
-                    closure()
-                case .newValue(let closure):
-                    closure(newValue)
-                case .newAndOldValue(let closure):
-                    closure(oldValue, newValue)
-                }
+            switch callback {
+            case .noValue(let closure):
+                closure()
+            case .newValue(let closure):
+                closure(newValue)
+            case .newAndOldValue(let closure):
+                closure(oldValue, newValue)
             }
         }
     }
@@ -164,7 +162,7 @@ public class ObservableOptionalProperty <Element: Equatable>: ObservableType, Ex
             return internalValue
         }
         set {
-            internalQueue.async {
+            internalQueue.sync {
                 if self.value != newValue {
                     self.internalValue = newValue
                     self.notifyObservers(oldValue: self.value, newValue: newValue)
@@ -180,27 +178,27 @@ public class ObservableOptionalProperty <Element: Equatable>: ObservableType, Ex
     }
 
     public func addObserver(_ observer: AnyObject, closure: @escaping () -> Void) {
-        internalQueue.async {
+        internalQueue.sync {
             self.observers.setObject(Box(Callback.noValue(closure)), forKey: observer)
-            closure()
         }
+        closure()
     }
 
     public func addObserver(_ observer: AnyObject, closure: @escaping (Element?) -> Void) {
-        internalQueue.async {
+        internalQueue.sync {
             self.observers.setObject(Box(Callback.newValue(closure)), forKey: observer)
-            closure(self.value)
         }
+        closure(self.value)
     }
 
     public func addObserver(_ observer: AnyObject, closure: @escaping (Element?, Element?) -> Void) {
-        internalQueue.async {
+        internalQueue.sync {
             self.observers.setObject(Box(Callback.newAndOldValue(closure)), forKey: observer)
         }
     }
 
     public func removeObserver(_ observer: AnyObject) {
-        internalQueue.async {
+        internalQueue.sync {
             self.observers.removeObject(forKey: observer)
         }
     }
@@ -210,24 +208,22 @@ public class ObservableOptionalProperty <Element: Equatable>: ObservableType, Ex
 
     fileprivate func notifyObservers(oldValue: Element?, newValue: Element?) {
         
-        internalQueue.async {
-            let callbacks = self.observers.objectEnumerator()!.allObjects.map() {
-                object -> Callback in
-                let box = object as! Box <Callback>
-                return box.value
-            }
+        let callbacks = self.observers.objectEnumerator()!.allObjects.map() {
+            object -> Callback in
+            let box = object as! Box <Callback>
+            return box.value
+        }
+        
+        callbacks.forEach() {
+            (callback) in
             
-            callbacks.forEach() {
-                (callback) in
-                
-                switch callback {
-                case .noValue(let closure):
-                    closure()
-                case .newValue(let closure):
-                    closure(newValue)
-                case .newAndOldValue(let closure):
-                    closure(oldValue, newValue)
-                }
+            switch callback {
+            case .noValue(let closure):
+                closure()
+            case .newValue(let closure):
+                closure(newValue)
+            case .newAndOldValue(let closure):
+                closure(oldValue, newValue)
             }
         }
     }
