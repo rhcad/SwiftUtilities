@@ -32,7 +32,7 @@ import Foundation
 
 public protocol ObservableType {
     associatedtype ElementType
-    func addObserver(_ observer: AnyObject, closure: @escaping () -> Void)
+//    func addObserver(_ observer: AnyObject, closure: @escaping () -> Void)
     func addObserver(_ observer: AnyObject, closure: @escaping (ElementType) -> Void)
     func addObserver(_ observer: AnyObject, closure: @escaping (ElementType, ElementType) -> Void)
     func removeObserver(_ observer: AnyObject)
@@ -42,13 +42,13 @@ public protocol ObservableType {
 
 extension ObservableType {
 
-    public func addObserver(_ observer: AnyObject, queue: DispatchQueue, closure: @escaping () -> Void) {
-        addObserver(observer) {
-            queue.async {
-                closure()
-            }
-        }
-    }
+//    fileprivate func addObserver(_ observer: AnyObject, queue: DispatchQueue, closure: @escaping () -> Void) {
+//        addObserver(observer) { (_:ElementType) in
+//            queue.async {
+//                closure()
+//            }
+//        }
+//    }
 
     public func addObserver(_ observer: AnyObject, queue: DispatchQueue, closure: @escaping (ElementType) -> Void) {
         addObserver(observer) {
@@ -140,13 +140,12 @@ public class ObservableProperty <Element: Equatable>: ObservableType {
     fileprivate var observers = NSMapTable <AnyObject, Box <Callback>> (keyOptions: .weakMemory, valueOptions: .strongMemory)
 
     fileprivate func notifyObservers(oldValue: Element, newValue: Element) {
-        let callbacks = {
-            return observers.objectEnumerator()!.allObjects.map() {
-                object -> Callback in
-                let box = object as! Box <Callback>
-                return box.value
-            }
-        }()
+        let callbacks = observers.objectEnumerator()!.allObjects.map() {
+            object -> Callback in
+            let box = object as! Box <Callback>
+            return box.value
+        }
+        
         callbacks.forEach() {
             (callback) in
             
@@ -168,16 +167,24 @@ public class ObservableOptionalProperty <Element: Equatable>: ObservableType, Ex
 
     public typealias ElementType = Element?
     private let internalQueue = DispatchQueue.init(label: "ObservableOptionalProperty.queue")
+    private let notificationQueue = DispatchQueue.init(label: "ObservableOptionalPropertyNotification.queue")
 
     public var value: Element? {
         get {
             return internalValue
         }
         set {
-            internalQueue.async {
-                if self.value != newValue {
+            internalQueue.sync {
+                let oldValue = lock.with() {
+                    () -> Element? in
+                    let oldValue = self.internalValue
                     self.internalValue = newValue
-                    self.notifyObservers(oldValue: self.value, newValue: newValue)
+                    return oldValue
+                }
+                if oldValue != newValue {
+                    notificationQueue.async {
+                        self.notifyObservers(oldValue: oldValue, newValue: newValue)
+                    }
                 }
             }
         }
@@ -190,15 +197,15 @@ public class ObservableOptionalProperty <Element: Equatable>: ObservableType, Ex
     }
 
     public func addObserver(_ observer: AnyObject, closure: @escaping () -> Void) {
+        closure()
         internalQueue.async {
-            closure()
             self.observers.setObject(Box(Callback.noValue(closure)), forKey: observer)
         }
     }
 
     public func addObserver(_ observer: AnyObject, closure: @escaping (Element?) -> Void) {
+        closure(self.value)
         internalQueue.async {
-            closure(self.value)
             self.observers.setObject(Box(Callback.newValue(closure)), forKey: observer)
         }
     }
@@ -214,6 +221,8 @@ public class ObservableOptionalProperty <Element: Equatable>: ObservableType, Ex
             self.observers.removeObject(forKey: observer)
         }
     }
+    
+    fileprivate var lock = NSRecursiveLock()
 
     fileprivate typealias Callback = ValueChangeCallback <Element?>
     fileprivate var observers = NSMapTable <AnyObject, Box <Callback>> (keyOptions: .weakMemory, valueOptions: .strongMemory)
