@@ -108,7 +108,7 @@ public class ObservableProperty <Element: Equatable>: ObservableType {
         internalValue = value
     }
 
-    public func addObserver(_ observer: AnyObject, closure: @escaping () -> Void) {
+    fileprivate func addObserver(_ observer: AnyObject, closure: @escaping () -> Void) {
         closure()
         internalQueue.async {
             self.observers.setObject(Box(Callback.noValue(closure)), forKey: observer)
@@ -196,7 +196,7 @@ public class ObservableOptionalProperty <Element: Equatable>: ObservableType, Ex
         internalValue = value
     }
 
-    public func addObserver(_ observer: AnyObject, closure: @escaping () -> Void) {
+    fileprivate func addObserver(_ observer: AnyObject, closure: @escaping () -> Void) {
         closure()
         internalQueue.async {
             self.observers.setObject(Box(Callback.noValue(closure)), forKey: observer)
