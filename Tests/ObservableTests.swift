@@ -15,10 +15,17 @@ class ObservableTests: XCTestCase {
     func testSimple() {
         let o = ObservableProperty(100)
         var expected = 100
-        o.addObserver(self) {
+       let queue = DispatchQueue.main
+        o.addObserver(self, queue: queue) {
+            print("\(o.value)  \(expected)")
             XCTAssertEqual(o.value, expected)
+            expected = 103
+            o.value = 103
         }
-        expected = 101
-        o.value = 101
+        
+        queue.async {
+            expected = 101
+            o.value = 101
+        }
     }
 }
