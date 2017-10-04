@@ -104,6 +104,7 @@ public class ObservableProperty <Element: Equatable>: ObservableType {
     }
 
     internal var internalValue: Element
+    fileprivate var lock = NSRecursiveLock()
 
     public init(_ value: Element) {
         internalValue = value
@@ -130,11 +131,10 @@ public class ObservableProperty <Element: Equatable>: ObservableType {
     }
 
     public func removeObserver(_ observer: AnyObject) {
-        weak var weakObserver = observer
-        
-        removeObservableQueue.sync {
-            guard let observer = weakObserver else { return }
-            self.observers.removeObject(forKey: observer)
+        lock.with {
+            removeObservableQueue.sync {
+                self.observers.removeObject(forKey: observer)
+            }
         }
     }
 
@@ -195,6 +195,7 @@ public class ObservableOptionalProperty <Element: Equatable>: ObservableType, Ex
     }
 
     internal var internalValue: Element?
+    fileprivate var lock = NSRecursiveLock()
 
     public init(_ value: Element?) {
         internalValue = value
@@ -221,11 +222,10 @@ public class ObservableOptionalProperty <Element: Equatable>: ObservableType, Ex
     }
 
     public func removeObserver(_ observer: AnyObject) {
-        weak var weakObserver = observer
-        
-        removeObservableQueue.sync {
-            guard let observer = weakObserver else { return }
-            self.observers.removeObject(forKey: observer)
+        lock.with {
+            removeObservableQueue.sync {
+                self.observers.removeObject(forKey: observer)
+            }
         }
     }
 
