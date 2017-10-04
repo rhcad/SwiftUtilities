@@ -48,13 +48,20 @@ class ObservableTests: XCTestCase {
         p.subscribe(self, messageKey: "Q") { (str) in
             print("got new message=\(str)")
         }
+        _ = p.publish("Q", message: "first")
         
-        let resultPublish = p.publish("Q", message: "hello")
+        p.unsubscribe(self)
         
-        print("resultPublish=\(resultPublish)")
-        DispatchQueue.main.async {
-            _ = p.publish("Q", message: "bye")
+        p.subscribe(self, messageKey: "Q") { (str) in
+            print("got new message2=\(str)")
+        }
+
+        _ = p.publish("Q", message: "second")
+
+        DispatchQueue.global().async {
+            _ = p.publish("Q", message: "third")
             p.unsubscribe(self)
+            _ = p.publish("Q", message: "no message")
         }
     }
 }

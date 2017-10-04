@@ -55,12 +55,12 @@ public class Publisher <MessageKey: Hashable, Message> {
      Registers a subscriber for multiple message types.
      */
     public func subscribe(_ subscriber: AnyObject, messageKeys: [MessageKey], handler: @escaping Handler) {
-        lock.with() {
+        queue.sync {
             let newEntry = Entry(subscriber: subscriber, handler: handler)
             for messageKey in messageKeys {
-                var entries = entriesForType.get(messageKey, defaultValue: Entries())
+                var entries = self.entriesForType.get(messageKey, defaultValue: Entries())
                 entries.append(newEntry)
-                entriesForType[messageKey] = entries
+                self.entriesForType[messageKey] = entries
             }
         }
     }
