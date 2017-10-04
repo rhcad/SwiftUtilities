@@ -30,19 +30,19 @@
 import Foundation
 
 /**
-Implementation of the Publish-Subscribe pattern for  https://en.wikipedia.org/wiki/Publish–subscribe_pattern
+ Implementation of the Publish-Subscribe pattern for  https://en.wikipedia.org/wiki/Publish–subscribe_pattern
  - parameter MessageKey: A hashable type for messages. This is used as a unique key for each message. Ints or Hashable enums would make suitable MessageKeys.
  - parameter type:       The message type. `MessageKey` must conform to the `Hashable` protocol.
-*/
+ */
 public class Publisher <MessageKey: Hashable, Message> {
     public typealias Handler = (Message) -> Void
-
+    
     public init() {
     }
-
+    
     /**
-    Register a Subscriber with the Publisher to receive messages of a specific type.
-
+     Register a Subscriber with the Publisher to receive messages of a specific type.
+     
      - parameter subscriber:  The subscriber. Can be any type of object. The subscriber is weakly retained by the publisher.
      - parameter messageKey:  The message type. `MessageKey` must conform to the `Hashable` protocol.
      - parameter handler:     Closure to be called when a Message is published. Be careful about not capturing the subscriber object in this closure.
@@ -50,12 +50,15 @@ public class Publisher <MessageKey: Hashable, Message> {
     public func subscribe(_ subscriber: AnyObject, messageKey: MessageKey, handler: @escaping Handler) {
         subscribe(subscriber, messageKeys: [messageKey], handler: handler)
     }
-
+    
     /**
      Registers a subscriber for multiple message types.
      */
     public func subscribe(_ subscriber: AnyObject, messageKeys: [MessageKey], handler: @escaping Handler) {
-        queue.sync {
+        queue.sync { [weak subscriber] in
+            
+            guard let subscriber = subscriber else { return }
+            
             let newEntry = Entry(subscriber: subscriber, handler: handler)
             for messageKey in messageKeys {
                 var entries = self.entriesForType.get(messageKey, defaultValue: Entries())
@@ -64,56 +67,60 @@ public class Publisher <MessageKey: Hashable, Message> {
             }
         }
     }
-
+    
     /**
      Unregister a subscriber for all messages types.
-
+     
      Note this is optional - a subscriber is automatically unregistered after it is deallocated.
      */
     public func unsubscribe(_ subscriber: AnyObject) {
-        queue.async {
+        unsubsribeQueue.sync {
+            [weak subscriber] in
+            
+            guard let subscriber = subscriber else { return }
+            
             self.rewrite() {
                 (entry) in
                 return entry.subscriber != nil && entry.subscriber !== subscriber
             }
         }
     }
-
+    
     /**
      Unsubscribe a subscribe for some message types.
      */
     public func unsubscribe(_ subscriber: AnyObject, messageKey: MessageKey) {
-        queue.async {
-            self.unsubscribe(subscriber, messageKeys: [messageKey])
-        }
+        self.unsubscribe(subscriber, messageKeys: [messageKey])
     }
-
+    
     /**
      Unsubscribe a subscribe for a single message type.
      */
     public func unsubscribe(_ subscriber: AnyObject, messageKeys: [MessageKey]) {
-        queue.async {
-            self.lock.with() {
-                for messageKey in messageKeys {
-                    guard let entries = self.entriesForType[messageKey] else {
-                        continue
-                    }
-                    self.entriesForType[messageKey] = entries.filter() {
-                        (entry) in
-                        return entry.subscriber != nil && entry.subscriber !== subscriber
-                    }
+        unsubsribeQueue.sync {
+            [weak subscriber] in
+            
+            guard let subscriber = subscriber else { return }
+            
+            for messageKey in messageKeys {
+                guard let entries = self.entriesForType[messageKey] else {
+                    continue
+                }
+                self.entriesForType[messageKey] = entries.filter() {
+                    (entry) in
+                    return entry.subscriber != nil && entry.subscriber !== subscriber
                 }
             }
         }
     }
-
+    
     /**
      Publish a message to all subscribers registerd a handler for `messageKey`
      */
     public func publish(_ messageKey: MessageKey, message: Message) -> Bool {
         var (needsPurging, handled): (Bool, Bool) = (false, false)
         queue.sync {
-             (needsPurging, handled) = lock.with() {
+            (needsPurging, handled) = {
                 guard let entries = entriesForType[messageKey] else {
                     return (false, false)
                 }
@@ -128,69 +135,70 @@ public class Publisher <MessageKey: Hashable, Message> {
                     handled = true
                 }
                 return (needsPurging, handled)
-            }
-
+            }()
+            
             if needsPurging == true {
                 purge()
             }
         }
-
+        
         return handled
     }
-
+    
     fileprivate typealias Entries = [Entry <Message>]
     fileprivate var entriesForType: [MessageKey: Entries] = [:]
-
+    
     /// This is a recursive lock because it is expected that observers _could_ remove themselves while handling messages.
-    fileprivate var lock = NSRecursiveLock()
-
+    //    fileprivate var lock = NSRecursiveLock()
+    
     fileprivate var queue = DispatchQueue(label: "io.3dr.SwiftIO.Publisher", attributes: [])
+    fileprivate var unsubsribeQueue = DispatchQueue(label: "io.3dr.SwiftIO.Publisher.unsubscribe", attributes: [])
 }
 
 extension Publisher: CustomDebugStringConvertible {
     // Quick and crude debugDescription
     public var debugDescription: String {
-        return lock.with() {
+        return {
             var s = ""
             for (key, value) in entriesForType {
                 s += "\(key): \(value)\n"
             }
             return s
-        }
+            }()
     }
 }
 
 // MARK: -
 
 private extension Publisher {
-
+    
     /**
      Enumerate through all entries for all types and remove entries for Observers that have been deallocated.
      */
     func purge() {
-        rewrite() {
-            (entry) in
-            entry.subscriber != nil
+        unsubsribeQueue.sync {
+            rewrite() {
+                (entry) in
+                entry.subscriber != nil
+            }
         }
     }
-
+    
     /**
      Enumerate through all entries for all types and remove entries that pass `test`.
      */
     func rewrite(_ test: @escaping (Entry<Message>) -> Bool) {
-        lock.with() {
-            func filteredEntries(_ entries: [Entry<Message>]) -> [Entry<Message>] {
-                return entries.filter() {
-                    (entry) in
-                    return test(entry)
-                }
+        func filteredEntries(_ entries: [Entry<Message>]) -> [Entry<Message>] {
+            return entries.filter() {
+                (entry) in
+                return test(entry)
             }
-            let items = entriesForType.map() {
-                (messageKey, entries) in
-                return (messageKey, filteredEntries(entries))
-            }
-            entriesForType = Dictionary(items: items)
         }
+        let items = entriesForType.map() {
+            (messageKey, entries) in
+            return (messageKey, filteredEntries(entries))
+        }
+        entriesForType = Dictionary(items: items)
     }
 }
 
@@ -201,3 +209,4 @@ private struct Entry <Message> {
     weak var subscriber: AnyObject?
     let handler: Handler
 }
+

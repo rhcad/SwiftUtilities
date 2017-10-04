@@ -79,6 +79,7 @@ public class ObservableProperty <Element: Equatable>: ObservableType {
     public typealias ElementType = Element
     private let internalQueue = DispatchQueue.init(label: "ObservableProperty.queue")
     private let notificationQueue = DispatchQueue.init(label: "ObservablePropertyNotification.queue")
+    private let removeObservableQueue = DispatchQueue.init(label: "ObservablePropertyRemoveObservable.queue")
     
     public var value: Element {
         get {
@@ -86,12 +87,12 @@ public class ObservableProperty <Element: Equatable>: ObservableType {
         }
         set {
             internalQueue.sync {
-                let oldValue = self.lock.with() {
+                let oldValue = {
                     () -> Element in
                     let oldValue = self.internalValue
                     self.internalValue = newValue
                     return oldValue
-                }
+                }()
                 
                 if oldValue != newValue {
                     notificationQueue.async {
@@ -110,31 +111,32 @@ public class ObservableProperty <Element: Equatable>: ObservableType {
 
     fileprivate func addObserver(_ observer: AnyObject, closure: @escaping () -> Void) {
         closure()
-        internalQueue.async {
+        internalQueue.sync {
             self.observers.setObject(Box(Callback.noValue(closure)), forKey: observer)
         }
     }
 
     public func addObserver(_ observer: AnyObject, closure: @escaping (Element) -> Void) {
         closure(self.value)
-        internalQueue.async {
+        internalQueue.sync {
             self.observers.setObject(Box(Callback.newValue(closure)), forKey: observer)
         }
     }
 
     public func addObserver(_ observer: AnyObject, closure: @escaping (Element, Element) -> Void) {
-        internalQueue.async {
+        internalQueue.sync {
             self.observers.setObject(Box(Callback.newAndOldValue(closure)), forKey: observer)
         }
     }
 
     public func removeObserver(_ observer: AnyObject) {
-        internalQueue.async {
+        removeObservableQueue.sync {
+            [weak observer] in
+            guard let observer = observer else { return }
+            
             self.observers.removeObject(forKey: observer)
         }
     }
-
-    fileprivate var lock = NSRecursiveLock()
 
     fileprivate typealias Callback = ValueChangeCallback <Element>
     fileprivate var observers = NSMapTable <AnyObject, Box <Callback>> (keyOptions: .weakMemory, valueOptions: .strongMemory)
@@ -168,6 +170,7 @@ public class ObservableOptionalProperty <Element: Equatable>: ObservableType, Ex
     public typealias ElementType = Element?
     private let internalQueue = DispatchQueue.init(label: "ObservableOptionalProperty.queue")
     private let notificationQueue = DispatchQueue.init(label: "ObservableOptionalPropertyNotification.queue")
+    private let removeObservableQueue = DispatchQueue.init(label: "ObservableOptionalPropertyRemoveObservable.queue")
 
     public var value: Element? {
         get {
@@ -175,12 +178,13 @@ public class ObservableOptionalProperty <Element: Equatable>: ObservableType, Ex
         }
         set {
             internalQueue.sync {
-                let oldValue = lock.with() {
+                let oldValue = {
                     () -> Element? in
                     let oldValue = self.internalValue
                     self.internalValue = newValue
                     return oldValue
-                }
+                }()
+                
                 if oldValue != newValue {
                     notificationQueue.async {
                         self.notifyObservers(oldValue: oldValue, newValue: newValue)
@@ -198,37 +202,37 @@ public class ObservableOptionalProperty <Element: Equatable>: ObservableType, Ex
 
     fileprivate func addObserver(_ observer: AnyObject, closure: @escaping () -> Void) {
         closure()
-        internalQueue.async {
+        internalQueue.sync {
             self.observers.setObject(Box(Callback.noValue(closure)), forKey: observer)
         }
     }
 
     public func addObserver(_ observer: AnyObject, closure: @escaping (Element?) -> Void) {
         closure(self.value)
-        internalQueue.async {
+        internalQueue.sync {
             self.observers.setObject(Box(Callback.newValue(closure)), forKey: observer)
         }
     }
 
     public func addObserver(_ observer: AnyObject, closure: @escaping (Element?, Element?) -> Void) {
-        internalQueue.async {
+        internalQueue.sync {
             self.observers.setObject(Box(Callback.newAndOldValue(closure)), forKey: observer)
         }
     }
 
     public func removeObserver(_ observer: AnyObject) {
-        internalQueue.async {
+        removeObservableQueue.sync {
+            [weak observer] in
+            guard let observer = observer else { return }
+            
             self.observers.removeObject(forKey: observer)
         }
     }
-    
-    fileprivate var lock = NSRecursiveLock()
 
     fileprivate typealias Callback = ValueChangeCallback <Element?>
     fileprivate var observers = NSMapTable <AnyObject, Box <Callback>> (keyOptions: .weakMemory, valueOptions: .strongMemory)
 
     fileprivate func notifyObservers(oldValue: Element?, newValue: Element?) {
-        
         let callbacks = self.observers.objectEnumerator()!.allObjects.map() {
             object -> Callback in
             let box = object as! Box <Callback>

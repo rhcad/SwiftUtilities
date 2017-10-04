@@ -16,30 +16,36 @@ class ObservableTests: XCTestCase {
         let o = ObservableProperty(100)
         var expected = 100
 
-       let queue = DispatchQueue.main
+       let queue = DispatchQueue.global()
         o.addObserver(self, queue: queue) { (value: Int) in
             print("value in observer=\(o.value) callbackValue=\(value)")
 //            o.removeObserver(self)
+            o.value = 103
         }
-//        o.removeObserver(self)
-//        DispatchQueue.global().sync {
-//            o.value = 99
+        //o.removeObserver(self)
+        DispatchQueue.global().sync {
+            o.value = 99
+            print(o.value)
 //             o.removeObserver(self)
-//        }
-//
-//        DispatchQueue.global().async {
-//            o.value = 199
-             //o.removeObserver(self)
-//        }
-//
-//        queue.async {
-//            o.value = 101
-//        }
+        }
+
+        DispatchQueue.global().async {
+            o.value = 199
+            print(o.value)
+//             o.removeObserver(self)
+        }
+
+        queue.async {
+            o.value = 101
+            print(o.value)
+        }
         
         expected = 90
         o.value = 90
+        o.value = 91
+        o.value = 92
         
-        XCTAssertEqual(o.value, expected)
+        //XCTAssertEqual(o.value, expected)
     }
     
     func testPublisher() {
