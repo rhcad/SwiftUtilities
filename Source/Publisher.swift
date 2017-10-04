@@ -71,9 +71,11 @@ public class Publisher <MessageKey: Hashable, Message> {
      Note this is optional - a subscriber is automatically unregistered after it is deallocated.
      */
     public func unsubscribe(_ subscriber: AnyObject) {
-        rewrite() {
-            (entry) in
-            return entry.subscriber != nil && entry.subscriber !== subscriber
+        queue.async {
+            self.rewrite() {
+                (entry) in
+                return entry.subscriber != nil && entry.subscriber !== subscriber
+            }
         }
     }
 
@@ -81,21 +83,25 @@ public class Publisher <MessageKey: Hashable, Message> {
      Unsubscribe a subscribe for some message types.
      */
     public func unsubscribe(_ subscriber: AnyObject, messageKey: MessageKey) {
-        unsubscribe(subscriber, messageKeys: [messageKey])
+        queue.async {
+            self.unsubscribe(subscriber, messageKeys: [messageKey])
+        }
     }
 
     /**
      Unsubscribe a subscribe for a single message type.
      */
     public func unsubscribe(_ subscriber: AnyObject, messageKeys: [MessageKey]) {
-        lock.with() {
-            for messageKey in messageKeys {
-                guard let entries = entriesForType[messageKey] else {
-                    continue
-                }
-                entriesForType[messageKey] = entries.filter() {
-                    (entry) in
-                    return entry.subscriber != nil && entry.subscriber !== subscriber
+        queue.async {
+            self.lock.with() {
+                for messageKey in messageKeys {
+                    guard let entries = self.entriesForType[messageKey] else {
+                        continue
+                    }
+                    self.entriesForType[messageKey] = entries.filter() {
+                        (entry) in
+                        return entry.subscriber != nil && entry.subscriber !== subscriber
+                    }
                 }
             }
         }
@@ -105,26 +111,28 @@ public class Publisher <MessageKey: Hashable, Message> {
      Publish a message to all subscribers registerd a handler for `messageKey`
      */
     public func publish(_ messageKey: MessageKey, message: Message) -> Bool {
-
-        let (needsPurging, handled): (Bool, Bool) = lock.with() {
-            guard let entries = entriesForType[messageKey] else {
-                return (false, false)
-            }
-            var needsPurging = false
-            var handled = false
-            for entry in entries {
-                if entry.subscriber == nil {
-                    needsPurging = true
-                    continue
+        var (needsPurging, handled): (Bool, Bool) = (false, false)
+        queue.sync {
+             (needsPurging, handled) = lock.with() {
+                guard let entries = entriesForType[messageKey] else {
+                    return (false, false)
                 }
-                entry.handler(message)
-                handled = true
+                var needsPurging = false
+                var handled = false
+                for entry in entries {
+                    if entry.subscriber == nil {
+                        needsPurging = true
+                        continue
+                    }
+                    entry.handler(message)
+                    handled = true
+                }
+                return (needsPurging, handled)
             }
-            return (needsPurging, handled)
-        }
 
-        if needsPurging == true {
-            purge()
+            if needsPurging == true {
+                purge()
+            }
         }
 
         return handled
@@ -136,7 +144,7 @@ public class Publisher <MessageKey: Hashable, Message> {
     /// This is a recursive lock because it is expected that observers _could_ remove themselves while handling messages.
     fileprivate var lock = NSRecursiveLock()
 
-    fileprivate var queue = DispatchQueue(label: "io.schwa.SwiftIO.Publisher", attributes: [])
+    fileprivate var queue = DispatchQueue(label: "io.3dr.SwiftIO.Publisher", attributes: [])
 }
 
 extension Publisher: CustomDebugStringConvertible {

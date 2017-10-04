@@ -41,4 +41,20 @@ class ObservableTests: XCTestCase {
         
         XCTAssertEqual(o.value, expected)
     }
+    
+    func testPublisher() {
+        
+        let p = Publisher<String, String>()
+        p.subscribe(self, messageKey: "Q") { (str) in
+            print("got new message=\(str)")
+        }
+        
+        let resultPublish = p.publish("Q", message: "hello")
+        
+        print("resultPublish=\(resultPublish)")
+        DispatchQueue.main.async {
+            _ = p.publish("Q", message: "bye")
+            p.unsubscribe(self)
+        }
+    }
 }
