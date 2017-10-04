@@ -111,20 +111,20 @@ public class ObservableProperty <Element: Equatable>: ObservableType {
 
     fileprivate func addObserver(_ observer: AnyObject, closure: @escaping () -> Void) {
         closure()
-        internalQueue.sync {
+        internalQueue.async {
             self.observers.setObject(Box(Callback.noValue(closure)), forKey: observer)
         }
     }
 
     public func addObserver(_ observer: AnyObject, closure: @escaping (Element) -> Void) {
         closure(self.value)
-        internalQueue.sync {
+        internalQueue.async {
             self.observers.setObject(Box(Callback.newValue(closure)), forKey: observer)
         }
     }
 
     public func addObserver(_ observer: AnyObject, closure: @escaping (Element, Element) -> Void) {
-        internalQueue.sync {
+        internalQueue.async {
             self.observers.setObject(Box(Callback.newAndOldValue(closure)), forKey: observer)
         }
     }
@@ -202,20 +202,20 @@ public class ObservableOptionalProperty <Element: Equatable>: ObservableType, Ex
 
     fileprivate func addObserver(_ observer: AnyObject, closure: @escaping () -> Void) {
         closure()
-        internalQueue.sync {
+        internalQueue.async {
             self.observers.setObject(Box(Callback.noValue(closure)), forKey: observer)
         }
     }
 
     public func addObserver(_ observer: AnyObject, closure: @escaping (Element?) -> Void) {
         closure(self.value)
-        internalQueue.sync {
+        internalQueue.async {
             self.observers.setObject(Box(Callback.newValue(closure)), forKey: observer)
         }
     }
 
     public func addObserver(_ observer: AnyObject, closure: @escaping (Element?, Element?) -> Void) {
-        internalQueue.sync {
+        internalQueue.async {
             self.observers.setObject(Box(Callback.newAndOldValue(closure)), forKey: observer)
         }
     }
