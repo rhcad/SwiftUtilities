@@ -13,37 +13,50 @@ import SwiftUtilities
 class ObservableTests: XCTestCase {
 
     func testSimple() {
-        let o = ObservableProperty(100)
-        var expected = 100
+        
+        class C {
+            let o = ObservableProperty(100)
+            
+            init() {
+                
+                let queue = DispatchQueue.global()
+                o.addObserver(self, queue: queue) { (value: Int) in
+                    print("value in observer=\(self.o.value) callbackValue=\(value)")
+                    self.o.removeObserver(self)
+                    self.o.value = 103
+                }
+                //o.removeObserver(self)
+//                DispatchQueue.global().sync {
+//                    o.value = 99
+//                    print(o.value)
+//                    //o.removeObserver(self)
+//                }
+                
+//                DispatchQueue.global().async {
+//                    self.o.value = 199
+//                    print(self.o.value)
+//                    //             o.removeObserver(self)
+//                }
+                
+//                queue.async {
+//                    self.o.value = 101
+//                    print(self.o.value)
+//                }
+//                o.removeObserver(self)
 
-       let queue = DispatchQueue.global()
-        o.addObserver(self, queue: queue) { (value: Int) in
-            print("value in observer=\(o.value) callbackValue=\(value)")
-//            o.removeObserver(self)
-            o.value = 103
-        }
-        //o.removeObserver(self)
-        DispatchQueue.global().sync {
-            o.value = 99
-            print(o.value)
-//             o.removeObserver(self)
-        }
-
-        DispatchQueue.global().async {
-            o.value = 199
-            print(o.value)
-//             o.removeObserver(self)
-        }
-
-        queue.async {
-            o.value = 101
-            print(o.value)
+                o.value = 92
+            }
+            deinit {
+                print("deinit")
+                o.removeObserver(self)
+            }
         }
         
-        expected = 90
-        o.value = 90
-        o.value = 91
-        o.value = 92
+        var c = C()
+        DispatchQueue.main.async {
+            c = C()
+        }
+        
         
         //XCTAssertEqual(o.value, expected)
     }

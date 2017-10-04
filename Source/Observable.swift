@@ -130,10 +130,10 @@ public class ObservableProperty <Element: Equatable>: ObservableType {
     }
 
     public func removeObserver(_ observer: AnyObject) {
+        weak var weakObserver = observer
+        
         removeObservableQueue.sync {
-            [weak observer] in
-            guard let observer = observer else { return }
-            
+            guard let observer = weakObserver else { return }
             self.observers.removeObject(forKey: observer)
         }
     }
@@ -221,10 +221,10 @@ public class ObservableOptionalProperty <Element: Equatable>: ObservableType, Ex
     }
 
     public func removeObserver(_ observer: AnyObject) {
+        weak var weakObserver = observer
+        
         removeObservableQueue.sync {
-            [weak observer] in
-            guard let observer = observer else { return }
-            
+            guard let observer = weakObserver else { return }
             self.observers.removeObject(forKey: observer)
         }
     }
