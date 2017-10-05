@@ -53,9 +53,9 @@ class ObservableTests: XCTestCase {
         }
         
         var c = C()
-        DispatchQueue.main.async {
+//        DispatchQueue.main.async {
             c = C()
-        }
+//        }
         
         
         //XCTAssertEqual(o.value, expected)

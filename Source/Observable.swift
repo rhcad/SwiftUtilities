@@ -130,12 +130,7 @@ public class ObservableProperty <Element: Equatable>: ObservableType {
     }
 
     public func removeObserver(_ observer: AnyObject) {
-        weak var weakObserver = observer
-        
-        removeObservableQueue.sync {
-            guard let observer = weakObserver else { return }
-            self.observers.removeObject(forKey: observer)
-        }
+        self.observers.removeObject(forKey: observer)
     }
 
     fileprivate typealias Callback = ValueChangeCallback <Element>
@@ -221,12 +216,7 @@ public class ObservableOptionalProperty <Element: Equatable>: ObservableType, Ex
     }
 
     public func removeObserver(_ observer: AnyObject) {
-        weak var weakObserver = observer
-        
-        removeObservableQueue.sync {
-            guard let observer = weakObserver else { return }
-            self.observers.removeObject(forKey: observer)
-        }
+        self.observers.removeObject(forKey: observer)
     }
 
     fileprivate typealias Callback = ValueChangeCallback <Element?>

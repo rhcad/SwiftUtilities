@@ -74,11 +74,7 @@ public class Publisher <MessageKey: Hashable, Message> {
      Note this is optional - a subscriber is automatically unregistered after it is deallocated.
      */
     public func unsubscribe(_ subscriber: AnyObject) {
-        unsubsribeQueue.sync {
-            [weak subscriber] in
-            
-            guard let subscriber = subscriber else { return }
-            
+        unsubsribeQueue.sync {            
             self.rewrite() {
                 (entry) in
                 return entry.subscriber != nil && entry.subscriber !== subscriber
@@ -98,10 +94,6 @@ public class Publisher <MessageKey: Hashable, Message> {
      */
     public func unsubscribe(_ subscriber: AnyObject, messageKeys: [MessageKey]) {
         unsubsribeQueue.sync {
-            [weak subscriber] in
-            
-            guard let subscriber = subscriber else { return }
-            
             for messageKey in messageKeys {
                 guard let entries = self.entriesForType[messageKey] else {
                     continue
