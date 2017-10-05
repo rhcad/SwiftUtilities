@@ -32,44 +32,9 @@ import Foundation
 
 public protocol ObservableType {
     associatedtype ElementType
-//    func addObserver(_ observer: AnyObject, closure: @escaping () -> Void)
-    func addObserver(_ observer: AnyObject, closure: @escaping (ElementType) -> Void)
-    func addObserver(_ observer: AnyObject, closure: @escaping (ElementType, ElementType) -> Void)
+    func addObserver(_ observer: AnyObject, queue: DispatchQueue, closure: @escaping (ElementType) -> Void)
+    func addObserver(_ observer: AnyObject, queue: DispatchQueue, closure: @escaping (ElementType, ElementType) -> Void)
     func removeObserver(_ observer: AnyObject)
-}
-
-// MARK: -
-
-extension ObservableType {
-
-//    fileprivate func addObserver(_ observer: AnyObject, queue: DispatchQueue, closure: @escaping () -> Void) {
-//        addObserver(observer) { (_:ElementType) in
-//            queue.async {
-//                closure()
-//            }
-//        }
-//    }
-
-    public func addObserver(_ observer: AnyObject, queue: DispatchQueue, closure: @escaping (ElementType) -> Void) {
-        self.addObserver(observer) {
-            (newValue: ElementType) in
-
-            queue.async {
-                closure(newValue)
-            }
-        }
-    }
-
-    public func addObserver(_ observer: AnyObject, queue: DispatchQueue, closure: @escaping (ElementType, ElementType) -> Void) {
-        self.addObserver(observer) {
-            (oldValue: ElementType, newValue: ElementType) in
-
-            queue.async {
-                closure(oldValue, newValue)
-            }
-        }
-    }
-
 }
 
 // MARK: -
@@ -108,22 +73,35 @@ public class ObservableProperty <Element: Equatable>: ObservableType {
     public init(_ value: Element) {
         internalValue = value
     }
-
-    fileprivate func addObserver(_ observer: AnyObject, closure: @escaping () -> Void) {
-        closure()
-        internalQueue.sync {
-            self.observers.setObject(Box(Callback.noValue(closure)), forKey: observer)
+    
+    public func addObserver(_ observer: AnyObject, queue: DispatchQueue = DispatchQueue.main, closure: @escaping (ElementType) -> Void) {
+        self.addObserverInternalQueue(observer) {
+            (newValue: ElementType) in
+            
+            queue.async {
+                closure(newValue)
+            }
+        }
+    }
+    
+    public func addObserver(_ observer: AnyObject, queue: DispatchQueue = DispatchQueue.main, closure: @escaping (ElementType, ElementType) -> Void) {
+        self.addObserverInternalQueue(observer) {
+            (oldValue: ElementType, newValue: ElementType) in
+            
+            queue.async {
+                closure(oldValue, newValue)
+            }
         }
     }
 
-    public func addObserver(_ observer: AnyObject, closure: @escaping (Element) -> Void) {
+    private func addObserverInternalQueue(_ observer: AnyObject, closure: @escaping (Element) -> Void) {
         closure(self.value)
         internalQueue.sync {
             self.observers.setObject(Box(Callback.newValue(closure)), forKey: observer)
         }
     }
 
-    public func addObserver(_ observer: AnyObject, closure: @escaping (Element, Element) -> Void) {
+    private func addObserverInternalQueue(_ observer: AnyObject, closure: @escaping (Element, Element) -> Void) {
         internalQueue.sync {
             self.observers.setObject(Box(Callback.newAndOldValue(closure)), forKey: observer)
         }
@@ -194,22 +172,35 @@ public class ObservableOptionalProperty <Element: Equatable>: ObservableType, Ex
     public init(_ value: Element?) {
         internalValue = value
     }
-
-    fileprivate func addObserver(_ observer: AnyObject, closure: @escaping () -> Void) {
-        closure()
-        internalQueue.sync {
-            self.observers.setObject(Box(Callback.noValue(closure)), forKey: observer)
+    
+    public func addObserver(_ observer: AnyObject, queue: DispatchQueue = DispatchQueue.main, closure: @escaping (ElementType) -> Void) {
+        self.addObserverInternalQueue(observer) {
+            (newValue: ElementType) in
+            
+            queue.async {
+                closure(newValue)
+            }
+        }
+    }
+    
+    public func addObserver(_ observer: AnyObject, queue: DispatchQueue = DispatchQueue.main, closure: @escaping (ElementType, ElementType) -> Void) {
+        self.addObserverInternalQueue(observer) {
+            (oldValue: ElementType, newValue: ElementType) in
+            
+            queue.async {
+                closure(oldValue, newValue)
+            }
         }
     }
 
-    public func addObserver(_ observer: AnyObject, closure: @escaping (Element?) -> Void) {
+    private func addObserverInternalQueue(_ observer: AnyObject, closure: @escaping (Element?) -> Void) {
         closure(self.value)
         internalQueue.sync {
             self.observers.setObject(Box(Callback.newValue(closure)), forKey: observer)
         }
     }
 
-    public func addObserver(_ observer: AnyObject, closure: @escaping (Element?, Element?) -> Void) {
+    private func addObserverInternalQueue(_ observer: AnyObject, closure: @escaping (Element?, Element?) -> Void) {
         internalQueue.sync {
             self.observers.setObject(Box(Callback.newAndOldValue(closure)), forKey: observer)
         }

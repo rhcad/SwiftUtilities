@@ -20,11 +20,12 @@ class ObservableTests: XCTestCase {
             init() {
                 
                 let queue = DispatchQueue.global()
-                o.addObserver(self, queue: queue) { (value: Int) in
+                o.addObserver(self) { (value: Int) in
                     print("value in observer=\(self.o.value) callbackValue=\(value)")
                     self.o.removeObserver(self)
                     self.o.value = 103
                 }
+                
                 //o.removeObserver(self)
 //                DispatchQueue.global().sync {
 //                    o.value = 99
