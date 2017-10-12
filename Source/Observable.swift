@@ -102,6 +102,7 @@ public class ObservableProperty <Element: Equatable>: ObservableType {
     }
 
     private func addObserverInternalQueue(_ observer: AnyObject, closure: @escaping (Element, Element) -> Void) {
+        closure(self.value, self.value)
         internalQueue.sync {
             self.observers.setObject(Box(Callback.newAndOldValue(closure)), forKey: observer)
         }
@@ -201,6 +202,7 @@ public class ObservableOptionalProperty <Element: Equatable>: ObservableType, Ex
     }
 
     private func addObserverInternalQueue(_ observer: AnyObject, closure: @escaping (Element?, Element?) -> Void) {
+        closure(self.value, self.value)
         internalQueue.sync {
             self.observers.setObject(Box(Callback.newAndOldValue(closure)), forKey: observer)
         }
