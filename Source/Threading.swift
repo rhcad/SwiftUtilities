@@ -37,7 +37,7 @@ public protocol Locking {
 // MARK: -
 
 public extension Locking {
-    mutating func with <R> (@noescape closure: () throws -> R) rethrows -> R {
+    mutating func with <R> (closure: () throws -> R) rethrows -> R {
         lock()
         defer {
             unlock()
@@ -54,25 +54,7 @@ extension NSLock: Locking {
 extension NSRecursiveLock: Locking {
 }
 
-// MARK: -
-
-@available(*, deprecated)
-public struct Spinlock: Locking {
-
-    var spinlock = OS_SPINLOCK_INIT
-
-    public mutating func lock() {
-        OSSpinLockLock(&spinlock)
-    }
-
-    public mutating func unlock() {
-        OSSpinLockUnlock(&spinlock)
-    }
-}
-
-// MARK: -
-
-public func synchronized <R> (object: AnyObject, @noescape closure: () throws -> R) rethrows -> R {
+public func synchronized <R> (object: AnyObject, closure: () throws -> R) rethrows -> R {
     objc_sync_enter(object)
     defer {
         let result = objc_sync_exit(object)

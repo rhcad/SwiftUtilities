@@ -31,8 +31,8 @@ import Foundation
 
 public struct Version {
 
-    enum Error: ErrorType {
-        case InvalidFormatString
+    enum Error: Swift.Error {
+        case invalidFormatString
     }
 
     public let major: UInt
@@ -58,7 +58,7 @@ public struct Version {
 
 extension Version: CustomStringConvertible {
     public var description: String {
-        return "\(major).\(minor).\(patch)" + (labels.isEmpty ? "" : "-" + labels.joinWithSeparator("."))
+        return "\(major).\(minor).\(patch)" + (labels.isEmpty ? "" : "-" + labels.joined(separator: "."))
     }
 }
 
@@ -66,21 +66,21 @@ extension Version: Equatable {
 }
 
 public func == (lhs: Version, rhs: Version) -> Bool {
-    return compare(lhs, rhs) == .Equal
+    return compare(lhs, rhs) == .equal
 }
 
 extension Version: Comparable {
 }
 
 public func < (lhs: Version, rhs: Version) -> Bool {
-    return compare(lhs, rhs) == .Lesser
+    return compare(lhs, rhs) == .lesser
 }
 
 
 public extension Version {
     init(_ string: String) throws {
-        let scanner = NSScanner(string: string)
-        scanner.charactersToBeSkipped = NSCharacterSet()
+        let scanner = Scanner(string: string)
+        scanner.charactersToBeSkipped = CharacterSet()
 
         var major: UInt = 0
         var minor: UInt = 0
@@ -89,31 +89,31 @@ public extension Version {
 
         var result = scanner.scanUnsignedInteger(&major)
         if result == false {
-            throw Error.InvalidFormatString
+            throw Error.invalidFormatString
         }
-        result = scanner.scanString(".", intoString: nil)
+        result = scanner.scanString(".", into: nil)
         if result == true {
             result = scanner.scanUnsignedInteger(&minor)
             if result == false {
-                throw Error.InvalidFormatString
+                throw Error.invalidFormatString
             }
-            result = scanner.scanString(".", intoString: nil)
+            result = scanner.scanString(".", into: nil)
             if result == true {
                 result = scanner.scanUnsignedInteger(&patch)
                 if result == false {
-                    throw Error.InvalidFormatString
+                    throw Error.invalidFormatString
                 }
             }
-            if scanner.scanString("-", intoString: nil) {
-                let set = NSCharacterSet.alphanumericCharacterSet() + NSCharacterSet(charactersInString: "-")
+            if scanner.scanString("-", into: nil) {
+                let set = CharacterSet.alphanumerics + CharacterSet(charactersIn: "-")
                 while true {
                     var label: NSString? = nil
-                    result = scanner.scanCharactersFromSet(set, intoString: &label)
+                    result = scanner.scanCharacters(from: set, into: &label)
                     if result == false {
-                        throw Error.InvalidFormatString
+                        throw Error.invalidFormatString
                     }
-                    labels.append(label as! String)
-                    result = scanner.scanString(".", intoString: nil)
+                    labels.append((label ?? "") as String)
+                    result = scanner.scanString(".", into: nil)
                     if result == false {
                         break
                     }
@@ -121,8 +121,8 @@ public extension Version {
             }
         }
 
-        if scanner.atEnd == false {
-            throw Error.InvalidFormatString
+        if scanner.isAtEnd == false {
+            throw Error.invalidFormatString
         }
 
         self = Version(major: major, minor: minor, patch: patch, labels: labels)
@@ -189,39 +189,40 @@ private func < (lhs: Label, rhs: Label) -> Bool {
 }
 
 
-func compare(lhs: Version, _ rhs: Version) -> Comparison {
+func compare(_ lhs: Version, _ rhs: Version) -> Comparison {
     var comparisons = [
         compare(lhs.major, rhs.major),
         compare(lhs.minor, rhs.minor),
         compare(lhs.patch, rhs.patch),
     ]
     let count = max(lhs.labels.count, rhs.labels.count)
-    let lhsLabels = lhs.labels + Repeat(count: count - lhs.labels.count, repeatedValue: "")
-    let rhsLabels = rhs.labels + Repeat(count: count - rhs.labels.count, repeatedValue: "")
+
+
+
+    let lhsLabels = lhs.labels + repeatElement("", count: count - lhs.labels.count)
+    let rhsLabels = rhs.labels + repeatElement("", count: count - rhs.labels.count)
     comparisons += zip(lhsLabels.map(Label.init), rhsLabels.map(Label.init)).map(compare)
     for comparison in comparisons {
-        if comparison != .Equal {
+        if comparison != .equal {
             return comparison
         }
     }
-    return .Equal
+    return .equal
 }
 
-private extension NSScanner {
-    func scanUnsignedInteger(result: UnsafeMutablePointer<UInt>) -> Bool {
+private extension Scanner {
+    func scanUnsignedInteger(_ result: UnsafeMutablePointer<UInt>?) -> Bool {
         var value: UInt64 = 0
         guard scanUnsignedLongLong(&value) == true else {
             return false
         }
         if result != nil {
-            result.memory = UInt(value)
+            result?.pointee = UInt(value)
         }
         return true
     }
 }
 
-private func + (lhs: NSCharacterSet, rhs: NSCharacterSet) -> NSCharacterSet {
-    let working = lhs.mutableCopy() as! NSMutableCharacterSet
-    working.formUnionWithCharacterSet(rhs)
-    return working
+private func + (lhs: CharacterSet, rhs: CharacterSet) -> CharacterSet {
+    return lhs.union(rhs)
 }

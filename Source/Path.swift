@@ -37,19 +37,19 @@ public struct Path {
         self.path = path
     }
 
-    public init(_ url: NSURL) throws {
-        guard let path = url.path where url.scheme == "file" || url.scheme == "" && url.path != nil else {
-            throw Error.Generic("Not a file url")
+    public init(_ url: URL) throws {
+        guard url.scheme == "file" || url.scheme == "" && url.path.isEmpty == false else {
+            throw Error.generic("Not a file url")
         }
-        self.path = path
+        self.path = url.path
     }
 
-    public var url: NSURL {
-        return NSURL(fileURLWithPath: path)
+    public var url: URL {
+        return URL(fileURLWithPath: path)
     }
 
     public var normalized: Path {
-        return Path((path as NSString).stringByExpandingTildeInPath)
+        return Path((path as NSString).expandingTildeInPath)
     }
 }
 
@@ -86,7 +86,7 @@ public extension Path {
 //    }
 
     var parent: Path? {
-        return Path((path as NSString).stringByDeletingLastPathComponent)
+        return Path((path as NSString).deletingLastPathComponent)
     }
 
     var name: String {
@@ -98,44 +98,44 @@ public extension Path {
     }
 
     var pathExtensions: [String] {
-        return Array(name.componentsSeparatedByString(".").suffixFrom(1))
+        return Array(name.components(separatedBy: ".").suffix(from: 1))
     }
 
 
     /// The "stem" of the path is the filename without path extensions
     var stem: String {
-        return (( path as NSString).lastPathComponent as NSString).stringByDeletingPathExtension
+        return (( path as NSString).lastPathComponent as NSString).deletingPathExtension
     }
 
     /// Replace the file name portion of a path with name
-    func withName(name: String) -> Path {
+    func withName(_ name: String) -> Path {
         return parent! + name
     }
 
     /// Replace the path extension portion of a path. Note path extensions in iOS seem to refer just to last path extension e.g. "z" of "foo.x.y.z".
-    func withPathExtension(pathExtension: String) -> Path {
+    func withPathExtension(_ pathExtension: String) -> Path {
         if pathExtension.isEmpty {
             return self
         }
         return withName(stem + "." + pathExtension)
     }
 
-    func withPathExtensions(pathExtensions: [String]) -> Path {
-        let pathExtension = pathExtensions.joinWithSeparator(".")
+    func withPathExtensions(_ pathExtensions: [String]) -> Path {
+        let pathExtension = pathExtensions.joined(separator: ".")
         return withPathExtension(pathExtension)
     }
 
     /// Replace the stem portion of a path: e.g. calling withStem("bar") on /tmp/foo.txt returns /tmp/bar.txt
-    func withStem(stem: String) -> Path {
+    func withStem(_ stem: String) -> Path {
         return (parent! + stem).withPathExtension(pathExtension)
     }
 
     func pathByExpandingTilde() -> Path {
-        return Path((path as NSString).stringByExpandingTildeInPath)
+        return Path((path as NSString).expandingTildeInPath)
     }
 
     func pathByDeletingLastComponent() -> Path {
-        return Path((path as NSString).stringByDeletingLastPathComponent)
+        return Path((path as NSString).deletingLastPathComponent)
     }
 
     var normalizedComponents: [String] {
@@ -146,7 +146,7 @@ public extension Path {
         return components
     }
 
-    func hasPrefix(other: Path) -> Bool {
+    func hasPrefix(_ other: Path) -> Bool {
         let lhs = normalizedComponents
         let rhs = other.normalizedComponents
 
@@ -156,7 +156,7 @@ public extension Path {
         return Array(lhs[0..<(rhs.count)]) == rhs
     }
 
-    func hasSuffix(other: Path) -> Bool {
+    func hasSuffix(_ other: Path) -> Bool {
         let lhs = normalizedComponents
         let rhs = other.normalizedComponents
         if rhs.count > lhs.count {
@@ -170,22 +170,22 @@ public extension Path {
 // MARK: Operators
 
 public func + (lhs: Path, rhs: Path) -> Path {
-    let url = (lhs.path as NSString).stringByAppendingPathComponent(rhs.path)
+    let url = (lhs.path as NSString).appendingPathComponent(rhs.path)
     return Path(url)
 }
 
 public func / (lhs: Path, rhs: Path) -> Path {
-    let url = (lhs.path as NSString).stringByAppendingPathComponent(rhs.path)
+    let url = (lhs.path as NSString).appendingPathComponent(rhs.path)
     return Path(url)
 }
 
 public func + (lhs: Path, rhs: String) -> Path {
-    let url = (lhs.path as NSString).stringByAppendingPathComponent(rhs)
+    let url = (lhs.path as NSString).appendingPathComponent(rhs)
     return Path(url)
 }
 
 public func / (lhs: Path, rhs: String) -> Path {
-    let url = (lhs.path as NSString).stringByAppendingPathComponent(rhs)
+    let url = (lhs.path as NSString).appendingPathComponent(rhs)
     return Path(url)
 }
 
@@ -195,10 +195,10 @@ public extension Path {
 
     static var currentDirectory: Path {
         get {
-            return Path(NSFileManager().currentDirectoryPath)
+            return Path(FileManager().currentDirectoryPath)
         }
         set {
-            NSFileManager().changeCurrentDirectoryPath(newValue.path)
+            FileManager().changeCurrentDirectoryPath(newValue.path)
         }
     }
 
@@ -207,13 +207,13 @@ public extension Path {
 // MARK: File Types
 
 public enum FileType {
-    case Regular
-    case Directory
-    case SymbolicLink
-    case Socket
-    case CharacterSpecial
-    case BlockSpecial
-    case Unknown
+    case regular
+    case directory
+    case symbolicLink
+    case socket
+    case characterSpecial
+    case blockSpecial
+    case unknown
 }
 
 // MARK: File Attributes
@@ -232,18 +232,18 @@ public extension Path {
     }
 
     var isDirectory: Bool {
-        return fileType == .Directory
+        return fileType == .directory
     }
 
-    func chmod(permissions: Int) throws {
-        try NSFileManager().setAttributes([NSFilePosixPermissions: permissions], ofItemAtPath: path)
+    func chmod(_ permissions: Int) throws {
+        try FileManager().setAttributes([FileAttributeKey.posixPermissions: permissions], ofItemAtPath: path)
     }
 
 }
 
 public extension Path {
     var attributes: FileAttributes? {
-        guard url.checkResourceIsReachableAndReturnError(nil) == true else {
+        guard (url as NSURL).checkResourceIsReachableAndReturnError(nil) == true else {
             return nil
         }
         return try? FileAttributes(path)
@@ -252,67 +252,67 @@ public extension Path {
 
 public struct FileAttributes {
 
-    private let path: String
+    fileprivate let path: String
 
-    private init(_ path: String) throws {
+    fileprivate init(_ path: String) throws {
         self.path = path
     }
 
-    private var url: NSURL {
-        return NSURL(fileURLWithPath: path)
+    fileprivate var url: URL {
+        return URL(fileURLWithPath: path)
     }
 
-    public func getAttributes() throws -> [String : AnyObject] {
-        let attributes = try NSFileManager().attributesOfItemAtPath(path)
+    public func getAttributes() throws -> [FileAttributeKey : Any] {
+        let attributes = try FileManager().attributesOfItem(atPath: path)
         return attributes
     }
 
-    public func getAttribute <T> (name: String) throws -> T {
+    public func getAttribute <T> (key: FileAttributeKey) throws -> T {
         let attributes = try getAttributes()
-        guard let attribute = attributes[name] as? T else {
-            throw Error.Generic("Could not convert value")
+        guard let attribute = attributes[key] as? T else {
+            throw Error.generic("Could not convert value")
         }
         return attribute
     }
 
     public var fileType: FileType {
         do {
-            let type: String = try getAttribute(NSFileType)
+            let type: FileAttributeType = try getAttribute(key: FileAttributeKey.type)
             switch type {
-                case NSFileTypeDirectory:
-                    return .Directory
-                case NSFileTypeRegular:
-                    return .Regular
-                case NSFileTypeSymbolicLink:
-                    return .SymbolicLink
-                case NSFileTypeSocket:
-                    return .Socket
-                case NSFileTypeCharacterSpecial:
-                    return .CharacterSpecial
-                case NSFileTypeBlockSpecial:
-                    return .BlockSpecial
+                case FileAttributeType.typeDirectory:
+                    return .directory
+                case FileAttributeType.typeRegular:
+                    return .regular
+                case FileAttributeType.typeSymbolicLink:
+                    return .symbolicLink
+                case FileAttributeType.typeSocket:
+                    return .socket
+                case FileAttributeType.typeCharacterSpecial:
+                    return .characterSpecial
+                case FileAttributeType.typeBlockSpecial:
+                    return .blockSpecial
                 default:
-                    return .Unknown
+                    return .unknown
             }
         }
         catch {
-            return .Unknown
+            return .unknown
         }
     }
 
     public var isDirectory: Bool {
-        return fileType == .Directory
+        return fileType == .directory
     }
 
     public var length: Int {
         return tryElseFatalError() {
-            return try getAttribute(NSFileSize)
+            return try getAttribute(key: FileAttributeKey.size)
         }
     }
 
     var permissions: Int {
         return tryElseFatalError() {
-            return try getAttribute(NSFilePosixPermissions)
+            return try getAttribute(key: FileAttributeKey.posixPermissions)
         }
     }
 
@@ -326,14 +326,14 @@ public extension Path {
         return Array(self)
     }
 
-    func walk(closure: (Path) -> Void) throws {
-        guard let enumerator = NSFileManager().enumeratorAtURL(url, includingPropertiesForKeys: nil, options: NSDirectoryEnumerationOptions(), errorHandler: nil) else {
-            throw Error.Generic("Could not create enumerator")
+    func walk(_ closure: (Path) -> Void) throws {
+        guard let enumerator = FileManager().enumerator(at: url, includingPropertiesForKeys: nil, options: FileManager.DirectoryEnumerationOptions(), errorHandler: nil) else {
+            throw Error.generic("Could not create enumerator")
         }
 
         for url in enumerator {
-            guard let url = url as? NSURL else {
-                throw Error.Generic("HMM")
+            guard let url = url as? URL else {
+                throw Error.generic("HMM")
             }
             let path = try Path(url)
             closure(path)
@@ -347,16 +347,16 @@ public extension Path {
 
 public extension Path {
 
-    func createDirectory(withIntermediateDirectories withIntermediateDirectories: Bool = false, attributes: [String: AnyObject]? = nil) throws {
-        try NSFileManager().createDirectoryAtPath(path, withIntermediateDirectories: withIntermediateDirectories, attributes: attributes)
+    func createDirectory(withIntermediateDirectories: Bool = false, attributes: [String: AnyObject]? = nil) throws {
+        try FileManager().createDirectory(atPath: path, withIntermediateDirectories: withIntermediateDirectories, attributes: attributes)
     }
 
-    func move(destination: Path) throws {
-        try NSFileManager().moveItemAtURL(url, toURL: destination.url)
+    func move(_ destination: Path) throws {
+        try FileManager().moveItem(at: url, to: destination.url)
     }
 
     func remove() throws {
-        try NSFileManager().removeItemAtPath(path)
+        try FileManager().removeItem(atPath: path)
     }
 }
 
@@ -367,18 +367,18 @@ public extension Path {
 
     func glob() throws -> [Path] {
         let error = {
-            (path: UnsafePointer<Int8>, errno: Int32) -> Int32 in
+            (path: UnsafePointer<Int8>?, errno: Int32) -> Int32 in
             return 0
         }
         var globStorage = glob_t()
         let result = glob_b(path, 0, error, &globStorage)
         guard result == 0 else {
-            throw (Errno(rawValue: result) ?? Error.Unknown)
+            throw (Errno(rawValue: result) ?? Error.unknown)
         }
         let paths = (0..<globStorage.gl_pathc).map() {
             (index) -> Path in
             let pathPtr = globStorage.gl_pathv[index]
-            guard let pathString = String(CString: pathPtr, encoding: NSUTF8StringEncoding) else {
+            guard let pathString = String(validatingUTF8: pathPtr!) else {
                 fatalError("Could not convert path to utf8 string")
             }
             return Path(pathString)
@@ -391,12 +391,12 @@ public extension Path {
 // MARK: File Rotation
 
 public extension Path {
-    func rotate(limit limit: Int? = nil) throws {
+    func rotate(limit: Int? = nil) throws {
         guard exists else {
             return
         }
         guard let parent = parent else {
-            throw Error.Generic("No parent")
+            throw Error.generic("No parent")
         }
         let destination: Path
         if let index = Int(pathExtension) {
@@ -423,7 +423,7 @@ public extension Path {
         return Path(NSTemporaryDirectory())
     }
 
-    static func makeTemporaryDirectory(temporaryDirectory: Path? = nil) throws -> Path {
+    static func makeTemporaryDirectory(_ temporaryDirectory: Path? = nil) throws -> Path {
 
         let temporaryDirectory = (temporaryDirectory ?? self.temporaryDirectory)
         if temporaryDirectory.exists == false {
@@ -431,17 +431,17 @@ public extension Path {
         }
 
         let templateDirectory = temporaryDirectory + "XXXXXXXX"
-        var template = templateDirectory.path.cStringUsingEncoding(NSUTF8StringEncoding)!
+        var template = templateDirectory.path.cString(using: String.Encoding.utf8)!
         return template.withUnsafeMutableBufferPointer() {
-            (inout buffer: UnsafeMutableBufferPointer <Int8>) -> Path in
+            (buffer: inout UnsafeMutableBufferPointer <Int8>) -> Path in
             let pointer = mkdtemp(buffer.baseAddress)
-            let pathString = String(CString: pointer, encoding: NSUTF8StringEncoding)!
+            let pathString = String(validatingUTF8: pointer!)!
             let path = Path(pathString)
             return path
         }
     }
 
-    static func withTemporaryDirectory <R> (temporaryDirectory: Path? = nil, @noescape closure: Path throws -> R) throws -> R {
+    static func withTemporaryDirectory <R> (_ temporaryDirectory: Path? = nil, closure: (Path) throws -> R) throws -> R {
 
         let path = try makeTemporaryDirectory(temporaryDirectory)
         defer {
@@ -458,7 +458,7 @@ public extension Path {
 public extension Path {
 
     static var applicationSpecificSupportDirectory: Path {
-        let bundle = NSBundle.mainBundle()
+        let bundle = Bundle.main
         let bundleIdentifier = bundle.bundleIdentifier!
         let path = applicationSupportDirectory! + bundleIdentifier
         if path.exists == false {
@@ -469,25 +469,25 @@ public extension Path {
         return path
     }
 
-    static func specialDirectory(directory: NSSearchPathDirectory, inDomain domain: NSSearchPathDomainMask = .UserDomainMask, appropriateForURL url: NSURL? = nil, create shouldCreate: Bool = true) throws -> Path {
+    static func specialDirectory(_ directory: FileManager.SearchPathDirectory, inDomain domain: FileManager.SearchPathDomainMask = .userDomainMask, appropriateForURL url: URL? = nil, create shouldCreate: Bool = true) throws -> Path {
 
         let url = tryElseFatalError() {
-            return try NSFileManager().URLForDirectory(directory, inDomain: domain, appropriateForURL: url, create: shouldCreate)
+            return try FileManager().url(for: directory, in: domain, appropriateFor: url, create: shouldCreate)
         }
 
         return try Path(url)
     }
     
     static var libraryDirectory: Path? {
-        return try? Path.specialDirectory(.LibraryDirectory)
+        return try? Path.specialDirectory(.libraryDirectory)
     }
 
     static var applicationSupportDirectory: Path? {
-        return try? Path.specialDirectory(.ApplicationSupportDirectory)
+        return try? Path.specialDirectory(.applicationSupportDirectory)
     }
 
     static var documentDirectory: Path? {
-        return try? Path.specialDirectory(.DocumentDirectory)
+        return try? Path.specialDirectory(.documentDirectory)
     }
 }
 
@@ -495,61 +495,61 @@ public extension Path {
 public extension Path {
 
     func createFile() throws {
-        if NSFileManager.defaultManager().createFileAtPath(path, contents: nil, attributes: nil) == false {
-            throw Error.Generic("Could not create file")
+        if FileManager.default.createFile(atPath: path, contents: nil, attributes: nil) == false {
+            throw Error.generic("Could not create file")
         }
     }
 
     func read() throws -> String {
-        let data = try NSData(contentsOfURL: url, options: NSDataReadingOptions())
+        let data = try Data(contentsOf: url, options: NSData.ReadingOptions())
         var string: NSString?
         var usedLossyConversion = ObjCBool(false)
         let encodingOptions = [
-            NSStringEncodingDetectionSuggestedEncodingsKey: [NSUTF8StringEncoding],
-            NSStringEncodingDetectionUseOnlySuggestedEncodingsKey: false,
-            NSStringEncodingDetectionAllowLossyKey: true,
-        ]
-        let encoding = NSString.stringEncodingForData(data, encodingOptions: encodingOptions, convertedString: &string, usedLossyConversion: &usedLossyConversion)
-        if let string = string as? String where encoding != 0 {
+            StringEncodingDetectionOptionsKey.suggestedEncodingsKey: [String.Encoding.utf8],
+            StringEncodingDetectionOptionsKey.useOnlySuggestedEncodingsKey: false,
+            StringEncodingDetectionOptionsKey.allowLossyKey: true,
+        ] as [StringEncodingDetectionOptionsKey : Any]
+        let encoding = NSString.stringEncoding(for: data, encodingOptions: encodingOptions, convertedString: &string, usedLossyConversion: &usedLossyConversion)
+        if let string = string as String? , encoding != 0 {
             return string
         }
-        throw Error.Generic("Could not decode data.")
+        throw Error.generic("Could not decode data.")
     }
 
-    func write(string: String, encoding: UInt = NSUTF8StringEncoding) throws {
-        try string.writeToFile(String(self), atomically: true, encoding: encoding)
+    func write(_ string: String, encoding: String.Encoding = .utf8) throws {
+        try string.write(toFile: path, atomically: true, encoding: encoding)
     }
 
 }
 
 // MARK: -
 
-extension Path: SequenceType {
+extension Path: Sequence {
 
-    public class Generator: GeneratorType {
+    public class Iterator: IteratorProtocol {
         let enumerator: NSEnumerator
 
         init(path: Path) {
-            enumerator = NSFileManager().enumeratorAtURL(path.url, includingPropertiesForKeys: nil, options: [.SkipsSubdirectoryDescendants, .SkipsPackageDescendants], errorHandler: nil)!
+            enumerator = FileManager().enumerator(at: path.url, includingPropertiesForKeys: nil, options: [.skipsSubdirectoryDescendants, .skipsPackageDescendants], errorHandler: nil)!
         }
 
         public func next() -> Path? {
-            guard let url = enumerator.nextObject() as? NSURL else {
+            guard let url = enumerator.nextObject() as? URL else {
                 return nil
             }
             return try? Path(url)
         }
     }
 
-    public func generate() -> Generator {
-        return Generator(path: self)
+    public func makeIterator() -> Iterator {
+        return Iterator(path: self)
     }
 
 }
 
 // MARK: -
 
-extension Path: UnicodeScalarLiteralConvertible, StringLiteralConvertible, ExtendedGraphemeClusterLiteralConvertible {
+extension Path: ExpressibleByUnicodeScalarLiteral, ExpressibleByStringLiteral, ExpressibleByExtendedGraphemeClusterLiteral {
 
     public init(stringLiteral value: String) {
         self.init(value)

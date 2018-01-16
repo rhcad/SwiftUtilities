@@ -55,22 +55,22 @@ public struct PriorityQueue <Element, Priority: Comparable> {
         return element
     }
 
-    public mutating func put(element: Element, priority: Priority) {
+    public mutating func put(_ element: Element, priority: Priority) {
         binaryHeap.push((element, priority))
     }
 
 }
 
-extension PriorityQueue: SequenceType {
-    public typealias Generator = PriorityQueueGenerator <Element, Priority>
-    public func generate() -> Generator {
-        return Generator(queue: self)
+extension PriorityQueue: Sequence {
+    public typealias Iterator = PriorityQueueGenerator <Element, Priority>
+    public func makeIterator() -> Iterator {
+        return Iterator(queue: self)
     }
 }
 
-public struct PriorityQueueGenerator <Value, Priority: Comparable>: GeneratorType {
+public struct PriorityQueueGenerator <Value, Priority: Comparable>: IteratorProtocol {
     public typealias Element = Value
-    private var queue: PriorityQueue <Value, Priority>
+    fileprivate var queue: PriorityQueue <Value, Priority>
     public init(queue: PriorityQueue <Value, Priority>) {
         self.queue = queue
     }

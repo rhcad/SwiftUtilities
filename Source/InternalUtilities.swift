@@ -18,7 +18,7 @@ internal extension Dictionary {
         self = d
     }
 
-    func get(key: Key, defaultValue: Value) -> Value {
+    func get(_ key: Key, defaultValue: Value) -> Value {
         var value = self[key]
         if value == nil {
             value = defaultValue
@@ -32,31 +32,31 @@ internal extension Array {
     /** Finds the location newElement belongs within the already sorted array, and inserts it there.
         - Complexity: O(n) but see documentation for `Array.append`.
     */
-    mutating func insert(newElement: Element, @noescape comparator: (Element, Element) -> Bool) {
+    mutating func insert(_ newElement: Element, comparator: (Element, Element) -> Bool) {
         append(newElement)
         let count = self.count
         if count == 1 {
             return
         }
-        for N in (count - 2).stride(through: 0, by: -1) {
+        for N in stride(from: (count - 2), through: 0, by: -1) {
             if comparator(self[N + 1], self[N]) {
-                swap(&self[N], &self[N + 1])
+                self.swapAt(N, N + 1)
             }
         }
     }
 }
 
 
-internal func cast <T, R> (value: Optional <T>) throws -> R {
+internal func cast <T, R> (_ value: Optional <T>) throws -> R {
     guard let castValue = value as? R else {
-        throw Error.Generic("Could not cast value (\(value)) of type \(T.self) to \(R.self)")
+        throw Error.generic("Could not cast value (\(String(describing: value))) of type \(T.self) to \(R.self)")
     }
     return castValue
 }
 
-internal func cast <T, R> (value: T) throws -> R {
+internal func cast <T, R> (_ value: T) throws -> R {
     guard let castValue = value as? R else {
-        throw Error.Generic("Could not cast value (\(value)) of type \(T.self) to \(R.self)")
+        throw Error.generic("Could not cast value (\(value)) of type \(T.self) to \(R.self)")
     }
     return castValue
 }

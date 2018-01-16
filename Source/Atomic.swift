@@ -34,43 +34,41 @@ import Foundation
 public class Atomic <T> {
     public var value: T {
         get {
-            return lock.with() {
-                return _value
-            }
+            lock.lock()
+            let oldValue = _value
+            lock.unlock()
+            return oldValue
         }
         set {
-            let valueChanged: (Void -> Void)? = lock.with() {
-                let oldValue = _value
-                _value = newValue
-                guard let valueChanged = _valueChanged else {
-                    return nil
-                }
-                return {
-                    valueChanged(oldValue, newValue)
-                }
+            lock.lock()
+            let oldValue = _value
+            _value = newValue
+            if let valueChanged = _valueChanged {
+                valueChanged(oldValue, newValue)
             }
-            valueChanged?()
+            lock.unlock()
         }
     }
 
     /// Called whenever value changes. NOT called during init.
     public var valueChanged: ((T, T) -> Void)? {
         get {
-            return lock.with() {
-                return _valueChanged
-            }
+            lock.lock()
+            let oldValue = _valueChanged
+            lock.unlock()
+            return oldValue
         }
         set {
-            lock.with() {
-                _valueChanged = newValue
-            }
+            lock.lock()
+            _valueChanged = newValue
+            lock.unlock()
         }
     }
 
-    private var lock: Locking
+    fileprivate var lock: Locking
 
-    private var _value: T
-    private var _valueChanged: ((T, T) -> Void)?
+    fileprivate var _value: T
+    fileprivate var _valueChanged: ((T, T) -> Void)?
 
     /** - Parameters:
             - Parameter value: Initial value.
@@ -88,17 +86,11 @@ public class Atomic <T> {
 
 public extension Atomic {
 
-    /// Perform a locking transaction on the instance.
-//    func with <R> (@noescape closure: T -> R) -> R {
-//        return lock.with() {
-//            return closure(value)
-//        }
-//    }
-
     /// Perform a locking transaction on the instance. This version allows you to modify the value.
-    func with <R> (@noescape closure: inout T -> R) -> R {
-        return lock.with() {
-            return closure(&_value)
-        }
+    func with <R> (_ closure: (inout T) -> R) -> R {
+        lock.lock()
+        let result = closure(&_value)
+        lock.unlock()
+        return result
     }
 }

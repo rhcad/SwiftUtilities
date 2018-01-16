@@ -29,173 +29,175 @@
 
 import Foundation
 
-public class DataScanner {
-    public typealias BufferType = UnsafeBufferPointer <Void>
+// TODO: Swift3
 
-    public init(buffer: BufferType) {
-        self.buffer = buffer
-        current = self.buffer.startIndex
-    }
-
-    public let buffer: BufferType
-
-    public var current: BufferType.Index
-
-    public var remainingSize: Int {
-        return buffer.count - current
-    }
-
-    public var remaining: BufferType {
-        return BufferType(start: buffer.baseAddress + current, count: buffer.count - current)
-    }
-
-    public var atEnd: Bool {
-        return current == buffer.endIndex
-    }
-
-    private var currentPointer: UnsafePointer <Void> {
-        return buffer.baseAddress.advancedBy(current)
-    }
-}
-
-// MARK: Integers
-
-public extension DataScanner {
-
-    func scan <Type: IntegerType>() throws -> Type? {
-        guard remainingSize >= sizeof(Type) else {
-            return nil
-        }
-        let offset = buffer.baseAddress.advancedBy(current)
-        let b = UnsafePointer <Type> (offset)
-        let result = b.memory
-        current = current.advancedBy(sizeof(Type))
-        return result
-    }
-
-    func scan <Type: IntegerType>() throws -> Type {
-        guard let value: Type = try scan() else {
-            throw Error.Generic("Unable to scan element.")
-        }
-        return value
-    }
-}
-
-// MARK: Floats
-
-public extension DataScanner {
-
-    func scan <Type: FloatingPointType> () throws -> Type? {
-        guard remainingSize >= sizeof(Type) else {
-            return nil
-        }
-        let offset = buffer.baseAddress.advancedBy(current)
-        let b = UnsafePointer <Type> (offset)
-        let result = b.memory
-        // TODO; Endianness
-        current = current.advancedBy(sizeof(Type))
-        return result
-    }
-
-    public func scan <Type: FloatingPointType> () throws -> Type {
-        guard let value: Type = try scan() else {
-            throw Error.Generic("Unable to scan element.")
-        }
-        return value
-    }
-
-}
-
-// MARK: Misc.
-
-public extension DataScanner {
-
-    func scan(count: Int) throws -> UnsafeBufferPointer <Void>? {
-        if remainingSize < count {
-            return nil
-        }
-        let scannedBuffer = UnsafeBufferPointer <Void> (start: buffer.baseAddress.advancedBy(current), count: count)
-        current = current.advancedBy(count)
-        return scannedBuffer
-    }
-
-    func scan(count: Int) throws -> UnsafeBufferPointer <Void> {
-        guard let value: UnsafeBufferPointer <Void> = try scan(count) else {
-            throw Error.Generic("Not enough data in buffer")
-        }
-        return value
-    }
-
-}
-
-public extension DataScanner {
-
-    func scan(value: UInt8) throws -> Bool {
-        if let scannedValue: UInt8 = try scan() {
-            return scannedValue == value
-        }
-        else {
-            return false
-        }
-    }
-
-    func scan(value: UInt8) throws {
-        if try scan(value) == false {
-            throw Error.Generic("Cannot scan value")
-        }
-    }
-
-    func scanString(maxCount: Int? = nil, encoding: NSStringEncoding = NSUTF8StringEncoding) throws -> String? {
-        guard atEnd == false else {
-            return nil
-        }
-
-        let buffer: UnsafeBufferPointer <UInt8> = self.buffer.toUnsafeBufferPointer()
-
-        var count = 0
-        var nilByteFound = false
-        for index in current..<buffer.endIndex {
-            if buffer[index] == 0x00 {
-                nilByteFound = true
-                break
-            }
-            if let maxCount = maxCount where count >= maxCount {
-                break
-            }
-            count += 1
-        }
-
-        if count == 0 {
-            if nilByteFound {
-                current = current.advancedBy(1)
-                return ""
-            }
-            return nil
-        }
-
-        let bytes = UnsafeMutablePointer <Void> (currentPointer)
-        current = current.advancedBy(count)
-        if nilByteFound {
-            current = current.advancedBy(1)
-        }
-
-        let data = NSData(bytesNoCopy: bytes, length: count, freeWhenDone: false)
-        guard let string = NSString(data: data, encoding: encoding) else {
-            throw Error.Generic("Unable to create string from data.")
-        }
-
-        return string as String
-    }
-
-    func scanUpTo(byte: UInt8) throws -> UnsafeBufferPointer <UInt8>? {
-        let start = current
-        let buffer: UnsafeBufferPointer <UInt8> = self.buffer.toUnsafeBufferPointer()
-        while current != buffer.endIndex {
-            if buffer[current] == byte {
-                return buffer[start..<current]
-            }
-            current += 1
-        }
-        return nil
-    }
-}
+//open class DataScanner {
+//    public typealias BufferType = UnsafeBufferPointer <UInt8>
+//
+//    public init(buffer: BufferType) {
+//        self.buffer = buffer
+//        current = self.buffer.startIndex
+//    }
+//
+//    open let buffer: BufferType
+//
+//    open var current: BufferType.Index
+//
+//    open var remainingSize: Int {
+//        return buffer.count - current
+//    }
+//
+//    open var remaining: BufferType {
+//        return BufferType(start: buffer.baseAddress + current, count: buffer.count - current)
+//    }
+//
+//    open var atEnd: Bool {
+//        return current == buffer.endIndex
+//    }
+//
+//    fileprivate var currentPointer: UnsafePointer <UInt8> {
+//        return buffer.baseAddress.advancedBy(current)
+//    }
+//}
+//
+//// MARK: Integers
+//
+//public extension DataScanner {
+//
+//    func scan <Type: Integer>() throws -> Type? {
+//        guard remainingSize >= sizeof(Type) else {
+//            return nil
+//        }
+//        let offset = buffer.baseAddress.advancedBy(current)
+//        let b = UnsafePointer <Type> (offset)
+//        let result = b.pointee
+//        current = current.advanced(by: sizeof(Type))
+//        return result
+//    }
+//
+//    func scan <Type: Integer>() throws -> Type {
+//        guard let value: Type = try scan() else {
+//            throw Error.generic("Unable to scan element.")
+//        }
+//        return value
+//    }
+//}
+//
+//// MARK: Floats
+//
+//public extension DataScanner {
+//
+//    func scan <Type: FloatingPoint> () throws -> Type? {
+//        guard remainingSize >= sizeof(Type) else {
+//            return nil
+//        }
+//        let offset = buffer.baseAddress.advancedBy(current)
+//        let b = UnsafePointer <Type> (offset)
+//        let result = b.pointee
+//        // TODO; Endianness
+//        current = current.advanced(by: sizeof(Type))
+//        return result
+//    }
+//
+//    public func scan <Type: FloatingPoint> () throws -> Type {
+//        guard let value: Type = try scan() else {
+//            throw Error.generic("Unable to scan element.")
+//        }
+//        return value
+//    }
+//
+//}
+//
+//// MARK: Misc.
+//
+//public extension DataScanner {
+//
+//    func scan(_ count: Int) throws -> UnsafeBufferPointer <Void>? {
+//        if remainingSize < count {
+//            return nil
+//        }
+//        let scannedBuffer = UnsafeBufferPointer <Void> (start: buffer.baseAddress.advancedBy(current), count: count)
+//        current = current.advanced(by: count)
+//        return scannedBuffer
+//    }
+//
+//    func scan(_ count: Int) throws -> UnsafeBufferPointer <Void> {
+//        guard let value: UnsafeBufferPointer <Void> = try scan(count) else {
+//            throw Error.generic("Not enough data in buffer")
+//        }
+//        return value
+//    }
+//
+//}
+//
+//public extension DataScanner {
+//
+//    func scan(_ value: UInt8) throws -> Bool {
+//        if let scannedValue: UInt8 = try scan() {
+//            return scannedValue == value
+//        }
+//        else {
+//            return false
+//        }
+//    }
+//
+//    func scan(_ value: UInt8) throws {
+//        if try scan(value) == false {
+//            throw Error.generic("Cannot scan value")
+//        }
+//    }
+//
+//    func scanString(_ maxCount: Int? = nil, encoding: String.Encoding = String.Encoding.utf8) throws -> String? {
+//        guard atEnd == false else {
+//            return nil
+//        }
+//
+//        let buffer: UnsafeBufferPointer <UInt8> = self.buffer.toUnsafeBufferPointer()
+//
+//        var count = 0
+//        var nilByteFound = false
+//        for index in current..<buffer.endIndex {
+//            if buffer[index] == 0x00 {
+//                nilByteFound = true
+//                break
+//            }
+//            if let maxCount = maxCount , count >= maxCount {
+//                break
+//            }
+//            count += 1
+//        }
+//
+//        if count == 0 {
+//            if nilByteFound {
+//                current = current.advanced(by: 1)
+//                return ""
+//            }
+//            return nil
+//        }
+//
+//        let bytes = UnsafeMutablePointer <UInt8> (mutating: currentPointer)
+//        current = current.advanced(by: count)
+//        if nilByteFound {
+//            current = current.advanced(by: 1)
+//        }
+//
+//        let data = Data(bytesNoCopy: UnsafeMutablePointer<UInt8>(bytes), count: count, deallocator: .none)
+//        guard let string = String(data: data, encoding: encoding) else {
+//            throw Error.generic("Unable to create string from data.")
+//        }
+//
+//        return string
+//    }
+//
+//    func scanUpTo(_ byte: UInt8) throws -> UnsafeBufferPointer <UInt8>? {
+//        let start = current
+//        let buffer: UnsafeBufferPointer <UInt8> = self.buffer.toUnsafeBufferPointer()
+//        while current != buffer.endIndex {
+//            if buffer[current] == byte {
+//                return buffer[start..<current]
+//            }
+//            current += 1
+//        }
+//        return nil
+//    }
+//}

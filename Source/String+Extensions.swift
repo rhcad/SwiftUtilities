@@ -30,26 +30,14 @@
 import Foundation
 
 public extension String {
-    func substringFromPrefix(prefix: String) throws -> String {
+    func substringFromPrefix(_ prefix: String) throws -> String {
         if prefix.isEmpty {
             return self
         }
-        if let range = rangeOfString(prefix) where range.startIndex == startIndex {
-            return substringFromIndex(range.endIndex)
+        if let range = range(of: prefix) , range.lowerBound == startIndex {
+            return substring(from: range.upperBound)
         }
-        throw Error.Generic("String does not begin with prefix.")
+        throw Error.generic("String does not begin with prefix.")
     }
 }
 
-// MARK: -
-
-@available(*, deprecated, message="To deprecate")
-public extension String {
-    func withCString<Result>(@noescape body: UnsafeBufferPointer<Int8> -> Result) -> Result {
-        return withCString() {
-            (ptr: UnsafePointer<Int8>) -> Result in
-            let buffer = UnsafeBufferPointer <Int8> (start: ptr, count: Int(strlen(ptr)))
-            return body(buffer)
-        }
-    }
-}

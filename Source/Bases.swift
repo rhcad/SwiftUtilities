@@ -33,11 +33,11 @@
 import Foundation
 
 public protocol BaseDecodable {
-    static func decodeFromString(string: String, base: Int?) throws -> Self
+    static func decodeFromString(_ string: String, base: Int?) throws -> Self
 }
 
 public protocol BaseEncodable {
-    func encodeToString(base base: Int, prefix: Bool, width: Int?) throws -> String
+    func encodeToString(base: Int, prefix: Bool, width: Int?) throws -> String
 }
 
 public extension BaseDecodable {
@@ -63,8 +63,8 @@ extension UInt16: BaseDecodable {
 extension UInt8: BaseDecodable {
 }
 
-extension UnsignedIntegerType {
-    public static func decodeFromString(string: String, base: Int?) throws -> Self {
+extension UnsignedInteger {
+    public static func decodeFromString(_ string: String, base: Int?) throws -> Self {
         var string = string
 
         // TODO: Base guessing/expectation is broken
@@ -72,7 +72,7 @@ extension UnsignedIntegerType {
         var finalRadix: NamedRadix
         if let base = base {
             guard let radix = NamedRadix(rawValue: base) else {
-                throw Error.Generic("No standard prefix for base \(base).")
+                throw Error.generic("No standard prefix for base \(base).")
             }
             finalRadix = radix
         }
@@ -115,19 +115,19 @@ extension UInt16: BaseEncodable {
 extension UInt8: BaseEncodable {
 }
 
-extension UnsignedIntegerType {
+extension UnsignedInteger {
 
-    public func encodeToString(base base: Int, prefix: Bool = false, width: Int? = nil) throws -> String {
+    public func encodeToString(base: Int, prefix: Bool = false, width: Int? = nil) throws -> String {
         let value = toUIntMax()
 
         var s: String = "0"
         if value != 0 {
             let digits = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"]
             s = ""
-            let count = UIntMax(log(Double(value), base: Double(base)))
+            let count = UIntMax(log(Double(value), base: Double(base))) + 1
             var value = value
 
-            for _ in UIntMax(0).stride(through: count, by: 1) {
+            for _ in 0..<count {
                 let digit = value % UIntMax(base)
                 let char = digits[Int(digit)]
                 s = String(char) + s
@@ -137,12 +137,12 @@ extension UnsignedIntegerType {
 
        if let width = width {
             let count = s.utf8.count
-            let pad = "".stringByPaddingToLength(max(width - count, 0), withString: "0", startingAtIndex: 0)
+            let pad = "".padding(toLength: [width - count, 0].max()!, withPad: "0", startingAt: 0)
             s = pad + s
         }
 
 
-        if let radix = NamedRadix(rawValue: base) where prefix == true {
+        if let radix = NamedRadix(rawValue: base) , prefix == true {
             s = radix.constantPrefix + s
         }
 
@@ -150,20 +150,21 @@ extension UnsignedIntegerType {
     }
 }
 
-// MARK: DispatchData + BaseDecodable
+// MARK: GenericDispatchData + BaseDecodable
 
-extension DispatchData: BaseDecodable {
-    public static func decodeFromString(string: String, base: Int?) throws -> DispatchData {
-        let data = try NSData.decodeFromString(string, base: base)
-        return DispatchData(data)
-    }
-}
+// TODO: Swift3
+//extension GenericDispatchData: BaseDecodable {
+//    public static func decodeFromString(_ string: String, base: Int?) throws -> GenericDispatchData {
+//        let data = try Data.decodeFromString(string, base: base)
+//        return GenericDispatchData(data)
+//    }
+//}
 
-// MARK: DispatchData + BaseDecodable(ish)
+// MARK: GenericDispatchData + BaseDecodable(ish)
 
-extension NSData: BaseDecodable {
+extension Data: BaseDecodable {
 
-    static public func decodeFromString(string: String, base: Int?) throws -> Self {
+    static public func decodeFromString(_ string: String, base: Int?) throws -> Data {
         precondition(base == 16)
 
         var octets: [UInt8] = []
@@ -189,72 +190,74 @@ extension NSData: BaseDecodable {
         if hiNibble == false {
             octets.append(octet)
         }
-        let data = octets.withUnsafeBufferPointer() {
-            return self.init(bytes: $0.baseAddress, length: $0.count)
+        return octets.withUnsafeBufferPointer() {
+            return Data($0)
         }
-
-        return self.init(data: data)
     }
 }
 
 // MARK: UnsafeBufferPointer + BaseEncodable
 
+
 extension UnsafeBufferPointer: BaseEncodable {
-    public func encodeToString(base base: Int, prefix: Bool = false, width: Int? = nil) throws -> String {
+
+    public func encodeToString(base: Int, prefix: Bool = false, width: Int? = nil) throws -> String {
         precondition(base == 16)
         precondition(prefix == false)
         precondition(width == nil)
+        return withMemoryRebound() {
+            (buffer: UnsafeBufferPointer <UInt8>) -> String in
 
-        let buffer: UnsafeBufferPointer <UInt8> = toUnsafeBufferPointer()
-        let hex = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"]
-        return buffer.map({
-            let hiNibble = Int($0) >> 4
-            let loNibble = Int($0) & 0b1111
-            return hex[hiNibble] + hex[loNibble]
-        }).joinWithSeparator("")
+            let hex = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"]
+            return buffer.map({
+                let hiNibble = Int($0) >> 4
+                let loNibble = Int($0) & 0b1111
+                return hex[hiNibble] + hex[loNibble]
+            }).joined(separator: "")
+        }
     }
 }
 
 // MARK: Internal helpers.
 
 enum NamedRadix: Int {
-    case Binary = 2
-    case Octal = 8
-    case Decimal = 10
-    case Hexadecimal = 16
+    case binary = 2
+    case octal = 8
+    case decimal = 10
+    case hexadecimal = 16
 }
 
 extension NamedRadix {
     var constantPrefix: String {
         switch self {
-            case .Binary:
+            case .binary:
                 return "0b"
-            case .Octal:
+            case .octal:
                 return "0o"
-            case .Decimal:
+            case .decimal:
                 return ""
-            case .Hexadecimal:
+            case .hexadecimal:
                 return "0x"
         }
     }
 
-    static func fromString(string: String) -> NamedRadix {
-        if string.hasPrefix(self.Binary.constantPrefix) {
-            return .Binary
+    static func fromString(_ string: String) -> NamedRadix {
+        if string.hasPrefix(self.binary.constantPrefix) {
+            return .binary
         }
-        else if string.hasPrefix(self.Octal.constantPrefix) {
-            return .Octal
+        else if string.hasPrefix(self.octal.constantPrefix) {
+            return .octal
         }
-        else if string.hasPrefix(self.Hexadecimal.constantPrefix) {
-            return .Hexadecimal
+        else if string.hasPrefix(self.hexadecimal.constantPrefix) {
+            return .hexadecimal
         }
         else {
-            return .Decimal
+            return .decimal
         }
     }
 }
 
-func decodeCodeUnit(codeUnit: UTF8.CodeUnit, base: Int) throws -> UInt8? {
+func decodeCodeUnit(_ codeUnit: UTF8.CodeUnit, base: Int) throws -> UInt8? {
     let value: UInt8
     switch codeUnit {
         // "0" ... "9"
@@ -267,11 +270,11 @@ func decodeCodeUnit(codeUnit: UTF8.CodeUnit, base: Int) throws -> UInt8? {
         case 0x61 ... 0x66 where base >= 16:
             value = codeUnit - 0x61 + 0x0A
         default:
-            throw Error.Generic("Not a digit of base \(base)")
+            throw Error.generic("Not a digit of base \(base)")
     }
 
     if value >= UInt8(base) {
-        throw Error.Generic("Not a digit of base \(base)")
+        throw Error.generic("Not a digit of base \(base)")
     }
 
     return value
@@ -279,38 +282,43 @@ func decodeCodeUnit(codeUnit: UTF8.CodeUnit, base: Int) throws -> UInt8? {
 
 // MARK: Convenience methods that will probably be deprecated or at least renamed in future
 
-extension NSData: BaseEncodable {
-    public func encodeToString(base base: Int, prefix: Bool = false, width: Int? = nil) throws -> String {
-        let buffer = UnsafeBufferPointer <Void> (start: bytes, count: length)
-        return try buffer.encodeToString(base: base, prefix: prefix, width: width)
-    }
-}
+extension Data: BaseEncodable {
+    public func encodeToString(base: Int, prefix: Bool = false, width: Int? = nil) throws -> String {
+        return try withUnsafeBytes() {
+            (bytes: UnsafePointer <UInt8>) -> String in
 
-extension DispatchData: BaseEncodable {
-    public func encodeToString(base base: Int, prefix: Bool = false, width: Int? = nil) throws -> String {
-        return try createMap() {
-            (data, buffer) in
+            let buffer = UnsafeBufferPointer <Void> (start: bytes, count: count)
             return try buffer.encodeToString(base: base, prefix: prefix, width: width)
         }
     }
 }
 
+// TODO: Swift3
+//extension GenericDispatchData: BaseEncodable {
+//    public func encodeToString(base: Int, prefix: Bool = false, width: Int? = nil) throws -> String {
+//        return try createMap() {
+//            (data, buffer) in
+//            return try buffer.encodeToString(base: base, prefix: prefix, width: width)
+//        }
+//    }
+//}
+
 // MARK: Convenience methods that will probably be deprecated or at least renamed in future
 
-@available(*, deprecated, message="Will be deprecated")
-public func binary <T: BaseEncodable> (value: T, prefix: Bool = false, width: Int? = nil) throws -> String {
+@available(*, deprecated, message: "Will be deprecated")
+public func binary <T: BaseEncodable> (_ value: T, prefix: Bool = false, width: Int? = nil) throws -> String {
     return try value.encodeToString(base: 2, prefix: prefix, width: width)
 }
 
 public extension BaseDecodable {
-    @available(*, deprecated, message="Will be deprecated")
-    static func fromHex(hex: String) throws -> Self {
+    @available(*, deprecated, message: "Will be deprecated")
+    static func fromHex(_ hex: String) throws -> Self {
         return try Self.decodeFromString(hex, base: 16)
     }
 }
 
 public extension BaseEncodable {
-    @available(*, deprecated, message="Will be deprecated")
+    @available(*, deprecated, message: "Will be deprecated")
     func toHex() throws -> String {
         return try encodeToString(base: 16, prefix: false, width: nil)
     }

@@ -32,7 +32,12 @@ import CoreGraphics
 
 // MARK: Math
 
-infix operator ** { associativity none precedence 160 }
+precedencegroup ExponentPrecedence {
+  associativity: left
+  higherThan: MultiplicationPrecedence
+}
+
+infix operator **: ExponentPrecedence
 
 public func ** (lhs: Float, rhs: Float) -> Float {
     if rhs == 2 {
@@ -55,17 +60,17 @@ public func ** (lhs: CGFloat, rhs: CGFloat) -> CGFloat {
     return pow(lhs, rhs)
 }
 
-public func log(value: Double, base: Double) -> Double {
+public func log(_ value: Double, base: Double) -> Double {
     return log(value) / log(base)
 }
 
 // MARK: Basics
 
-public func clamp <T: Comparable> (value: T, lower: T, upper: T) -> T {
+public func clamp <T: Comparable> (_ value: T, lower: T, upper: T) -> T {
     return max(min(value, upper), lower)
 }
 
-public func round(value: CGFloat, decimal: Int) -> CGFloat {
+public func round(_ value: CGFloat, decimal: Int) -> CGFloat {
     let e10n = pow(10.0, CGFloat(clamp(decimal, lower: -6, upper: 7)))
     let fl = floor(e10n * value + 0.5)
     return fl / e10n
@@ -81,7 +86,7 @@ public extension Float {
     }
 
     init(degrees: Float) {
-        self = degrees * Float(M_PI) / 180
+        self = degrees * Float(Double.pi) / 180
     }
 
     var radians: Float {
@@ -89,7 +94,7 @@ public extension Float {
     }
 
     var degrees: Float {
-        return self * 180 / Float(M_PI)
+        return self * 180 / Float(Double.pi)
     }
 }
 
@@ -99,7 +104,7 @@ public extension Double {
     }
 
     init(degrees: Double) {
-        self = degrees * M_PI / 180
+        self = degrees * Double.pi / 180
     }
 
     var radians: Double {
@@ -107,7 +112,7 @@ public extension Double {
     }
 
     var degrees: Double {
-        return self * 180 / M_PI
+        return self * 180 / Double.pi
     }
 }
 
@@ -117,7 +122,7 @@ public extension CGFloat {
     }
 
     init(degrees: CGFloat) {
-        self = degrees * CGFloat(M_PI) / 180
+        self = degrees * CGFloat(Double.pi) / 180
     }
 
     var radians: CGFloat {
@@ -125,32 +130,32 @@ public extension CGFloat {
     }
 
     var degrees: CGFloat {
-        return self * 180 / CGFloat(M_PI)
+        return self * 180 / CGFloat(Double.pi)
     }
 }
 
 // Basic functions
 
-public func degreesToRadians(value: Float) -> Float {
-    return value * Float(M_PI) / 180
+public func degreesToRadians(_ value: Float) -> Float {
+    return value * Float(Double.pi) / 180
 }
 
-public func radiansToDegrees(value: Float) -> Float {
-    return value * 180 / Float(M_PI)
+public func radiansToDegrees(_ value: Float) -> Float {
+    return value * 180 / Float(Double.pi)
 }
 
-public func degreesToRadians(value: Double) -> Double {
-    return value * M_PI / 180
+public func degreesToRadians(_ value: Double) -> Double {
+    return value * Double.pi / 180
 }
 
-public func radiansToDegrees(value: Double) -> Double {
-    return value * 180 / M_PI
+public func radiansToDegrees(_ value: Double) -> Double {
+    return value * 180 / Double.pi
 }
 
-public func degreesToRadians(value: CGFloat) -> CGFloat {
-    return value * CGFloat(M_PI) / 180
+public func degreesToRadians(_ value: CGFloat) -> CGFloat {
+    return value * CGFloat(Double.pi) / 180
 }
 
-public func radiansToDegrees(value: CGFloat) -> CGFloat {
-    return value * 180 / CGFloat(M_PI)
+public func radiansToDegrees(_ value: CGFloat) -> CGFloat {
+    return value * 180 / CGFloat(Double.pi)
 }

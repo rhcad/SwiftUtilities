@@ -6,10 +6,13 @@ import SwiftUtilities
 
 var queue = PriorityQueue <String, Int> ()
 
-for N in random.shuffled(Array(0..<20)) {
-    queue.put("\(N)", priority: N)
-}
-
+queue.put("8", priority: 8)
+queue.put("6", priority: 6)
+queue.put("7", priority: 7)
+queue.put("5", priority: 5)
+queue.put("3", priority: 3)
+queue.put("0", priority: 0)
+queue.put("9", priority: 9)
 
 print(queue.binaryHeap.array)
 for F in queue {

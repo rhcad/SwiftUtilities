@@ -32,7 +32,7 @@ import Foundation
 // http: //www.redblobgames.com/pathfinding/a-star/introduction.html
 // http: //www.redblobgames.com/pathfinding/a-star/implementation.html#sec-1-3
 
-public func breadth_first_search <Location: Hashable> (start: Location, goal: Location, neighbors: Location -> [Location]) -> [Location] {
+public func breadth_first_search <Location: Hashable> (_ start: Location, goal: Location, neighbors: (Location) -> [Location]) -> [Location] {
     var frontier = Array <Location> ()
     frontier.put(start)
 //    var came_from: [Location: Location!] = [start: nil]
@@ -63,13 +63,13 @@ public func breadth_first_search <Location: Hashable> (start: Location, goal: Lo
             current = from
         }
     }
-    return Array(path.reverse())
+    return Array(path.reversed())
 }
 
 // MARK: -
 
 private extension Array {
-    mutating func put(newElement: Element) {
+    mutating func put(_ newElement: Element) {
         append(newElement)
     }
 
@@ -78,7 +78,7 @@ private extension Array {
         guard let element = first else {
             return nil
         }
-        removeAtIndex(0)
+        remove(at: 0)
         return element
     }
 }

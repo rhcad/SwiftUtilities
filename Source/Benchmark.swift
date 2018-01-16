@@ -29,7 +29,7 @@
 
 import Foundation
 
-public func benchmark(closure: Void -> Void) -> NSTimeInterval {
+public func benchmark(closure: () -> Void) -> TimeInterval {
     let start = mach_absolute_time()
     closure()
     let end = mach_absolute_time()
@@ -39,5 +39,5 @@ public func benchmark(closure: Void -> Void) -> NSTimeInterval {
         fatalError()
     }
     let nanos = (end - start) * UInt64(info.numer) / UInt64(info.denom)
-    return NSTimeInterval(nanos) / NSTimeInterval(NSEC_PER_SEC)
+    return TimeInterval(nanos) / TimeInterval(NSEC_PER_SEC)
 }

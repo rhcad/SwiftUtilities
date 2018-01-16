@@ -31,7 +31,7 @@
 
 import Foundation
 
-public class BlockValueTransformer: NSValueTransformer {
+public class BlockValueTransformer: ValueTransformer {
 
     public typealias TransformerBlock = (AnyObject!) -> (AnyObject!)
 
@@ -43,17 +43,17 @@ public class BlockValueTransformer: NSValueTransformer {
     BlockValueTransformer.register(name: "Foo") { return Foo($0) }
     }
     */
-    public static func register(name: String, block: TransformerBlock) -> BlockValueTransformer {
+    public static func register(_ name: String, block: @escaping TransformerBlock) -> BlockValueTransformer {
         let transformer = BlockValueTransformer(block: block)
-        self.setValueTransformer(transformer, forName: name)
+        self.setValueTransformer(transformer, forName: NSValueTransformerName(rawValue: name))
         return transformer
     }
 
-    public init(block: TransformerBlock) {
+    public init(block: @escaping TransformerBlock) {
         self.block = block
     }
 
-    public override func transformedValue(value: AnyObject?) -> AnyObject? {
-        return self.block(value)
+    public override func transformedValue(_ value: Any?) -> Any? {
+        return self.block(value as AnyObject!)
     }
 }

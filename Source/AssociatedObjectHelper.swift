@@ -61,7 +61,7 @@ public class AssociatedObjectHelper <T> {
         fatalError("Associated Helpers should not deinit")
     }
 
-    public func getAssociatedValueForObject(object: AnyObject) -> T? {
+    public func getAssociatedValueForObject(_ object: AnyObject) -> T? {
         guard let associatedObject = objc_getAssociatedObject(object, key) else {
             return nil
         }
@@ -76,11 +76,11 @@ public class AssociatedObjectHelper <T> {
         }
     }
 
-    public func setAssociatedValueForObject(object: AnyObject, value: T?) {
+    public func setAssociatedValueForObject(_ object: AnyObject, value: T?) {
         let associatedObject: AnyObject?
         if let value = value {
             if T.self == AnyObject.self {
-                associatedObject = value as? AnyObject
+                associatedObject = value as AnyObject
             }
             else {
                 associatedObject = Box(value)
@@ -92,13 +92,13 @@ public class AssociatedObjectHelper <T> {
         objc_setAssociatedObject(object, key, associatedObject, policy)
     }
 
-    public func deleteAssociatedValueForObject(object: AnyObject) {
+    public func deleteAssociatedValueForObject(_ object: AnyObject) {
         var key = self
         objc_setAssociatedObject(object, &key, nil, policy)
     }
 
-    private var key: UnsafePointer <Void> {
-        return UnsafePointer <Void> (Unmanaged.passUnretained(self).toOpaque())
+    fileprivate var key: UnsafeRawPointer {
+        return UnsafeRawPointer (Unmanaged.passUnretained(self).toOpaque())
     }
 
 }

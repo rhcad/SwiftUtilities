@@ -1,8 +1,8 @@
 //
-//  NSObject+Extensions.swift
+//  Data+Extensions.swift
 //  SwiftUtilities
 //
-//  Created by Jonathan Wight on 1/27/16.
+//  Created by Jonathan Wight on 6/30/15.
 //
 //  Copyright © 2016, Jonathan Wight
 //
@@ -27,24 +27,13 @@
 //  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 //  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-
 import Foundation
 
-// Internal for now make public later.
-internal extension NSObject {
 
-    func copy <T> () -> T {
-        guard let copy = copy() as? T else {
-            fatalError("Could not create copy of \(self) as type \(T.self)")
-        }
-        return copy
-    }
+public extension Data {
 
-    func mutableCopy <T> () -> T {
-        guard let copy = mutableCopy() as? T else {
-            fatalError("Could not create mutable copy of \(self) as type \(T.self)")
-        }
-        return copy
+    init <Element>(buffer: UnsafeBufferPointer <Element>) {
+        self = Data(bytes: UnsafeMutableRawPointer (mutating: buffer.baseAddress!), count: buffer.byteCount)
     }
 
 }

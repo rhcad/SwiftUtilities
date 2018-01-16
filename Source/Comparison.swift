@@ -29,40 +29,40 @@
 
 
 public enum Comparison {
-    case Lesser
-    case Equal
-    case Greater
+    case lesser
+    case equal
+    case greater
 }
 
-public func compare <T: Comparable> (lhs: T, _ rhs: T) -> Comparison {
+public func compare <T: Comparable> (_ lhs: T, _ rhs: T) -> Comparison {
     if lhs == rhs {
-        return .Equal
+        return .equal
     }
     else if lhs < rhs {
-        return .Lesser
+        return .lesser
     }
     else {
-        return .Greater
+        return .greater
     }
 }
 
 public extension Comparison {
-    static func comparisonSummary(comparisons: [Comparison]) -> Comparison {
+    static func comparisonSummary(_ comparisons: [Comparison]) -> Comparison {
         for comparison in comparisons {
             switch comparison {
-                case .Lesser:
-                    return .Lesser
-                case .Greater:
-                    return .Lesser
-                case .Equal:
+                case .lesser:
+                    return .lesser
+                case .greater:
+                    return .lesser
+                case .equal:
                     continue
             }
         }
-        return .Equal
+        return .equal
     }
 
-    init<Sequence1: SequenceType, Sequence2: SequenceType where Sequence1.Generator.Element: Comparable> (sequence1: Sequence1, _ sequence2: Sequence2) {
-        self = .Equal
+    init<Sequence1: Sequence, Sequence2: Sequence> (sequence1: Sequence1, _ sequence2: Sequence2) where Sequence1.Iterator.Element: Comparable {
+        self = .equal
     }
 
 }
